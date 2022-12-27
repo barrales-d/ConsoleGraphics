@@ -14,6 +14,11 @@ $ ./main
 ### To use the functions in your projects: 
 * Download the `ColorCodes.hpp/.cpp` and the `Image.hpp/.cpp`
 * `#include` both .hpp files into the files you want to use it
+1. Create an Image object with the Width and Height of the canvas you want
+    `Image myImage(WIDTH, HEIGHT);`
+2. Use the functions the Image Class has to create your shapes 
+3. Remember to use the `show()` function after everything to show your image
+    `myImage.show();`
 
 ## Examples
 ### `all();` 
