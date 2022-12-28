@@ -3,7 +3,7 @@
 Mini 2D graphics library in C++ for the console / terminal in Linux.
 
 It is able to create simple 2D shapes in the console (squares, circles, triangles, and lines). However, it is a little skewed vertically because of the console not 
-having a 1:1 ratio.
+having a 1:1 ratio. [NOT LONGER SKEWED because of SCALERS(see ConsoleImage.hpp/.cpp)]
 
 
 ## Quick Start
@@ -15,7 +15,7 @@ $ ./main
 * Download the `./CI/` folder to your project directory
 * `#include` both .hpp files into the files you want to use it
 1. Create an Image object with the Width and Height of the canvas you want
-    `Image myImage(WIDTH, HEIGHT);`
+    `ConsoleImage myImage(WIDTH, HEIGHT);`
 2. Use the functions the Image Class has to create your shapes 
 3. Remember to use the `show()` function after everything to show your image
     `myImage.show();`

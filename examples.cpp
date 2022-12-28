@@ -37,7 +37,7 @@ void all() {
   int x3 = WIDTH, y3 = HEIGHT;
   int x4 = WIDTH / 2, y4 = HEIGHT / 2;
   image.fill_background(ColorCodes::bg_Black);
-  image.fill_rect(x2 + 20, y2, 30, 15, ColorCodes::bg_Blue);
+  image.fill_rect(x2 + 20, y2, 15, 15, ColorCodes::bg_Blue);
   image.fill_circle(x4, y4, 10, ColorCodes::bg_LightRed);
   image.draw_line(x1, y2, x3, y1, ColorCodes::bg_Magenta);
   image.fill_triangle(x1, y4, x2, y2, x4, y4, ColorCodes::bg_Green);
