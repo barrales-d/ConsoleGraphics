@@ -1,6 +1,6 @@
 
-#include "../Colors/ColorCodes.hpp"
-#include "../Image.hpp"
+#include "./CI/ColorCodes.hpp"
+#include "./CI/Image.hpp"
 
 #define WIDTH 150
 #define HEIGHT 28

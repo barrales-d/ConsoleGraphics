@@ -12,7 +12,7 @@ $ make build
 $ ./main
 ```
 ### To use the functions in your projects: 
-* Download the `ColorCodes.hpp/.cpp` and the `Image.hpp/.cpp`
+* Download the `./CI/` folder to your project directory
 * `#include` both .hpp files into the files you want to use it
 1. Create an Image object with the Width and Height of the canvas you want
     `Image myImage(WIDTH, HEIGHT);`

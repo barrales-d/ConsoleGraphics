@@ -1,7 +1,7 @@
 #ifndef __IMAGE_HPP__
 #define __IMAGE_HPP__
 
-#include "Colors/ColorCodes.hpp"
+#include "ColorCodes.hpp"
 
 
 #define DEFAULT_FILL ' '

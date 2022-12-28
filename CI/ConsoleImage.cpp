@@ -1,4 +1,4 @@
-#include "Image.hpp"
+#include "ConsoleImage.hpp"
 
 #include <iostream>
 #include <unistd.h>
