@@ -29,3 +29,6 @@ $ ./main
 
 ### `checker();` 
 ![checker pattern](./ExampleImages/checkered.png)
+
+### `circles();` 
+![bulls-eye](./ExampleImages/circles.png)
