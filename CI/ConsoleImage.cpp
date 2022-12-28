@@ -3,7 +3,7 @@
 #include <iostream>
 #include <unistd.h>
 
-Image::Image(int width, int height) {
+ConsoleImage::ConsoleImage(int width, int height) {
   this->m_width = width;
   this->m_max_width = m_width + 2;
   this->m_height = height;
@@ -12,15 +12,17 @@ Image::Image(int width, int height) {
   this->fill_background();
 }
 
-Image::~Image() { delete[] this->m_pixels; }
+ConsoleImage::~ConsoleImage() { delete[] this->m_pixels; }
 
-void Image::swap(int &a, int &b) {
+void ConsoleImage::swap(int &a, int &b) {
   int tmp = a;
   a = b;
   b = tmp;
 }
 
-void Image::sort_by_x(int &x1, int &y1, int &x2, int &y2, int &x3, int &y3) {
+void ConsoleImage::sort_by_x(int &x1, int &y1, 
+                             int &x2, int &y2, 
+                             int &x3, int &y3) {
   if (x1 > x2) {
     swap(x1, x2);
     swap(y1, y2);
@@ -35,7 +37,7 @@ void Image::sort_by_x(int &x1, int &y1, int &x2, int &y2, int &x3, int &y3) {
   }
 }
 
-void Image::fill_background(const std::string &bgcolor) {
+void ConsoleImage::fill_background(const std::string &bgcolor) {
   for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_max_width; x++) {
       if (x == m_width) {
@@ -50,7 +52,7 @@ void Image::fill_background(const std::string &bgcolor) {
   }
 }
 
-void Image::show() {
+void ConsoleImage::show() {
   for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_max_width; x++) {
       std::cout << this->m_pixels[y * m_max_width + x].color;
@@ -61,7 +63,8 @@ void Image::show() {
   std::cout << ColorCodes::Reset << std::endl;
 }
 
-void Image::fill_rect(int x, int y, int wd, int ht, const std::string &color) {
+void ConsoleImage::fill_rect(int x, int y, 
+                             int wd, int ht, const std::string &color) {
 
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
     if (cur_y >= 0 && cur_y < m_height) {
@@ -74,7 +77,7 @@ void Image::fill_rect(int x, int y, int wd, int ht, const std::string &color) {
   }
 }
 
-void Image::fill_circle(int x, int y, int r, const std::string &color) {
+void ConsoleImage::fill_circle(int x, int y, int r, const std::string &color) {
   int max_x = x + r;
   int min_x = x - r;
   int max_y = y + r;
@@ -94,7 +97,8 @@ void Image::fill_circle(int x, int y, int r, const std::string &color) {
     }
   }
 }
-void Image::draw_line(int x1, int y1, int x2, int y2, std::string &color) {
+void ConsoleImage::draw_line(int x1, int y1, 
+                             int x2, int y2, std::string &color) {
   int dx = x2 - x1;
   if (dx != 0) {
     float slope = (float)(y2 - y1) / (float)(dx);
@@ -123,8 +127,9 @@ void Image::draw_line(int x1, int y1, int x2, int y2, std::string &color) {
   }
 }
 
-void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3,
-                          const std::string &color) {
+void ConsoleImage::fill_triangle(int x1, int y1, 
+                                 int x2, int y2, 
+                                 int x3, int y3, const std::string &color) {
   sort_by_x(x1, y1, x2, y2, x3, y3);
 
   //  slope and intercept for x1, y1 -> x2, y2

@@ -1,5 +1,5 @@
-#ifndef __IMAGE_HPP__
-#define __IMAGE_HPP__
+#ifndef __Console_Image_HPP__
+#define __Console_Image_HPP__
 
 #include "ColorCodes.hpp"
 
@@ -15,10 +15,10 @@ public:
 
   Pixel() = default;
   ~Pixel() = default;
-};
+};//  Pixel
 
 
-class Image {
+class ConsoleImage {
   int m_width;
   int m_max_width;
   int m_height;
@@ -27,8 +27,8 @@ class Image {
   void swap(int &a, int &b);
   void sort_by_x(int &x1, int &y1, int &x2, int &y2, int &x3, int &y3);
 public:
-  Image(int width, int height);
-  ~Image(); 
+  ConsoleImage(int width, int height);
+  ~ConsoleImage(); 
 
   void fill_background(const std::string &bgcolor = ColorCodes::bg_DarkGrey);
 
@@ -39,6 +39,6 @@ public:
   void draw_line(int x1, int y1, int x2, int y2, std::string &color);
 
   void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string&color);
-};
+};//  ConsoleImage
 
-#endif //  __IMAGE_HPP__
+#endif //  __Console_Image_HPP__

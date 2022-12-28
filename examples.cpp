@@ -1,12 +1,12 @@
 
 #include "./CI/ColorCodes.hpp"
-#include "./CI/Image.hpp"
+#include "./CI/ConsoleImage.hpp"
 
 #define WIDTH 150
 #define HEIGHT 28
 
 void checker() {
-  Image image(WIDTH, HEIGHT);
+  ConsoleImage image(WIDTH, HEIGHT);
   ColorCodes palatte;
   image.fill_background(palatte.bg_Red);
   int width = WIDTH / 6;
@@ -22,7 +22,7 @@ void checker() {
   image.show();
 }
 void triangle() {
-  Image image(WIDTH, HEIGHT);
+  ConsoleImage image(WIDTH, HEIGHT);
   int x1 = 0, y1 = HEIGHT;
   int x2 = WIDTH / 2, y2 = 0;
   int x3 = WIDTH, y3 = HEIGHT;
@@ -31,7 +31,7 @@ void triangle() {
 }
 
 void all() {
-  Image image(WIDTH, HEIGHT);
+  ConsoleImage image(WIDTH, HEIGHT);
   int x1 = 0, y1 = HEIGHT;
   int x2 = WIDTH / 2, y2 = 0;
   int x3 = WIDTH, y3 = HEIGHT;
@@ -45,7 +45,7 @@ void all() {
 }
 
 void circles() {
-  Image image(WIDTH, HEIGHT);
+  ConsoleImage image(WIDTH, HEIGHT);
   int cx = WIDTH / 2;
   int cy = HEIGHT / 2;
   for (int r = 20; r >= 0; r -= 2) {
