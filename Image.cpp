@@ -65,7 +65,7 @@ void Image::fill_rect(int x, int y, int wd, int ht, const std::string &color) {
 
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
     if (cur_y >= 0 && cur_y < m_height) {
-      for (int curr_x = x; curr_x < (wd + x); curr_x++) {
+      for (int curr_x = x; curr_x < (wd * SQUARE_SCALER + x); curr_x++) {
         if (curr_x >= 0 && curr_x < m_width) {
           this->m_pixels[cur_y * m_max_width + curr_x].color = color;
         }
@@ -86,7 +86,7 @@ void Image::fill_circle(int x, int y, int r, const std::string &color) {
     if (y1 >= 0 && y1 < m_height) {
       for (int x1 = min_x; x1 <= max_x; x1++) {
         if (x1 >= 0 && x1 < m_width) {
-          if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) <= r_sqr) {
+          if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) * CIRCLE_SCALER <= r_sqr) {
             this->m_pixels[y1 * m_max_width + x1].color = color;
           }
         }

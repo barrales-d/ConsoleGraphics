@@ -5,6 +5,8 @@
 
 
 #define DEFAULT_FILL ' '
+#define CIRCLE_SCALER 3
+#define SQUARE_SCALER 2
 
 class Pixel {
 public: 
