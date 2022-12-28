@@ -43,3 +43,19 @@ void all() {
   image.fill_triangle(x1, y4, x2, y2, x4, y4, ColorCodes::bg_Green);
   image.show();
 }
+
+void circles() {
+  Image image(WIDTH, HEIGHT);
+  int cx = WIDTH / 2;
+  int cy = HEIGHT / 2;
+  for (int r = 20; r >= 0; r -= 2) {
+    image.fill_circle(cx, cy, r, colors[r % color_size]);
+  }
+
+  image.show();
+}
+
+int main() {
+  circles();
+  return 0;
+}

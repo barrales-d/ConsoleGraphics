@@ -44,5 +44,19 @@ static struct ColorCodes {
    static std::string bg_LightPurple ;
    static std::string bg_Turquoise   ;
    static std::string bg_LightWhite  ;
-}; 
+};
+
+const std::string colors[] = {
+    ColorCodes::bg_Black,      ColorCodes::bg_Red,
+    ColorCodes::bg_Green,      ColorCodes::bg_Yellow,
+    ColorCodes::bg_Blue,       ColorCodes::bg_Magenta,
+    ColorCodes::bg_Cyan,       ColorCodes::bg_White,
+    ColorCodes::bg_DarkGrey,   ColorCodes::bg_LightRed,
+    ColorCodes::bg_LightGreen, ColorCodes::bg_LightYellow,
+    ColorCodes::bg_LightBlue,  ColorCodes::bg_LightPurple,
+    ColorCodes::bg_Turquoise,  ColorCodes::bg_LightWhite};
+
+const int color_size = sizeof(colors) / sizeof(colors[0]);
+
+
 #endif // __COLOR_CODES_HPP__
