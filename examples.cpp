@@ -56,8 +56,6 @@ void circles() {
 }
 
 /* TODOs
-  //  Rename CI -> CG (console graphics) makes more sense
-      //  Rename ConsoleImage, Pixel -> CG_Image, CG_Pixel EVERYWHERE
   //  Explore Testcases and unit tests by creating a class TestCase friend of CG_Image
   //  Update show() to act more like a batch renderer? (instead of pixel by pixel it prints row by row)
   //  Explore triangle scaler? 

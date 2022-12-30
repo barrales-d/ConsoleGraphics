@@ -7,7 +7,7 @@ CG_Image::CG_Image(int width, int height) {
   this->m_width = width;
   this->m_max_width = m_width + 2;
   this->m_height = height;
-  this->m_pixels = new Pixel[m_max_width * m_height];
+  this->m_pixels = new CG_Pixel[m_max_width * m_height];
 
   this->fill_background();
 }
