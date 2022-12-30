@@ -1,5 +1,5 @@
-#ifndef __Console_Image_HPP__
-#define __Console_Image_HPP__
+#ifndef __CG_Image_HPP__
+#define __CG_Image_HPP__
 
 #include "ColorCodes.hpp"
 
@@ -8,27 +8,27 @@
 #define CIRCLE_SCALER 3
 #define SQUARE_SCALER 2
 
-class Pixel {
+class CG_Pixel {
 public: 
   std::string color;
   char fill;
 
-  Pixel() = default;
-  ~Pixel() = default;
-};//  Pixel
+  CG_Pixel() = default;
+  ~CG_Pixel() = default;
+};//  CG_Pixel
 
 
-class ConsoleImage {
+class CG_Image {
   int m_width;
   int m_max_width;
   int m_height;
-  Pixel *m_pixels;
+  CG_Pixel *m_pixels;
 
   void swap(int &a, int &b);
   void sort_by_x(int &x1, int &y1, int &x2, int &y2, int &x3, int &y3);
 public:
-  ConsoleImage(int width, int height);
-  ~ConsoleImage(); 
+  CG_Image(int width, int height);
+  ~CG_Image(); 
 
   void fill_background(const std::string &bgcolor = ColorCodes::bg_DarkGrey);
 
@@ -39,6 +39,6 @@ public:
   void draw_line(int x1, int y1, int x2, int y2, std::string &color);
 
   void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string&color);
-};//  ConsoleImage
+};//  CG_Image
 
-#endif //  __Console_Image_HPP__
+#endif //  __CG_Image_HPP__
