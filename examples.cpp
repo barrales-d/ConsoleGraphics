@@ -1,12 +1,12 @@
 
-#include "./CI/ColorCodes.hpp"
-#include "./CI/ConsoleImage.hpp"
+#include "./CG/ColorCodes.hpp"
+#include "./CG/CG_Image.hpp"
 
 #define WIDTH 150
 #define HEIGHT 28
 
 void checker() {
-  ConsoleImage image(WIDTH, HEIGHT);
+  CG_Image image(WIDTH, HEIGHT);
   ColorCodes palatte;
   image.fill_background(palatte.bg_Red);
   int width = WIDTH / 6;
@@ -22,7 +22,7 @@ void checker() {
   image.show();
 }
 void triangle() {
-  ConsoleImage image(WIDTH, HEIGHT);
+  CG_Image image(WIDTH, HEIGHT);
   int x1 = 0, y1 = HEIGHT;
   int x2 = WIDTH / 2, y2 = 0;
   int x3 = WIDTH, y3 = HEIGHT;
@@ -31,7 +31,7 @@ void triangle() {
 }
 
 void all() {
-  ConsoleImage image(WIDTH, HEIGHT);
+  CG_Image image(WIDTH, HEIGHT);
   int x1 = 0, y1 = HEIGHT;
   int x2 = WIDTH / 2, y2 = 0;
   int x3 = WIDTH, y3 = HEIGHT;
@@ -45,11 +45,11 @@ void all() {
 }
 
 void circles() {
-  ConsoleImage image(WIDTH, HEIGHT);
+  CG_Image image(WIDTH, HEIGHT);
   int cx = WIDTH / 2;
   int cy = HEIGHT / 2;
   for (int r = 20; r >= 0; r -= 2) {
-    image.fill_circle(cx, cy, r, colors[r % color_size]);
+    image.fill_circle(cx, cy, r, CG_COLORS[r % CG_COLORS_SIZE]);
   }
 
   image.show();
@@ -57,7 +57,7 @@ void circles() {
 
 /* TODOs
   //  Rename CI -> CG (console graphics) makes more sense
-      //  Rename ColorCodes, ConsoleImage, Pixel -> CG_Color, CG_Image, CG_Pixel EVERYWHERE
+      //  Rename ConsoleImage, Pixel -> CG_Image, CG_Pixel EVERYWHERE
   //  Explore Testcases and unit tests by creating a class TestCase friend of CG_Image
   //  Update show() to act more like a batch renderer? (instead of pixel by pixel it prints row by row)
   //  Explore triangle scaler? 

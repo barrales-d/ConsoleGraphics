@@ -1,9 +1,9 @@
-#include "ConsoleImage.hpp"
+#include "CG_Image.hpp"
 
 #include <iostream>
 #include <unistd.h>
 
-ConsoleImage::ConsoleImage(int width, int height) {
+CG_Image::CG_Image(int width, int height) {
   this->m_width = width;
   this->m_max_width = m_width + 2;
   this->m_height = height;
@@ -12,15 +12,15 @@ ConsoleImage::ConsoleImage(int width, int height) {
   this->fill_background();
 }
 
-ConsoleImage::~ConsoleImage() { delete[] this->m_pixels; }
+CG_Image::~CG_Image() { delete[] this->m_pixels; }
 
-void ConsoleImage::swap(int &a, int &b) {
+void CG_Image::swap(int &a, int &b) {
   int tmp = a;
   a = b;
   b = tmp;
 }
 
-void ConsoleImage::sort_by_x(int &x1, int &y1, 
+void CG_Image::sort_by_x(int &x1, int &y1, 
                              int &x2, int &y2, 
                              int &x3, int &y3) {
   if (x1 > x2) {
@@ -37,7 +37,7 @@ void ConsoleImage::sort_by_x(int &x1, int &y1,
   }
 }
 
-void ConsoleImage::fill_background(const std::string &bgcolor) {
+void CG_Image::fill_background(const std::string &bgcolor) {
   for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_max_width; x++) {
       if (x == m_width) {
@@ -52,7 +52,7 @@ void ConsoleImage::fill_background(const std::string &bgcolor) {
   }
 }
 
-void ConsoleImage::show() {
+void CG_Image::show() {
   for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_max_width; x++) {
       std::cout << this->m_pixels[y * m_max_width + x].color;
@@ -63,7 +63,7 @@ void ConsoleImage::show() {
   std::cout << ColorCodes::Reset << std::endl;
 }
 
-void ConsoleImage::fill_rect(int x, int y, 
+void CG_Image::fill_rect(int x, int y, 
                              int wd, int ht, const std::string &color) {
 
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
@@ -77,7 +77,7 @@ void ConsoleImage::fill_rect(int x, int y,
   }
 }
 
-void ConsoleImage::fill_circle(int x, int y, int r, const std::string &color) {
+void CG_Image::fill_circle(int x, int y, int r, const std::string &color) {
   int max_x = x + r;
   int min_x = x - r;
   int max_y = y + r;
@@ -97,7 +97,7 @@ void ConsoleImage::fill_circle(int x, int y, int r, const std::string &color) {
     }
   }
 }
-void ConsoleImage::draw_line(int x1, int y1, 
+void CG_Image::draw_line(int x1, int y1, 
                              int x2, int y2, std::string &color) {
   int dx = x2 - x1;
   if (dx != 0) {
@@ -127,7 +127,7 @@ void ConsoleImage::draw_line(int x1, int y1,
   }
 }
 
-void ConsoleImage::fill_triangle(int x1, int y1, 
+void CG_Image::fill_triangle(int x1, int y1, 
                                  int x2, int y2, 
                                  int x3, int y3, const std::string &color) {
   sort_by_x(x1, y1, x2, y2, x3, y3);

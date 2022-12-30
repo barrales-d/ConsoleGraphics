@@ -46,7 +46,7 @@ static struct ColorCodes {
    static std::string bg_LightWhite  ;
 };
 
-const std::string colors[] = {
+const std::string CG_COLORS[] = {
     ColorCodes::bg_Black,      ColorCodes::bg_Red,
     ColorCodes::bg_Green,      ColorCodes::bg_Yellow,
     ColorCodes::bg_Blue,       ColorCodes::bg_Magenta,
@@ -56,7 +56,7 @@ const std::string colors[] = {
     ColorCodes::bg_LightBlue,  ColorCodes::bg_LightPurple,
     ColorCodes::bg_Turquoise,  ColorCodes::bg_LightWhite};
 
-const int color_size = sizeof(colors) / sizeof(colors[0]);
+const int CG_COLORS_SIZE = sizeof(CG_COLORS) / sizeof(CG_COLORS[0]);
 
 
 #endif // __COLOR_CODES_HPP__
