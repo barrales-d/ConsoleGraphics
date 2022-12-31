@@ -61,7 +61,7 @@ void circles() {
   //  Explore triangle scaler? 
   //  Animations?
   //  Create cooler examples like circles() which is a bulls-eye 
-
+  //  implement draw_text() method for CG_Image
 
 */
 
