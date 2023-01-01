@@ -39,6 +39,9 @@ public:
   void draw_line(int x1, int y1, int x2, int y2, std::string &color);
 
   void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string&color);
+
+  void draw_text(int x, int y, const std::string &text, const std::string&color);
+
 };//  CG_Image
 
 #endif //  __CG_Image_HPP__
