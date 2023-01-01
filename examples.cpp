@@ -62,20 +62,10 @@ void circles() {
   //  Animations?
   //  Create cooler examples like circles() which is a bulls-eye 
   //  implement draw_text() method for CG_Image
-      // allow the text color to change  
 
 */
 
-void insert_text(const std::string& text) {
-  CG_Image image(WIDTH, HEIGHT);
-  int x = WIDTH / 2 - text.size() / 2;
-  int y = HEIGHT / 2;
-
-  image.fill_rect(x, y, 10, 10, ColorCodes::bg_Magenta);
-  image.draw_text(x, y, text, ColorCodes::bg_Blue);
-}
-
 int main() {
-  insert_text("Hello World");
+  circles();
   return 0;
 }
