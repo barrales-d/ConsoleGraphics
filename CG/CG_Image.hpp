@@ -10,8 +10,8 @@
 
 class CG_Pixel {
 public: 
-  std::string color;
   std::string fg_color;
+  std::string color;
   char fill;
 
   CG_Pixel() = default;
@@ -39,10 +39,10 @@ public:
   void fill_circle(int x, int y, int r, const std::string &color);
   void draw_line(int x1, int y1, int x2, int y2, std::string &color);
 
-  void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string&color);
+  void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string &color);
 
-  void draw_text(int x, int y, const std::string &text, const std::string&fg_color);
-  void draw_text(int x, int y, const std::string &text, const std::string&fg_color, const std::string&bg_color);
+  void draw_text(int x, int y, const std::string &text, const std::string &fg_color);
+  void draw_text(int x, int y, const std::string &text, const std::string &fg_color, const std::string &bg_color);
 };//  CG_Image
 
 #endif //  __CG_Image_HPP__

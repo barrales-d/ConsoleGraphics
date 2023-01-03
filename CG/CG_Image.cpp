@@ -40,14 +40,16 @@ void CG_Image::sort_by_x(int &x1, int &y1,
 void CG_Image::fill_background(const std::string &bgcolor) {
   for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_max_width; x++) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_max_width + x];
       if (x == m_width) {
-        this->m_pixels[y * m_max_width + x].fill = '\r';
+        pixel->fill = '\r';
       } else if (x == (m_width + 1)) {
-        this->m_pixels[y * m_max_width + x].fill = '\n';
+        pixel->fill = '\n';
       } else {
-        this->m_pixels[y * m_max_width + x].fill = DEFAULT_FILL;
+        pixel->fill = DEFAULT_FILL;
       }
-      this->m_pixels[y * m_max_width + x].color = bgcolor;
+      pixel->color = bgcolor;
+      pixel->fg_color = ColorCodes::fg_White;
     }
   }
 }
@@ -55,16 +57,18 @@ void CG_Image::fill_background(const std::string &bgcolor) {
 void CG_Image::show() {
   for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_max_width; x++) {
-      std::cout << this->m_pixels[y * m_max_width + x].color;
-      std::cout << this->m_pixels[y * m_max_width + x].fill;
+      CG_Pixel *pixel = &this->m_pixels[y * m_max_width + x];
+      std::cout << pixel->fg_color;
+      std::cout << pixel->color;
+      std::cout << pixel->fill;
     }
     std::cout << std::flush;
   }
   std::cout << ColorCodes::Reset << std::endl;
 }
 
-void CG_Image::fill_rect(int x, int y, 
-                             int wd, int ht, const std::string &color) {
+void CG_Image::fill_rect(int x, int y, int wd, int ht, 
+                          const std::string &color) {
 
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
     if (cur_y >= 0 && cur_y < m_height) {
@@ -179,8 +183,9 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
     for (int ti = 0; ti < text.size(); ti++) {
       int pos_x = ti + x;
       if (pos_x >= 0 && pos_x < m_width) {
-        this->m_pixels[y * m_max_width + pos_x].fg_color = fg_color;
-        this->m_pixels[y * m_max_width + pos_x].fill = text[ti];
+        CG_Pixel *pixel = &this->m_pixels[y * m_max_width + pos_x];
+        pixel->fg_color = fg_color;
+        pixel->fill = text[ti];
       }
     }
   }
@@ -192,9 +197,10 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
     for (int ti = 0; ti < text.size(); ti++) {
       int pos_x = ti + x;
       if (pos_x >= 0 && pos_x < m_width) {
-        this->m_pixels[y * m_max_width + pos_x].fg_color = fg_color;
-        this->m_pixels[y * m_max_width + pos_x].color = bg_color;
-        this->m_pixels[y * m_max_width + pos_x].fill = text[ti];
+        CG_Pixel *pixel = &this->m_pixels[y * m_max_width + pos_x]; 
+        pixel->fg_color = fg_color;
+        pixel->color = bg_color;
+        pixel->fill = text[ti];
       }
     }
   }
