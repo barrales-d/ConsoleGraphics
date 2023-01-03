@@ -172,3 +172,30 @@ void CG_Image::fill_triangle(int x1, int y1,
     }
   }
 }
+
+void CG_Image::draw_text(int x, int y, const std::string &text,
+                         const std::string &fg_color) {
+  if (y >= 0 && y < m_height) {
+    for (int ti = 0; ti < text.size(); ti++) {
+      int pos_x = ti + x;
+      if (pos_x >= 0 && pos_x < m_width) {
+        this->m_pixels[y * m_max_width + pos_x].fg_color = fg_color;
+        this->m_pixels[y * m_max_width + pos_x].fill = text[ti];
+      }
+    }
+  }
+}
+void CG_Image::draw_text(int x, int y, const std::string &text,
+                         const std::string &fg_color,
+                         const std::string &bg_color) {
+  if (y >= 0 && y < m_height) {
+    for (int ti = 0; ti < text.size(); ti++) {
+      int pos_x = ti + x;
+      if (pos_x >= 0 && pos_x < m_width) {
+        this->m_pixels[y * m_max_width + pos_x].fg_color = fg_color;
+        this->m_pixels[y * m_max_width + pos_x].color = bg_color;
+        this->m_pixels[y * m_max_width + pos_x].fill = text[ti];
+      }
+    }
+  }
+}
