@@ -21,6 +21,9 @@ $ ./main
     `myImage.show();`
 
 ## Examples
+### `color_palatte();` 
+![Colors](./ExampleImages/color_palatte.png)
+
 ### `all();` 
 ![All shapes in one](./ExampleImages/all.png)
 
