@@ -49,7 +49,7 @@ void circles() {
   int cx = WIDTH / 2;
   int cy = HEIGHT / 2;
   for (int r = 20; r >= 0; r -= 2) {
-    image.fill_circle(cx, cy, r, CG_COLORS[r % CG_COLORS_SIZE]);
+    image.fill_circle(cx, cy, r, CG_BACK_COLORS[r % CG_BACK_COLORS_SIZE]);
   }
 
   image.show();
