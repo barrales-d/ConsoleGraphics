@@ -20,6 +20,12 @@ $ ./main
 3. Remember to use the `show()` function after everything to show your image
     `myImage.show();`
 
+### References: 
+#### For color codes and terminal manipulation:
+- https://www.2daygeek.com/understanding-the-color-code-of-linux-files/
+- https://web.archive.org/web/20151004211730/http://www.termsys.demon.co.uk/vtansi.htm/
+
+
 ## Examples
 ### `color_palatte();` 
 ![Colors](./ExampleImages/color_palatte.png)

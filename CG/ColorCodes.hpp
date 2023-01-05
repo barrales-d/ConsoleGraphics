@@ -3,9 +3,6 @@
 
 #include <string>
 
-//  References: 
-//  - https://www.2daygeek.com/understanding-the-color-code-of-linux-files/
-
 static struct ColorCodes {
    static std::string Reset;
 
