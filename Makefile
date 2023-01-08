@@ -2,10 +2,13 @@ all: build
 
 CC = clang++
 CFLAGS = -g -Wno-everything -Werror -Wall
-SRC = ./CG/*.cpp *.cpp
+SRC = ./CG/*.cpp
 
-build:
-	$(CC) $(CFLAGS) $(SRC) -o main
+build: $(SRC) examples.cpp 
+	$(CC) $(CFLAGS) $(SRC) examples.cpp -o example
+
+test: $(SRC) TestCase.cpp
+	$(CC) $(CFLAGS) $(SRC) TestCase.cpp tests.cpp -o test
 
 clean:
-	rm -f main
+	rm -f example test
