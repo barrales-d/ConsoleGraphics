@@ -3,6 +3,17 @@
 #include <iostream>
 #include <unistd.h>
 
+bool CG_Pixel::operator==(const CG_Pixel &rhs) const noexcept {
+  if (this->color == rhs.color && this->fg_color == rhs.fg_color &&
+      this->fill == rhs.fill) {
+    return true;
+  }
+  return false;
+}
+bool CG_Pixel::operator!=(const CG_Pixel &rhs) const noexcept {
+  return !(*this == rhs);
+}
+
 CG_Image::CG_Image(int width, int height) {
   this->m_width = width;
   this->m_max_width = m_width + 2;
