@@ -6,7 +6,7 @@
 
 #define DEFAULT_FILL ' '
 #define CIRCLE_SCALER 3
-#define SQUARE_SCALER 2
+#define SQUARE_SCALER 2 
 
 class CG_Pixel {
 public: 
@@ -16,10 +16,13 @@ public:
 
   CG_Pixel() = default;
   ~CG_Pixel() = default;
+  bool operator==(const CG_Pixel& rhs) const noexcept; 
+  bool operator!=(const CG_Pixel& rhs) const noexcept; 
 };//  CG_Pixel
 
 
 class CG_Image {
+protected:
   int m_width;
   int m_max_width;
   int m_height;
@@ -39,10 +42,12 @@ public:
   void fill_circle(int x, int y, int r, const std::string &color);
   void draw_line(int x1, int y1, int x2, int y2, std::string &color);
 
-  void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string &color);
+  void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string&color);
 
-  void draw_text(int x, int y, const std::string &text, const std::string &fg_color);
+  void draw_text(int x, int y, const std::string &text, const std::string&fg_color);
   void draw_text(int x, int y, const std::string &text, const std::string &fg_color, const std::string &bg_color);
+
+  friend class TestCase;
 };//  CG_Image
 
 #endif //  __CG_Image_HPP__
