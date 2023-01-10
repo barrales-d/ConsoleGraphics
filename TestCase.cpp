@@ -1,3 +1,4 @@
+#include <iomanip>
 #include <iostream>
 #include <string>
 
@@ -14,7 +15,8 @@ TestCase::TestCase(const std::string &name) {
   s_total++;
   m_current = s_total;
   std::cout << ColorCodes::fg_DarkGrey;
-  std::cout << "RUNNING TEST CASE " << m_current << "............" << std::endl;
+  std::cout << "RUNNING TEST CASE " << m_current << ".........................";
+  std::cout << std::endl;
 }
 
 void TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
@@ -34,7 +36,7 @@ void TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
       const CG_Pixel base_pixel = base.m_pixels[y * base.m_max_width + x];
       const CG_Pixel result_pixel = result.m_pixels[y * result.m_max_width + x];
       if (base_pixel != result_pixel) {
-        m_reason += "\t" + m_name + " CG_PIXEL at (" + std::to_string(x) +
+        m_reason += "|\t" + m_name + " CG_PIXEL at (" + std::to_string(x) +
                     ", " + std::to_string(y) + ") does not match!\n";
       }
     }
@@ -52,13 +54,14 @@ TestCase::~TestCase() {
   if (m_result) {
     s_passed++;
     std::cout << ColorCodes::fg_Green;
-    passed_failed = "               [PASSED!]\n";
+    passed_failed = "[PASSED!]";
   } else {
     std::cout << ColorCodes::fg_Red;
-    passed_failed = "               [FAILED!]\n";
+    passed_failed = "[FAILED!]";
   }
   std::cout << "TEST CASE " << m_current << ": " << m_name;
-  std::cout << passed_failed;
+  std::cout << std::setw(CONSOLE_WIDTH - m_name.size()) << std::right
+            << passed_failed << std::endl;
   if (m_result == false) {
     std::cout << m_reason << std::endl;
   }

@@ -6,6 +6,7 @@
 
 #define TEST_WIDTH 10
 #define TEST_HEIGHT 10
+#define CONSOLE_WIDTH 80
 
 class TestCase {
 private:
