@@ -4,16 +4,22 @@
 #include "./CG/CG_Image.hpp"
 #include "./CG/ColorCodes.hpp"
 
-class TestCase{
-private:
-std::string m_name;
-bool result;
+#define TEST_WIDTH 10
+#define TEST_HEIGHT 10
 
+class TestCase {
+private:
+  std::string m_name;
+  std::string m_reason;
+  bool m_result;
+  int m_current;
 public:
   static int s_total;
+  static int s_passed;
   TestCase(const std::string& name);
-  bool getResults(); 
-  void setResult(const bool r);
-};
+  void runTest(const CG_Image& base, CG_Image (*callback)(void));
+  ~TestCase();
+  void expectFailure();
 
+};
 #endif // __TEST_CASE_HPP__
