@@ -14,10 +14,19 @@ int main() {
     });
   }
   {
-    CG_Image base_image(TEST_WIDTH, 5);
+    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
     TestCase test("Constructor with wrong height");
     test.runTest(base_image, []() {
-      CG_Image result(TEST_WIDTH, TEST_HEIGHT);
+      CG_Image result(TEST_WIDTH, 5);
+      return result;
+    });
+    test.expectFailure();
+  }
+  {
+    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    TestCase test("Constructor with wrong width");
+    test.runTest(base_image, []() {
+      CG_Image result(3, TEST_HEIGHT);
       return result;
     });
     test.expectFailure();
