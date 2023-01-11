@@ -6,16 +6,18 @@
 
 int main() {
   {
-    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
     TestCase test("Constructor");
+
+    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
     test.runTest(base_image, []() {
       CG_Image result(TEST_WIDTH, TEST_HEIGHT);
       return result;
     });
   }
   {
-    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
     TestCase test("Constructor with wrong height");
+
+    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
     test.runTest(base_image, []() {
       CG_Image result(TEST_WIDTH, 5);
       return result;
@@ -23,13 +25,26 @@ int main() {
     test.expectFailure();
   }
   {
-    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
     TestCase test("Constructor with wrong width");
+
+    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
     test.runTest(base_image, []() {
       CG_Image result(3, TEST_HEIGHT);
       return result;
     });
     test.expectFailure();
+  }
+
+  {
+    TestCase test("CG_Image::fillbackground(Blue)");
+
+    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    base_image.fill_background(ColorCodes::bg_Blue);
+    test.runTest(base_image, []() {
+      CG_Image result(TEST_WIDTH, TEST_HEIGHT);
+      result.fill_background(ColorCodes::bg_Blue);
+      return result;
+    });
   }
 
   if (TestCase::s_passed == TestCase::s_total) {
