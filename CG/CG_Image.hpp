@@ -31,7 +31,7 @@ protected:
   void swap(int &a, int &b);
   void sort_by_x(int &x1, int &y1, int &x2, int &y2, int &x3, int &y3);
 public:
-  CG_Image(int width, int height);
+  CG_Image(const int width, const int height);
   ~CG_Image(); 
 
   void fill_background(const std::string &bgcolor = ColorCodes::bg_DarkGrey);

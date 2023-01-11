@@ -14,7 +14,7 @@ bool CG_Pixel::operator!=(const CG_Pixel &rhs) const noexcept {
   return !(*this == rhs);
 }
 
-CG_Image::CG_Image(int width, int height) {
+CG_Image::CG_Image(const int width, const int height) {
   this->m_width = width;
   this->m_max_width = m_width + 2;
   this->m_height = height;
