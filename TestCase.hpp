@@ -18,7 +18,7 @@ public:
   static int s_total;
   static int s_passed;
   TestCase(const std::string& name);
-  void runTest(const CG_Image& base, CG_Image (*callback)(void));
+  bool runTest(const CG_Image& base, CG_Image (*callback)(void));
   ~TestCase();
   void expectFailure();
 

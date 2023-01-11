@@ -19,7 +19,7 @@ TestCase::TestCase(const std::string &name) {
   std::cout << std::endl;
 }
 
-void TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
+bool TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
   CG_Image result = callback();
   if (base.m_height != result.m_height) {
     m_reason += "|\t HEIGHT does not match!\n";
@@ -31,6 +31,10 @@ void TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
     m_reason += "|\t MAX_WIDTH does not match!\n";
   }
 
+  if (m_reason.size() > 0) {
+    return m_result = false;
+  }
+
   for (int y = 0; y < base.m_height; y++) {
     for (int x = 0; x < base.m_max_width; x++) {
       const CG_Pixel base_pixel = base.m_pixels[y * base.m_max_width + x];
@@ -38,15 +42,11 @@ void TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
       if (base_pixel != result_pixel) {
         m_reason += "|\t" + m_name + " CG_PIXEL at (" + std::to_string(x) +
                     ", " + std::to_string(y) + ") does not match!\n";
+        return m_result = false;
       }
     }
   }
-
-  if (m_reason.size() > 0) {
-    m_result = false;
-  } else {
-    m_result = true;
-  }
+  return m_result = true;
 }
 
 TestCase::~TestCase() {
@@ -62,7 +62,7 @@ TestCase::~TestCase() {
   std::cout << "TEST CASE " << m_current << ": " << m_name;
   std::cout << std::setw(CONSOLE_WIDTH - m_name.size()) << std::right
             << passed_failed << std::endl;
-  if (m_result == false) {
+  if (m_reason.size() > 0) {
     std::cout << m_reason << std::endl;
   }
 }
