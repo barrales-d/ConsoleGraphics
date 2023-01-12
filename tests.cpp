@@ -34,7 +34,17 @@ int main() {
     });
     test.expectFailure();
   }
+  {
+    TestCase test("Constructor default fill background");
 
+    CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    base_image.fill_background(ColorCodes::bg_DarkGrey);
+
+    test.runTest(base_image, []() {
+      CG_Image result(TEST_WIDTH, TEST_HEIGHT);
+      return result;
+    });
+  }
   {
     TestCase test("CG_Image::fillbackground(Blue)");
 
