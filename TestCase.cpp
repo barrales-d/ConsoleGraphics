@@ -40,13 +40,16 @@ bool TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
       const CG_Pixel base_pixel = base.m_pixels[y * base.m_max_width + x];
       const CG_Pixel result_pixel = result.m_pixels[y * result.m_max_width + x];
       if (base_pixel != result_pixel) {
-        m_reason += "|\t" + m_name + " CG_PIXEL at (" + std::to_string(x) +
-                    ", " + std::to_string(y) + ") does not match!\n";
-        return m_result = false;
+        m_reason += "|\t CG_PIXEL at (" + std::to_string(x) + ", " +
+                    std::to_string(y) + ") does not match!\n";
+        m_result = false;
       }
     }
   }
-  return m_result = true;
+  if (m_reason.size() == 0) {
+    m_result = true;
+  }
+  return m_result;
 }
 
 TestCase::~TestCase() {
