@@ -1,10 +1,10 @@
-all: build
+all: example test
 
 CC = clang++
 CFLAGS = -g -Wno-everything -Werror -Wall
 SRC = ./CG/*.cpp
 
-build: $(SRC) examples.cpp 
+example: $(SRC) examples.cpp 
 	$(CC) $(CFLAGS) $(SRC) examples.cpp -o example
 
 test: $(SRC) TestCase.cpp

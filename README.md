@@ -8,7 +8,7 @@ having a 1:1 ratio. [NOT LONGER SKEWED because of SCALERS(see CG_Image.hpp/.cpp)
 
 ## Quick Start
 ```console
-$ make build
+$ make example
 $ ./example
 ```
 ### To use the functions in your projects: 
