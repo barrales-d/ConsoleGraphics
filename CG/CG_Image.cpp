@@ -31,9 +31,9 @@ void CG_Image::swap(int &a, int &b) {
   b = tmp;
 }
 
-void CG_Image::sort_by_x(int &x1, int &y1, 
-                             int &x2, int &y2, 
-                             int &x3, int &y3) {
+void CG_Image::sort_by_x(int &x1, int &y1,
+                         int &x2, int &y2, 
+                         int &x3, int &y3) {
   if (x1 > x2) {
     swap(x1, x2);
     swap(y1, y2);
@@ -54,12 +54,16 @@ void CG_Image::fill_background(const std::string &bgcolor) {
       CG_Pixel *pixel = &this->m_pixels[y * m_max_width + x];
       if (x == m_width) {
         pixel->fill = '\r';
+        pixel->color = ColorCodes::Reset;
+
       } else if (x == (m_width + 1)) {
         pixel->fill = '\n';
+        pixel->color = ColorCodes::Reset;
+
       } else {
         pixel->fill = DEFAULT_FILL;
+        pixel->color = bgcolor;
       }
-      pixel->color = bgcolor;
       pixel->fg_color = ColorCodes::fg_White;
     }
   }
@@ -74,12 +78,15 @@ void CG_Image::show() {
       std::cout << pixel->fill;
     }
     std::cout << std::flush;
+    std::cout << ColorCodes::Reset;
   }
   std::cout << ColorCodes::Reset << std::endl;
+  // move cursor to (0, 0) to animate: std::printf("\x1b[%dD\x1b[%dA", m_height,
+  // m_width);
 }
 
-void CG_Image::fill_rect(int x, int y, int wd, int ht, 
-                          const std::string &color) {
+void CG_Image::fill_rect(int x, int y, int wd, int ht,
+                         const std::string &color) {
 
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
     if (cur_y >= 0 && cur_y < m_height) {
@@ -112,8 +119,8 @@ void CG_Image::fill_circle(int x, int y, int r, const std::string &color) {
     }
   }
 }
-void CG_Image::draw_line(int x1, int y1, 
-                             int x2, int y2, std::string &color) {
+void CG_Image::draw_line(int x1, int y1,
+                         int x2, int y2, std::string &color) {
   int dx = x2 - x1;
   if (dx != 0) {
     float slope = (float)(y2 - y1) / (float)(dx);
@@ -142,9 +149,9 @@ void CG_Image::draw_line(int x1, int y1,
   }
 }
 
-void CG_Image::fill_triangle(int x1, int y1, 
-                                 int x2, int y2, 
-                                 int x3, int y3, const std::string &color) {
+void CG_Image::fill_triangle(int x1, int y1,
+                             int x2, int y2,
+                             int x3, int y3, const std::string &color) {
   sort_by_x(x1, y1, x2, y2, x3, y3);
 
   //  slope and intercept for x1, y1 -> x2, y2
@@ -188,6 +195,16 @@ void CG_Image::fill_triangle(int x1, int y1,
   }
 }
 
+void CG_Image::fill_point(int x, int y, const std::string &color) {
+  if (y >= 0 && y < m_height) {
+    if (x >= 0 && x < m_width) {
+      this->m_pixels[y * m_max_width + x].color = color;
+    }
+  }
+
+  // this->fill_rect(x, y, 1, 1, color);
+}
+
 void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color) {
   if (y >= 0 && y < m_height) {
@@ -208,7 +225,7 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
     for (int ti = 0; ti < text.size(); ti++) {
       int pos_x = ti + x;
       if (pos_x >= 0 && pos_x < m_width) {
-        CG_Pixel *pixel = &this->m_pixels[y * m_max_width + pos_x]; 
+        CG_Pixel *pixel = &this->m_pixels[y * m_max_width + pos_x];
         pixel->fg_color = fg_color;
         pixel->color = bg_color;
         pixel->fill = text[ti];

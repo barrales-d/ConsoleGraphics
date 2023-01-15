@@ -40,10 +40,11 @@ public:
 
   void fill_rect(int x, int y, int wd, int ht, const std::string &color);
   void fill_circle(int x, int y, int r, const std::string &color);
-  void draw_line(int x1, int y1, int x2, int y2, std::string &color);
 
   void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const std::string&color);
+  void fill_point(int x, int y, const std::string &color);
 
+  void draw_line(int x1, int y1, int x2, int y2, std::string &color);
   void draw_text(int x, int y, const std::string &text, const std::string&fg_color);
   void draw_text(int x, int y, const std::string &text, const std::string &fg_color, const std::string &bg_color);
 
