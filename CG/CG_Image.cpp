@@ -15,7 +15,7 @@ bool CG_Pixel::operator!=(const CG_Pixel &rhs) const noexcept {
 }
 
 CG_Image::CG_Image(const int width, const int height) {
-  this->m_width = width;
+  this->m_width = width * 2;
   this->m_max_width = m_width + 2;
   this->m_height = height;
   this->m_pixels = new CG_Pixel[m_max_width * m_height];
@@ -87,7 +87,7 @@ void CG_Image::show() {
 
 void CG_Image::fill_rect(int x, int y, int wd, int ht,
                          const std::string &color) {
-
+  x *= SQUARE_SCALER;
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
     if (cur_y >= 0 && cur_y < m_height) {
       for (int curr_x = x; curr_x < (wd * SQUARE_SCALER + x); curr_x++) {

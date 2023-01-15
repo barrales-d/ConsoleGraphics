@@ -9,8 +9,8 @@ void checker() {
   CG_Image image(WIDTH, HEIGHT);
   ColorCodes palatte;
   image.fill_background(palatte.bg_Red);
-  int width = WIDTH / 6;
-  int height = HEIGHT / 4;
+  int width = 5;
+  int height = 5;
 
   for (int y = 0; y < HEIGHT; y++) {
     for (int x = 0; x < WIDTH; x++) {
@@ -21,6 +21,7 @@ void checker() {
   }
   image.show();
 }
+
 void triangle() {
   CG_Image image(WIDTH, HEIGHT);
   int x1 = 0, y1 = HEIGHT;
