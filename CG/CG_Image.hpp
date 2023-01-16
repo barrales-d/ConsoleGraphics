@@ -6,7 +6,7 @@
 
 #define DEFAULT_FILL ' '
 #define CIRCLE_SCALER 3
-#define SQUARE_SCALER 2 
+#define WIDTH_SCALER 2 
 
 class CG_Pixel {
 public: 
@@ -24,7 +24,6 @@ public:
 class CG_Image {
 protected:
   int m_width;
-  int m_max_width;
   int m_height;
   CG_Pixel *m_pixels;
 
