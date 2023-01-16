@@ -90,7 +90,6 @@ void CG_Image::fill_rect(int x, int y, int wd, int ht,
 
 void CG_Image::fill_circle(int x, int y, int r, const std::string &color) {
   x *= WIDTH_SCALER;
-  // r *= WIDTH_SCALER;
   int max_x = x + r;
   int min_x = x - r;
   int max_y = y + r;
@@ -112,6 +111,8 @@ void CG_Image::fill_circle(int x, int y, int r, const std::string &color) {
 }
 void CG_Image::draw_line(int x1, int y1,
                          int x2, int y2, std::string &color) {
+  x1 *= WIDTH_SCALER;
+  x2 *= WIDTH_SCALER;
   int dx = x2 - x1;
   if (dx != 0) {
     float slope = (float)(y2 - y1) / (float)(dx);
@@ -143,6 +144,9 @@ void CG_Image::draw_line(int x1, int y1,
 void CG_Image::fill_triangle(int x1, int y1,
                              int x2, int y2,
                              int x3, int y3, const std::string &color) {
+  x1 *= WIDTH_SCALER;
+  x2 *= WIDTH_SCALER;
+  x3 *= WIDTH_SCALER;
   sort_by_x(x1, y1, x2, y2, x3, y3);
 
   //  slope and intercept for x1, y1 -> x2, y2
@@ -187,17 +191,12 @@ void CG_Image::fill_triangle(int x1, int y1,
 }
 
 void CG_Image::fill_point(int x, int y, const std::string &color) {
-  if (y >= 0 && y < m_height) {
-    if (x >= 0 && x < m_width) {
-      this->m_pixels[y * m_width + x].color = color;
-    }
-  }
-
-  // this->fill_rect(x, y, 1, 1, color);
+  this->fill_rect(x, y, 1, 1, color);
 }
 
 void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color) {
+  x *= WIDTH_SCALER;
   if (y >= 0 && y < m_height) {
     for (int ti = 0; ti < text.size(); ti++) {
       int pos_x = ti + x;
@@ -212,6 +211,7 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
 void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color,
                          const std::string &bg_color) {
+  x *= WIDTH_SCALER;
   if (y >= 0 && y < m_height) {
     for (int ti = 0; ti < text.size(); ti++) {
       int pos_x = ti + x;
