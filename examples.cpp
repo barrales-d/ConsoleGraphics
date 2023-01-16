@@ -87,6 +87,22 @@ void point() {
   image.fill_point(WIDTH - 1, HEIGHT - 1, ColorCodes::bg_Black);
   image.show();
 }
+
+void combine_images() {
+  CG_Image image1(WIDTH, HEIGHT);
+  image1.fill_rect(1, 1, 2, 2, ColorCodes::bg_Blue);
+  CG_Image image2(WIDTH / 2, HEIGHT);
+  image2.fill_circle(WIDTH / 2, HEIGHT / 2, 4, ColorCodes::bg_Red);
+  CG_Image combined = CG_Image::combine_image(image1, image2);
+  CG_Image final_image = CG_Image::combine_image(combined, image1);
+  CG_Image final2 = CG_Image::combine_image(
+      CG_Image::combine_image(final_image, combined), image1);
+  image1.show();
+  image2.show();
+  combined.show();
+  final_image.show();
+  final2.show();
+}
 /* TODOs
   //  Explore Testcases and unit tests by creating a class TestCase friend of CG_Image
   //  Update show() to act more like a batch renderer? (instead of pixel by pixel it prints row by row)
