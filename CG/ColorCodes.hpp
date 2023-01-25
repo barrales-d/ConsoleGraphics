@@ -3,7 +3,7 @@
 
 #include <string>
 
-static struct ColorCodes {
+struct ColorCodes {
    static std::string Reset;
 
    static std::string fg_Black;
