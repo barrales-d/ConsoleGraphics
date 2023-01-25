@@ -25,6 +25,14 @@ $ ./example
 - https://www.2daygeek.com/understanding-the-color-code-of-linux-files/
 - https://web.archive.org/web/20151004211730/http://www.termsys.demon.co.uk/vtansi.htm/
 
+## Testing
+
+TestCase.hpp/cpp are my take on implementing a unit test system. ***I have made 7 unit tests so far!***
+
+```Console
+$ make test
+$ ./test
+```
 
 ## Examples
 ### `color_palatte();` 
