@@ -27,18 +27,15 @@ bool TestCase::runTest(const CG_Image &base, CG_Image (*callback)(void)) {
   if (base.m_width != result.m_width) {
     m_reason += "|\t WIDTH does not match!\n";
   }
-  if (base.m_max_width != result.m_max_width) {
-    m_reason += "|\t MAX_WIDTH does not match!\n";
-  }
 
   if (m_reason.size() > 0) {
     return m_result = false;
   }
 
   for (int y = 0; y < base.m_height; y++) {
-    for (int x = 0; x < base.m_max_width; x++) {
-      const CG_Pixel base_pixel = base.m_pixels[y * base.m_max_width + x];
-      const CG_Pixel result_pixel = result.m_pixels[y * result.m_max_width + x];
+    for (int x = 0; x < base.m_width; x++) {
+      const CG_Pixel base_pixel = base.m_pixels[y * base.m_width + x];
+      const CG_Pixel result_pixel = result.m_pixels[y * result.m_width + x];
       if (base_pixel != result_pixel) {
         m_reason += "|\t CG_PIXEL at (" + std::to_string(x) + ", " +
                     std::to_string(y) + ") does not match!\n";
