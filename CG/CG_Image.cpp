@@ -111,8 +111,6 @@ void CG_Image::fill_circle(int x, int y, int r, const std::string &color) {
 }
 void CG_Image::draw_line(int x1, int y1,
                          int x2, int y2, std::string &color) {
-  x1 *= WIDTH_SCALER;
-  x2 *= WIDTH_SCALER;
   int dx = x2 - x1;
   if (dx != 0) {
     float slope = (float)(y2 - y1) / (float)(dx);
@@ -123,7 +121,7 @@ void CG_Image::draw_line(int x1, int y1,
       if (x >= 0 && x < m_width) {
         int y = x * slope + intercept;
         if (y >= 0 && y < m_height) {
-          this->m_pixels[y * m_width + x].color = color;
+          this->fill_point(x, y, color);
         }
       }
     }
@@ -132,9 +130,9 @@ void CG_Image::draw_line(int x1, int y1,
     if (x >= 0 && x < m_width) {
       if (y1 > y2)
         swap(y1, y2);
-      for (int y = y1; y <= y2; y++) {
+      for (int y = y1; y < y2; y++) {
         if (y >= 0 && y < m_height) {
-          this->m_pixels[y * m_width + x].color = color;
+          this->fill_point(x, y, color);
         }
       }
     }
