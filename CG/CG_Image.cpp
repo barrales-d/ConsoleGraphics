@@ -198,7 +198,7 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color) {
   x *= WIDTH_SCALER;
   if (y >= 0 && y < m_height) {
-    for (int ti = 0; ti < text.size(); ti++) {
+    for (int ti = 0; ti < (int) text.size(); ti++) {
       int pos_x = ti + x;
       if (pos_x >= 0 && pos_x < m_width) {
         CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
@@ -213,7 +213,7 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &bg_color) {
   x *= WIDTH_SCALER;
   if (y >= 0 && y < m_height) {
-    for (int ti = 0; ti < text.size(); ti++) {
+    for (int ti = 0; ti < (int) text.size(); ti++) {
       int pos_x = ti + x;
       if (pos_x >= 0 && pos_x < m_width) {
         CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
