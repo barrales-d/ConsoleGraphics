@@ -11,7 +11,7 @@
 class CG_Pixel {
 public: 
   std::string fg_color;
-  std::string color;
+  std::string bg_color;
   char fill;
 
   CG_Pixel() = default;
