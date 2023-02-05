@@ -15,7 +15,7 @@ bool CG_Pixel::operator!=(const CG_Pixel &rhs) const noexcept {
 }
 
 CG_Image::CG_Image(const int width, const int height) {
-  this->m_width = width * WIDTH_SCALER;
+  this->m_width = width;
   this->m_height = height;
   this->m_pixels = new CG_Pixel[m_width * m_height];
 
@@ -60,11 +60,15 @@ void CG_Image::fill_background(const std::string &bg_color) {
 
 void CG_Image::show() {
   for (int y = 0; y < m_height; y++) {
-    for (int x = 0; x < m_width; x++) {
-      CG_Pixel *pixel = &this->m_pixels[y * m_width + x];
+    for (int x = 0; x < m_width * WIDTH_SCALER; x++) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_width + (x / WIDTH_SCALER)];
       std::cout << pixel->fg_color;
       std::cout << pixel->bg_color;
       std::cout << pixel->fill;
+      if(pixel->fill != ' ') {
+        std::cout << DEFAULT_FILL;
+        x++;
+      }
     }
     std::cout << std::flush << ColorCodes::Reset;
     std::cout << "\r\n";
@@ -76,20 +80,14 @@ void CG_Image::show() {
 
 void CG_Image::fill_rect(int x, int y, int wd, int ht,
                          const std::string &bg_color) {
-  x *= WIDTH_SCALER;
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
-    if (cur_y >= 0 && cur_y < m_height) {
-      for (int curr_x = x; curr_x < (wd * WIDTH_SCALER + x); curr_x++) {
-        if (curr_x >= 0 && curr_x < m_width) {
-          this->m_pixels[cur_y * m_width + curr_x].bg_color = bg_color;
-        }
-      }
+    for (int cur_x = x; cur_x < (wd + x); cur_x++) {
+      this->fill_point(cur_x, cur_y, bg_color);
     }
   }
 }
 
 void CG_Image::fill_circle(int x, int y, int r, const std::string &bg_color) {
-  x *= WIDTH_SCALER;
   int max_x = x + r;
   int min_x = x - r;
   int max_y = y + r;
@@ -98,13 +96,9 @@ void CG_Image::fill_circle(int x, int y, int r, const std::string &bg_color) {
   int r_sqr = r * r;
 
   for (int y1 = min_y; y1 <= max_y; y1++) {
-    if (y1 >= 0 && y1 < m_height) {
-      for (int x1 = min_x; x1 <= max_x; x1++) {
-        if (x1 >= 0 && x1 < m_width) {
-          if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) * CIRCLE_SCALER <= r_sqr) {
-            this->m_pixels[y1 * m_width + x1].bg_color = bg_color;
-          }
-        }
+    for (int x1 = min_x; x1 <= max_x; x1++) {
+      if ((x1 - x + 0.5f) * (x1 - x + 0.5f) + (y1 - y + 0.5f) * (y1 - y + 0.5f) <= r_sqr + 0.5f) {
+        this->fill_point(y1, x1, bg_color);
       }
     }
   }
@@ -117,24 +111,16 @@ void CG_Image::draw_line(int x1, int y1,
     float intercept = y1 - slope * x1;
     if (x1 > x2)
       swap(x1, x2);
-    for (int x = x1; x <= x2; x++) {
-      if (x >= 0 && x < m_width) {
-        int y = x * slope + intercept;
-        if (y >= 0 && y < m_height) {
-          this->fill_point(x, y, bg_color);
-        }
-      }
+    for (int x = x1; x < x2; x++) {
+      int y = x * slope + intercept;
+      this->fill_point(x, y, bg_color);
     }
   } else {
     int x = x1;
-    if (x >= 0 && x < m_width) {
-      if (y1 > y2)
-        swap(y1, y2);
-      for (int y = y1; y < y2; y++) {
-        if (y >= 0 && y < m_height) {
-          this->fill_point(x, y, bg_color);
-        }
-      }
+    if (y1 > y2)
+      swap(y1, y2);
+    for (int y = y1; y < y2; y++) {
+        this->fill_point(x, y, bg_color);
     }
   }
 }
@@ -142,9 +128,6 @@ void CG_Image::draw_line(int x1, int y1,
 void CG_Image::fill_triangle(int x1, int y1,
                              int x2, int y2,
                              int x3, int y3, const std::string &bg_color) {
-  x1 *= WIDTH_SCALER;
-  x2 *= WIDTH_SCALER;
-  x3 *= WIDTH_SCALER;
   sort_by_x(x1, y1, x2, y2, x3, y3);
 
   //  slope and intercept for x1, y1 -> x2, y2
@@ -155,17 +138,13 @@ void CG_Image::fill_triangle(int x1, int y1,
   float b_2 = y1 - m_2 * x1;
   //  left half of the triangle
   for (int x = x1; x <= x2; x++) {
-    if (x >= 0 && x < m_width) {
-      int y_start = x * m_1 + b_1;
-      int y_end = x * m_2 + b_2;
-      if (y_start > y_end) {
-        swap(y_start, y_end);
-      }
-      for (int y = y_start; y <= y_end; y++) {
-        if (y >= 0 && y < m_height) {
-          this->m_pixels[y * m_width + x].bg_color = bg_color;
-        }
-      }
+    int y_start = x * m_1 + b_1;
+    int y_end = x * m_2 + b_2;
+    if (y_start > y_end) {
+      swap(y_start, y_end);
+    }
+    for (int y = y_start; y <= y_end; y++) {
+      this->fill_point(x, y, bg_color);
     }
   }
   //  right half of the triangle
@@ -173,57 +152,54 @@ void CG_Image::fill_triangle(int x1, int y1,
   m_1 = (x3 - x2 != 0) ? (float)(y3 - y2) / (float)(x3 - x2) : 0;
   b_1 = y2 - m_1 * x2;
   for (int x = x2; x <= x3; x++) {
-    if (x >= 0 && x < m_width) {
-      int y_start = x * m_1 + b_1;
-      int y_end = x * m_2 + b_2;
-      if (y_start > y_end) {
-        swap(y_start, y_end);
-      }
-      for (int y = y_start; y <= y_end; y++) {
-        if (y >= 0 && y < m_height) {
-          this->m_pixels[y * m_width + x].bg_color = bg_color;
-        }
-      }
+    int y_start = x * m_1 + b_1;
+    int y_end = x * m_2 + b_2;
+    if (y_start > y_end) {
+      swap(y_start, y_end);
+    }
+    for (int y = y_start; y <= y_end; y++) {
+      this->fill_point(x, y, bg_color);
     }
   }
 }
 
 void CG_Image::fill_point(int x, int y, const std::string &bg_color) {
-  this->fill_rect(x, y, 1, 1, bg_color);
+  if (y >= 0 && y < m_height) {
+    if (x >= 0 && x < m_width) {
+      this->m_pixels[y * m_width + x].bg_color = bg_color; 
+    }
+  }
 }
 
 void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color) {
-  x *= WIDTH_SCALER;
-  if (y >= 0 && y < m_height) {
-    for (int ti = 0; ti < (int) text.size(); ti++) {
-      int pos_x = ti + x;
-      if (pos_x >= 0 && pos_x < m_width) {
-        CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
-        pixel->fg_color = fg_color;
-        pixel->fill = text[ti];
-      }
+  if (y < 0 || y > m_height) { return; }
+  for (int ti = 0; ti < (int) text.size(); ti++) {
+    int pos_x = ti + x;
+    if (pos_x >= 0 && pos_x < m_width) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
+      pixel->fg_color = fg_color;
+      pixel->fill = text[ti];
     }
   }
 }
 void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color,
                          const std::string &bg_color) {
-  x *= WIDTH_SCALER;
-  if (y >= 0 && y < m_height) {
-    for (int ti = 0; ti < (int) text.size(); ti++) {
-      int pos_x = ti + x;
-      if (pos_x >= 0 && pos_x < m_width) {
-        CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
-        pixel->fg_color = fg_color;
-        pixel->bg_color = bg_color;
-        pixel->fill = text[ti];
-      }
+  if (y < 0 || y > m_height) { return; }
+  for (int ti = 0; ti < (int) text.size(); ti++) {
+    int pos_x = ti + x;
+    if (pos_x >= 0 && pos_x < m_width) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
+      pixel->fg_color = fg_color;
+      pixel->bg_color = bg_color;
+      pixel->fill = text[ti];
     }
   }
 }
+
 CG_Image CG_Image::combine_image(const CG_Image &img1, const CG_Image &img2) {
-  int new_width = (img1.m_width + img2.m_width) / 2 + 1;
+  int new_width = img1.m_width + img2.m_width + 1;
   CG_Image result(new_width, img1.m_height);
   for (int y = 0; y < result.m_height; y++) {
     for (int x = 0; x < result.m_width; x++) {

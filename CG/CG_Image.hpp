@@ -5,7 +5,6 @@
 
 
 #define DEFAULT_FILL ' '
-#define CIRCLE_SCALER 3
 #define WIDTH_SCALER 2 
 
 class CG_Pixel {

@@ -43,7 +43,7 @@ struct ColorCodes {
    static std::string bg_LightWhite;
 };
 
-const std::string CG_BACK_COLORS[] = {
+static std::string CG_background_colors[] = {
     ColorCodes::bg_Black,      ColorCodes::bg_White,
     ColorCodes::bg_Green,      ColorCodes::bg_Yellow,
     ColorCodes::bg_Blue,       ColorCodes::bg_Magenta,
@@ -54,9 +54,9 @@ const std::string CG_BACK_COLORS[] = {
     ColorCodes::bg_Turquoise,  ColorCodes::bg_LightWhite
 };
 
-const int CG_BACK_COLORS_SIZE = sizeof(CG_BACK_COLORS) / sizeof(CG_BACK_COLORS[0]);
+const int CG_bg_count = sizeof(CG_background_colors) / sizeof(CG_background_colors[0]);
 
-const std::string CG_FORE_COLORS[] = {
+static std::string CG_foreground_colors[] = {
     ColorCodes::fg_Black,      ColorCodes::fg_White,
     ColorCodes::fg_Green,      ColorCodes::fg_Yellow,
     ColorCodes::fg_Blue,       ColorCodes::fg_Magenta,
@@ -67,6 +67,6 @@ const std::string CG_FORE_COLORS[] = {
     ColorCodes::fg_Turquoise,  ColorCodes::fg_LightWhite
 };
 
-const int CG_FORE_COLORS_SIZE = sizeof(CG_FORE_COLORS) / sizeof(CG_FORE_COLORS[0]);
+const int CG_fg_count = sizeof(CG_foreground_colors) / sizeof(CG_foreground_colors[0]);
 
 #endif // __COLOR_CODES_HPP__

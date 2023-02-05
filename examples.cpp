@@ -2,8 +2,8 @@
 #include "./CG/ColorCodes.hpp"
 #include <iostream>
 
-#define WIDTH 45
-#define HEIGHT 20
+#define WIDTH 25
+#define HEIGHT 25
 
 void checker() {
   CG_Image image(WIDTH, HEIGHT);
@@ -24,9 +24,11 @@ void checker() {
 void triangle() {
   CG_Image image(WIDTH, HEIGHT);
   int x1 = 0, y1 = HEIGHT;
-  int x2 = WIDTH / 2, y2 = 0;
-  int x3 = WIDTH, y3 = HEIGHT;
-  image.fill_triangle(x1, y1, x2, y2, x3, y3, ColorCodes::bg_Red);
+  int x2 = WIDTH / 2, y2 = HEIGHT / 2;
+  int x3 = WIDTH, y3 = 0;
+  image.fill_triangle(x1, y1, x2, y3, x3, y1, ColorCodes::bg_Red);
+  image.fill_triangle(x3, y3, x2, y3, x2, y2, ColorCodes::bg_Blue);
+  image.fill_triangle(x2 - 7, y1, x2 + 7, y1 - 10, x2, y2, ColorCodes::bg_Green);
   image.show();
 }
 
@@ -37,8 +39,8 @@ void all() {
   int x3 = WIDTH;
   int x4 = WIDTH / 2, y4 = HEIGHT / 2;
   image.fill_background(ColorCodes::bg_Black);
-  image.fill_rect(x2 + 10, y2, 10, 10, ColorCodes::bg_Blue);
-  image.fill_circle(x4, y4, 10, ColorCodes::bg_LightRed);
+  image.fill_rect(x2, y2, 10, 10, ColorCodes::bg_Blue);
+  image.fill_circle(x4, y4, 7, ColorCodes::bg_LightRed);
   image.draw_line(x1, y2, x3, y1, ColorCodes::bg_Magenta);
   image.fill_triangle(x1, y4, x2, y2, x4, y4, ColorCodes::bg_Green);
   image.show();
@@ -48,8 +50,8 @@ void circles() {
   int cx = WIDTH / 2;
   int cy = HEIGHT / 2;
 
-  for (int r = 20; r >= 0; r -= 2) {
-    image.fill_circle(cx, cy, r, CG_BACK_COLORS[r % CG_BACK_COLORS_SIZE]);
+  for (int r = WIDTH / 2; r >= 3; r -= 1) {
+    image.fill_circle(cx, cy, r, CG_background_colors[r % CG_bg_count]);
   }
   image.show();
 }
@@ -68,14 +70,15 @@ void insert_text(const std::string &text) {
 }
 
 void color_palette() {
-  const std::string text = "C O N S O L E @ G R A P H I C S ";
-  CG_Image image(CG_FORE_COLORS_SIZE, CG_BACK_COLORS_SIZE);
+  const std::string text = "CONSOLE@GRAPHICS";
+  CG_Image image(CG_bg_count, CG_bg_count);
 
-  for (int x = 0; x < CG_FORE_COLORS_SIZE; x++) {
-    image.fill_rect(x, 0, 1, CG_BACK_COLORS_SIZE, CG_BACK_COLORS[x]);
+  for (int x = 0; x < CG_bg_count; x++) {
+    image.fill_rect(x, 0, 1, CG_bg_count,
+                    CG_background_colors[x % CG_bg_count]);
   }
-  for (int y = 0; y < CG_BACK_COLORS_SIZE; y++) {
-    image.draw_text(0, y, text, CG_FORE_COLORS[y % CG_FORE_COLORS_SIZE]);
+  for (int y = 0; y < CG_fg_count; y++) {
+    image.draw_text(0, y, text, CG_foreground_colors[y]);
   }
   image.show();
 }
@@ -86,22 +89,6 @@ void point() {
   image.fill_point(3, 0, ColorCodes::bg_Green);
   image.fill_point(WIDTH - 1, HEIGHT - 1, ColorCodes::bg_Black);
   image.show();
-}
-
-void combine_images() {
-  CG_Image image1(WIDTH, HEIGHT);
-  image1.fill_rect(1, 1, 2, 2, ColorCodes::bg_Blue);
-  CG_Image image2(WIDTH / 2, HEIGHT);
-  image2.fill_circle(WIDTH / 2, HEIGHT / 2, 4, ColorCodes::bg_Red);
-  CG_Image combined = CG_Image::combine_image(image1, image2);
-  CG_Image final_image = CG_Image::combine_image(combined, image1);
-  CG_Image final2 = CG_Image::combine_image(
-      CG_Image::combine_image(final_image, combined), image1);
-  image1.show();
-  image2.show();
-  combined.show();
-  final_image.show();
-  final2.show();
 }
 /* TODOs
   //  Explore Testcases and unit tests by creating a class TestCase friend of CG_Image
