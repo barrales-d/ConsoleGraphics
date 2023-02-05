@@ -107,24 +107,16 @@ void CG_Image::draw_line(int x1, int y1,
     float intercept = y1 - slope * x1;
     if (x1 > x2)
       swap(x1, x2);
-    for (int x = x1; x <= x2; x++) {
-      if (x >= 0 && x < m_width) {
-        int y = x * slope + intercept;
-        if (y >= 0 && y < m_height) {
-          this->fill_point(x, y, bg_color);
-        }
-      }
+    for (int x = x1; x < x2; x++) {
+      int y = x * slope + intercept;
+      this->fill_point(x, y, bg_color);
     }
   } else {
     int x = x1;
-    if (x >= 0 && x < m_width) {
-      if (y1 > y2)
-        swap(y1, y2);
-      for (int y = y1; y < y2; y++) {
-        if (y >= 0 && y < m_height) {
-          this->fill_point(x, y, bg_color);
-        }
-      }
+    if (y1 > y2)
+      swap(y1, y2);
+    for (int y = y1; y < y2; y++) {
+        this->fill_point(x, y, bg_color);
     }
   }
 }
@@ -132,9 +124,6 @@ void CG_Image::draw_line(int x1, int y1,
 void CG_Image::fill_triangle(int x1, int y1,
                              int x2, int y2,
                              int x3, int y3, const std::string &bg_color) {
-  x1 *= WIDTH_SCALER;
-  x2 *= WIDTH_SCALER;
-  x3 *= WIDTH_SCALER;
   sort_by_x(x1, y1, x2, y2, x3, y3);
 
   //  slope and intercept for x1, y1 -> x2, y2
@@ -145,17 +134,13 @@ void CG_Image::fill_triangle(int x1, int y1,
   float b_2 = y1 - m_2 * x1;
   //  left half of the triangle
   for (int x = x1; x <= x2; x++) {
-    if (x >= 0 && x < m_width) {
-      int y_start = x * m_1 + b_1;
-      int y_end = x * m_2 + b_2;
-      if (y_start > y_end) {
-        swap(y_start, y_end);
-      }
-      for (int y = y_start; y <= y_end; y++) {
-        if (y >= 0 && y < m_height) {
-          this->m_pixels[y * m_width + x].bg_color = bg_color;
-        }
-      }
+    int y_start = x * m_1 + b_1;
+    int y_end = x * m_2 + b_2;
+    if (y_start > y_end) {
+      swap(y_start, y_end);
+    }
+    for (int y = y_start; y <= y_end; y++) {
+      this->fill_point(x, y, bg_color);
     }
   }
   //  right half of the triangle
@@ -163,17 +148,13 @@ void CG_Image::fill_triangle(int x1, int y1,
   m_1 = (x3 - x2 != 0) ? (float)(y3 - y2) / (float)(x3 - x2) : 0;
   b_1 = y2 - m_1 * x2;
   for (int x = x2; x <= x3; x++) {
-    if (x >= 0 && x < m_width) {
-      int y_start = x * m_1 + b_1;
-      int y_end = x * m_2 + b_2;
-      if (y_start > y_end) {
-        swap(y_start, y_end);
-      }
-      for (int y = y_start; y <= y_end; y++) {
-        if (y >= 0 && y < m_height) {
-          this->m_pixels[y * m_width + x].bg_color = bg_color;
-        }
-      }
+    int y_start = x * m_1 + b_1;
+    int y_end = x * m_2 + b_2;
+    if (y_start > y_end) {
+      swap(y_start, y_end);
+    }
+    for (int y = y_start; y <= y_end; y++) {
+      this->fill_point(x, y, bg_color);
     }
   }
 }
