@@ -15,7 +15,7 @@ bool CG_Pixel::operator!=(const CG_Pixel &rhs) const noexcept {
 }
 
 CG_Image::CG_Image(const int width, const int height) {
-  this->m_width = width * WIDTH_SCALER;
+  this->m_width = width;
   this->m_height = height;
   this->m_pixels = new CG_Pixel[m_width * m_height];
 
@@ -60,8 +60,8 @@ void CG_Image::fill_background(const std::string &bg_color) {
 
 void CG_Image::show() {
   for (int y = 0; y < m_height; y++) {
-    for (int x = 0; x < m_width; x++) {
-      CG_Pixel *pixel = &this->m_pixels[y * m_width + x];
+    for (int x = 0; x < m_width * WIDTH_SCALER; x++) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_width + (x / WIDTH_SCALER)];
       std::cout << pixel->fg_color;
       std::cout << pixel->bg_color;
       std::cout << pixel->fill;
@@ -189,7 +189,11 @@ void CG_Image::fill_triangle(int x1, int y1,
 }
 
 void CG_Image::fill_point(int x, int y, const std::string &bg_color) {
-  this->fill_rect(x, y, 1, 1, bg_color);
+  if (y >= 0 && y < m_height) {
+    if (x >= 0 && x < m_width) {
+      this->m_pixels[y * m_width + x].bg_color = bg_color; 
+    }
+  }
 }
 
 void CG_Image::draw_text(int x, int y, const std::string &text,
