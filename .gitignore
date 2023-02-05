@@ -32,6 +32,6 @@
 *.app
 
 # Images
-*.png
-*.jpeg
-*.ppm
+# *.png
+# *.jpeg
+# *.ppm
