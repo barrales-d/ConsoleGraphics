@@ -65,6 +65,10 @@ void CG_Image::show() {
       std::cout << pixel->fg_color;
       std::cout << pixel->bg_color;
       std::cout << pixel->fill;
+      if(pixel->fill != ' ') {
+        std::cout << DEFAULT_FILL;
+        x++;
+      }
     }
     std::cout << std::flush << ColorCodes::Reset;
     std::cout << "\r\n";
@@ -169,34 +173,31 @@ void CG_Image::fill_point(int x, int y, const std::string &bg_color) {
 
 void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color) {
-  x *= WIDTH_SCALER;
-  if (y >= 0 && y < m_height) {
-    for (int ti = 0; ti < (int) text.size(); ti++) {
-      int pos_x = ti + x;
-      if (pos_x >= 0 && pos_x < m_width) {
-        CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
-        pixel->fg_color = fg_color;
-        pixel->fill = text[ti];
-      }
+  if (y < 0 || y > m_height) { return; }
+  for (int ti = 0; ti < (int) text.size(); ti++) {
+    int pos_x = ti + x;
+    if (pos_x >= 0 && pos_x < m_width) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
+      pixel->fg_color = fg_color;
+      pixel->fill = text[ti];
     }
   }
 }
 void CG_Image::draw_text(int x, int y, const std::string &text,
                          const std::string &fg_color,
                          const std::string &bg_color) {
-  x *= WIDTH_SCALER;
-  if (y >= 0 && y < m_height) {
-    for (int ti = 0; ti < (int) text.size(); ti++) {
-      int pos_x = ti + x;
-      if (pos_x >= 0 && pos_x < m_width) {
-        CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
-        pixel->fg_color = fg_color;
-        pixel->bg_color = bg_color;
-        pixel->fill = text[ti];
-      }
+  if (y < 0 || y > m_height) { return; }
+  for (int ti = 0; ti < (int) text.size(); ti++) {
+    int pos_x = ti + x;
+    if (pos_x >= 0 && pos_x < m_width) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
+      pixel->fg_color = fg_color;
+      pixel->bg_color = bg_color;
+      pixel->fill = text[ti];
     }
   }
 }
+
 CG_Image CG_Image::combine_image(const CG_Image &img1, const CG_Image &img2) {
   int new_width = (img1.m_width + img2.m_width) / 2 + 1;
   CG_Image result(new_width, img1.m_height);
