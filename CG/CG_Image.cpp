@@ -199,7 +199,7 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
 }
 
 CG_Image CG_Image::combine_image(const CG_Image &img1, const CG_Image &img2) {
-  int new_width = (img1.m_width + img2.m_width) / 2 + 1;
+  int new_width = img1.m_width + img2.m_width + 1;
   CG_Image result(new_width, img1.m_height);
   for (int y = 0; y < result.m_height; y++) {
     for (int x = 0; x < result.m_width; x++) {
