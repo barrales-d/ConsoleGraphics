@@ -71,10 +71,11 @@ void insert_text(const std::string &text) {
 
 void color_palette() {
   const std::string text = "CONSOLE@GRAPHICS";
-  CG_Image image(CG_bg_count * 2, CG_bg_count);
+  CG_Image image(CG_bg_count, CG_bg_count);
 
-  for (int x = 0; x < CG_bg_count * 2; x++) {
-    image.fill_rect(x, 0, 1, CG_bg_count, CG_background_colors[x / 2 % CG_bg_count]);
+  for (int x = 0; x < CG_bg_count; x++) {
+    image.fill_rect(x, 0, 1, CG_bg_count,
+                    CG_background_colors[x % CG_bg_count]);
   }
   for (int y = 0; y < CG_fg_count; y++) {
     image.draw_text(0, y, text, CG_foreground_colors[y]);
