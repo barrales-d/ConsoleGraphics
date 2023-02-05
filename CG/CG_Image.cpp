@@ -76,14 +76,9 @@ void CG_Image::show() {
 
 void CG_Image::fill_rect(int x, int y, int wd, int ht,
                          const std::string &bg_color) {
-  x *= WIDTH_SCALER;
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
-    if (cur_y >= 0 && cur_y < m_height) {
-      for (int curr_x = x; curr_x < (wd * WIDTH_SCALER + x); curr_x++) {
-        if (curr_x >= 0 && curr_x < m_width) {
-          this->m_pixels[cur_y * m_width + curr_x].bg_color = bg_color;
-        }
-      }
+    for (int cur_x = x; cur_x < wd + x; cur_x++) {
+      this->fill_point(cur_x, cur_y, bg_color);
     }
   }
 }
