@@ -49,7 +49,7 @@ void circles() {
   int cy = HEIGHT / 2;
 
   for (int r = 20; r >= 0; r -= 2) {
-    image.fill_circle(cx, cy, r, CG_BACK_COLORS[r % CG_BACK_COLORS_SIZE]);
+    image.fill_circle(cx, cy, r, CG_background_colors[r % CG_bg_count]);
   }
   image.show();
 }
@@ -69,13 +69,13 @@ void insert_text(const std::string &text) {
 
 void color_palette() {
   const std::string text = "C O N S O L E @ G R A P H I C S ";
-  CG_Image image(CG_FORE_COLORS_SIZE, CG_BACK_COLORS_SIZE);
+  CG_Image image(CG_fg_count,CG_bg_count);
 
-  for (int x = 0; x < CG_FORE_COLORS_SIZE; x++) {
-    image.fill_rect(x, 0, 1, CG_BACK_COLORS_SIZE, CG_BACK_COLORS[x]);
+  for (int x = 0; x < CG_bg_count; x++) {
+    image.fill_rect(x, 0, 1, CG_bg_count, CG_background_colors[x]);
   }
-  for (int y = 0; y < CG_BACK_COLORS_SIZE; y++) {
-    image.draw_text(0, y, text, CG_FORE_COLORS[y % CG_FORE_COLORS_SIZE]);
+  for (int y = 0; y < CG_fg_count; y++) {
+    image.draw_text(0, y, text, CG_foreground_colors[y]);
   }
   image.show();
 }
