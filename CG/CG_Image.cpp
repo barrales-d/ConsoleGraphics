@@ -77,14 +77,13 @@ void CG_Image::show() {
 void CG_Image::fill_rect(int x, int y, int wd, int ht,
                          const std::string &bg_color) {
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
-    for (int cur_x = x; cur_x < wd + x; cur_x++) {
+    for (int cur_x = x; cur_x < (wd + x); cur_x++) {
       this->fill_point(cur_x, cur_y, bg_color);
     }
   }
 }
 
 void CG_Image::fill_circle(int x, int y, int r, const std::string &bg_color) {
-  x *= WIDTH_SCALER;
   int max_x = x + r;
   int min_x = x - r;
   int max_y = y + r;
@@ -93,13 +92,9 @@ void CG_Image::fill_circle(int x, int y, int r, const std::string &bg_color) {
   int r_sqr = r * r;
 
   for (int y1 = min_y; y1 <= max_y; y1++) {
-    if (y1 >= 0 && y1 < m_height) {
-      for (int x1 = min_x; x1 <= max_x; x1++) {
-        if (x1 >= 0 && x1 < m_width) {
-          if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) * CIRCLE_SCALER <= r_sqr) {
-            this->m_pixels[y1 * m_width + x1].bg_color = bg_color;
-          }
-        }
+    for (int x1 = min_x; x1 <= max_x; x1++) {
+      if ((x1 - x + 0.5f) * (x1 - x + 0.5f) + (y1 - y + 0.5f) * (y1 - y + 0.5f) <= r_sqr + 0.5f) {
+        this->fill_point(y1, x1, bg_color);
       }
     }
   }
