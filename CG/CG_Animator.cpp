@@ -1,13 +1,19 @@
 #include "./CG_Animator.hpp"
 
-#include <unistd.h>
-
 void CG_Animator::play() {
+    auto current = std::chrono::steady_clock::now();
     while(1) {
         //TODO: figure out delta time
         //TODO: move terminal cursor to (0, 0) I have it in the CG_Image cpp file
-        m_animation->onUpdate(1/20);
+
+        std::chrono::duration<float> deltaTime = std::chrono::steady_clock::now() - current;
+        float dt = deltaTime.count();
+
+        m_animation->onUpdate(dt);
         m_animation->onRender();
+        
+        usleep(1000 * 1000 / FPS);
+        current = std::chrono::steady_clock::now();
 
     }
 }
