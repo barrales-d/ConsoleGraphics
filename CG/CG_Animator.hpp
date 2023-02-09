@@ -29,4 +29,4 @@ public:
 };
 
 
-#endif __CG_ANIMATOR_HPP__
+#endif // __CG_ANIMATOR_HPP__
