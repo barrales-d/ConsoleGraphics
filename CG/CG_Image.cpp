@@ -74,8 +74,6 @@ void CG_Image::show() {
     std::cout << "\r\n";
   }
   std::cout << ColorCodes::Reset << std::endl;
-  // move cursor to (0, 0) to animate: std::printf("\x1b[%dD\x1b[%dA", m_height,
-  // m_width);
 }
 
 void CG_Image::fill_rect(int x, int y, int wd, int ht,

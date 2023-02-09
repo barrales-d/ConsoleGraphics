@@ -3,6 +3,7 @@
 
 #include <unistd.h>
 #include <chrono>
+#include <iostream>
 
 #define FPS 15.0f
 
@@ -11,6 +12,9 @@ public:
     virtual ~CG_Animation() = default;
     virtual void onUpdate(float) = 0;
     virtual void onRender() = 0;
+    //  provide the width and height of the Animation you create, so that the Animator has access to it 
+    virtual int getWidth() = 0;
+    virtual int getHeight() = 0;
 };
 
 class CG_Animator {
