@@ -10,11 +10,11 @@
 class CG_Animation {
 public: 
     virtual ~CG_Animation() = default;
-    virtual void onUpdate(float) = 0;
-    virtual void onRender() = 0;
+    virtual void on_update(float) = 0;
+    virtual void on_render() = 0;
     //  provide the width and height of the Animation you create, so that the Animator has access to it 
-    virtual int getWidth() = 0;
-    virtual int getHeight() = 0;
+    virtual int get_width() = 0;
+    virtual int get_height() = 0;
 };
 
 class CG_Animator {
@@ -24,7 +24,7 @@ public:
     CG_Animator(CG_Animation *animation) : m_animation(animation) {}
     ~CG_Animator() = default;
 
-    void play();
+    void play_animation();
 
 };
 

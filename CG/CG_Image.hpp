@@ -46,8 +46,9 @@ public:
   void draw_text(int x, int y, const std::string &text, const std::string&fg_color);
   void draw_text(int x, int y, const std::string &text, const std::string &fg_color, const std::string &bg_color);
 
-  int getWidth()  { return m_width * WIDTH_SCALER + 1; }
-  int getHeight() { return m_height + 1; }
+  int get_scaled_width()  { return m_width * WIDTH_SCALER + 1; }
+  int get_actual_width()  { return m_width + 1;}
+  int get_height() { return m_height + 1; }
 
   static CG_Image combine_image(const CG_Image& img1, const CG_Image& img2);
   friend class TestCase;
