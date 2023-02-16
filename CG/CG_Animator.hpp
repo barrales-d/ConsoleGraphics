@@ -5,7 +5,7 @@
 #include <chrono>
 #include <iostream>
 
-#define FPS 15.0f
+#define FPS 30.0f
 
 class CG_Animation {
 public: 
