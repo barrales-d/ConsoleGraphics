@@ -101,6 +101,20 @@ void point() {
   image.fill_point(WIDTH - 1, HEIGHT - 1, CG_Color::black);
   image.show();
 }
+
+void gradiant() {
+  int width = 150;
+  int height = width / 2; 
+  CG_Image image(width, height);
+  for(uint8_t y = 0; y < width; y++) {
+    for(uint8_t x = 0; x < width; x++) {
+        int true_y = y * height / width;
+        image.fill_point(x, y, CG_Color(x, y, 0));
+    }
+  }
+  image.show();
+}
+
 /* TODOs
   //  Update show() to act more like a batch renderer? (instead of pixel by pixel it prints row by row)
   //  Animations
@@ -118,5 +132,6 @@ int main() {
   all();
   color_palette();
   point();
+  gradiant();
   return 0;
 }
