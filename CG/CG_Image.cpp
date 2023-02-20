@@ -4,8 +4,8 @@
 #include <unistd.h>
 
 bool CG_Pixel::operator==(const CG_Pixel &rhs) const noexcept {
-  if (this->bg_color == rhs.bg_color && this->fg_color == rhs.fg_color &&
-      this->fill == rhs.fill) {
+  if (this->bg_color == rhs.bg_color && this->fg_color == rhs.fg_color 
+      && this->fill == rhs.fill) {
     return true;
   }
   return false;
@@ -47,39 +47,41 @@ void CG_Image::sort_by_x(int &x1, int &y1,
   }
 }
 
-void CG_Image::fill_background(const std::string &bg_color) {
+void CG_Image::fill_background(const CG_Color &bg_color) {
   for (int y = 0; y < m_height; y++) {
     for (int x = 0; x < m_width; x++) {
       CG_Pixel *pixel = &this->m_pixels[y * m_width + x];
       pixel->fill = DEFAULT_FILL;
       pixel->bg_color = bg_color;
-      pixel->fg_color = ColorCodes::fg_White;
+      pixel->fg_color = CG_Color::white;
     }
   }
 }
 
 void CG_Image::show() {
   for (int y = 0; y < m_height; y++) {
-    for (int x = 0; x < m_width * WIDTH_SCALER; x++) {
-      CG_Pixel *pixel = &this->m_pixels[y * m_width + (x / WIDTH_SCALER)];
-      std::cout << pixel->fg_color;
-      std::cout << pixel->bg_color;
+    for (int x = 0; x < m_width; x++) {
+      CG_Pixel *pixel = &this->m_pixels[y * m_width + x];
+      std::cout << pixel->fg_color.to_ansi_fg();
+      std::cout << pixel->bg_color.to_ansi_bg();
       std::cout << pixel->fill;
-      if(pixel->fill != ' ') {
-        std::cout << DEFAULT_FILL;
-        x++;
-      }
     }
     std::cout << std::flush << ColorCodes::Reset;
     std::cout << "\r\n";
   }
   std::cout << ColorCodes::Reset << std::endl;
-  // move cursor to (0, 0) to animate: std::printf("\x1b[%dD\x1b[%dA", m_height,
-  // m_width);
+}
+
+void CG_Image::fill_point(int x, int y, const CG_Color &bg_color) {
+  if (y >= 0 && y < m_height) {
+    if (x >= 0 && x < m_width) {
+      this->m_pixels[y * m_width + x].bg_color = bg_color; 
+    }
+  }
 }
 
 void CG_Image::fill_rect(int x, int y, int wd, int ht,
-                         const std::string &bg_color) {
+                         const CG_Color &bg_color) {
   for (int cur_y = y; cur_y < (ht + y); cur_y++) {
     for (int cur_x = x; cur_x < (wd + x); cur_x++) {
       this->fill_point(cur_x, cur_y, bg_color);
@@ -87,24 +89,25 @@ void CG_Image::fill_rect(int x, int y, int wd, int ht,
   }
 }
 
-void CG_Image::fill_circle(int x, int y, int r, const std::string &bg_color) {
-  int max_x = x + r;
-  int min_x = x - r;
-  int max_y = y + r;
-  int min_y = y - r;
+void CG_Image::fill_circle(int x, int y, int r, const CG_Color &bg_color) {
+  float max_x = x + r + 0.5f;
+  float min_x = x - r + 0.5f;
+  float max_y = y + r + 0.5f;
+  float min_y = y - r + 0.5f;
 
-  int r_sqr = r * r;
+  float r_sqr = (r + 0.5f) * (r + 0.5f);
 
   for (int y1 = min_y; y1 <= max_y; y1++) {
     for (int x1 = min_x; x1 <= max_x; x1++) {
-      if ((x1 - x + 0.5f) * (x1 - x + 0.5f) + (y1 - y + 0.5f) * (y1 - y + 0.5f) <= r_sqr + 0.5f) {
+      if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) <= r_sqr - 0.5f) {
         this->fill_point(y1, x1, bg_color);
       }
     }
   }
 }
+
 void CG_Image::draw_line(int x1, int y1,
-                         int x2, int y2, std::string &bg_color) {
+                         int x2, int y2, const CG_Color &bg_color) {
   int dx = x2 - x1;
   if (dx != 0) {
     float slope = (float)(y2 - y1) / (float)(dx);
@@ -119,6 +122,8 @@ void CG_Image::draw_line(int x1, int y1,
     int x = x1;
     if (y1 > y2)
       swap(y1, y2);
+    //  TODO: fix vertical line when its not straight down 
+    //  image.draw_line(0, 0, WIDTH, HEIGHT*4/2, CG_Color::white);
     for (int y = y1; y < y2; y++) {
         this->fill_point(x, y, bg_color);
     }
@@ -127,14 +132,14 @@ void CG_Image::draw_line(int x1, int y1,
 
 void CG_Image::fill_triangle(int x1, int y1,
                              int x2, int y2,
-                             int x3, int y3, const std::string &bg_color) {
+                             int x3, int y3, const CG_Color &bg_color) {
   sort_by_x(x1, y1, x2, y2, x3, y3);
 
   //  slope and intercept for x1, y1 -> x2, y2
-  float m_1 = (x2 - x1 != 0) ? (float)(y2 - y1) / (float)(x2 - x1) : 0;
+  float m_1 = (x2 - x1 != 0) ? (y2 + 0.5f - y1 + 0.5f) / (x2 + 0.5f - x1 + 0.5f) : 0;
   float b_1 = y1 - m_1 * x1;
   // slope and intercept for x1, y1 -> x3, y3
-  float m_2 = (x3 - x1 != 0) ? (float)(y3 - y1) / (float)(x3 - x1) : 0;
+  float m_2 = (x3 - x1 != 0) ? (y3 + 0.5f - y1 + 0.5f) / (x3 + 0.5f - x1 + 0.5f) : 0;
   float b_2 = y1 - m_2 * x1;
   //  left half of the triangle
   for (int x = x1; x <= x2; x++) {
@@ -143,7 +148,7 @@ void CG_Image::fill_triangle(int x1, int y1,
     if (y_start > y_end) {
       swap(y_start, y_end);
     }
-    for (int y = y_start; y <= y_end; y++) {
+    for (int y = y_start; y < y_end; y++) {
       this->fill_point(x, y, bg_color);
     }
   }
@@ -163,16 +168,8 @@ void CG_Image::fill_triangle(int x1, int y1,
   }
 }
 
-void CG_Image::fill_point(int x, int y, const std::string &bg_color) {
-  if (y >= 0 && y < m_height) {
-    if (x >= 0 && x < m_width) {
-      this->m_pixels[y * m_width + x].bg_color = bg_color; 
-    }
-  }
-}
-
 void CG_Image::draw_text(int x, int y, const std::string &text,
-                         const std::string &fg_color) {
+                         const CG_Color &fg_color) {
   if (y < 0 || y > m_height) { return; }
   for (int ti = 0; ti < (int) text.size(); ti++) {
     int pos_x = ti + x;
@@ -180,12 +177,13 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
       CG_Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
       pixel->fg_color = fg_color;
       pixel->fill = text[ti];
+      pixel->fill.append(" ");
     }
   }
 }
 void CG_Image::draw_text(int x, int y, const std::string &text,
-                         const std::string &fg_color,
-                         const std::string &bg_color) {
+                         const CG_Color &fg_color,
+                         const CG_Color &bg_color) {
   if (y < 0 || y > m_height) { return; }
   for (int ti = 0; ti < (int) text.size(); ti++) {
     int pos_x = ti + x;
@@ -194,10 +192,10 @@ void CG_Image::draw_text(int x, int y, const std::string &text,
       pixel->fg_color = fg_color;
       pixel->bg_color = bg_color;
       pixel->fill = text[ti];
+      pixel->fill.append(" ");
     }
   }
 }
-
 CG_Image CG_Image::combine_image(const CG_Image &img1, const CG_Image &img2) {
   int new_width = img1.m_width + img2.m_width + 1;
   CG_Image result(new_width, img1.m_height);
@@ -206,11 +204,11 @@ CG_Image CG_Image::combine_image(const CG_Image &img1, const CG_Image &img2) {
       if (x < img1.m_width) {
         result.m_pixels[y * result.m_width + x] =
             img1.m_pixels[y * img1.m_width + x];
-      } else if (x == img1.m_width || x == img1.m_width + 1) {
-        result.m_pixels[y * result.m_width + x].bg_color = ColorCodes::Reset;
+      } else if (x == img1.m_width) {
+        result.m_pixels[y * result.m_width + x].bg_color = CG_Color(0xFFC7F7);
       } else {
         result.m_pixels[y * result.m_width + x] =
-            img2.m_pixels[y * img2.m_width + (x - (img1.m_width + 2))];
+            img2.m_pixels[y * img2.m_width + (x - (img1.m_width + 1))];
       }
     }
   }
