@@ -66,10 +66,10 @@ void CG_Image::show() {
       std::cout << pixel->bg_color.to_ansi_bg();
       std::cout << pixel->fill;
     }
-    std::cout << std::flush << ColorCodes::Reset;
+    std::cout << std::flush << ANSICodes::Reset;
     std::cout << "\r\n";
   }
-  std::cout << ColorCodes::Reset << std::endl;
+  std::cout << ANSICodes::Reset << std::endl;
 }
 
 void CG_Image::fill_point(int x, int y, const CG_Color &bg_color) {

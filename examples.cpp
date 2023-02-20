@@ -77,19 +77,13 @@ void insert_text(const std::string &text) {
 
 void color_palette() {
   const std::string text = "CONSOLE@GRAPHICS";
-  CG_Image image(CG_bg_count, CG_bg_count);
+  CG_Image image(CG_Color::colors_count, CG_Color::colors_count);
   
-  uint8_t red = 0;
-  uint8_t green = 0;
-  uint8_t blue = 0;
-  for (int x = 0; x < CG_bg_count; x++) {
-    image.fill_rect(x, 0, 1, CG_bg_count, CG_Color(red, green, blue));
-    red += x / 3;
-    green += x * 3;
-    blue += x / 2;
+  for (int x = 0; x < CG_Color::colors_count; x++) {
+    image.fill_rect(x, 0, 1, CG_Color::colors_count,CG_Color::colors[x]);
   }
-  for (int y = 0; y < CG_fg_count; y++) {
-    image.draw_text(0, y, text, CG_Color::white);
+  for (int y = 0; y < CG_Color::colors_count; y++) {
+    image.draw_text(0, y, text, CG_Color::colors[y]);
   }
   image.show();
 }
@@ -101,6 +95,20 @@ void point() {
   image.fill_point(WIDTH - 1, HEIGHT - 1, CG_Color::black);
   image.show();
 }
+
+void gradiant() {
+  int width = 150;
+  int height = width / 2; 
+  CG_Image image(width, height);
+  for(uint8_t y = 0; y < width; y++) {
+    for(uint8_t x = 0; x < width; x++) {
+        int true_y = y * height / width;
+        image.fill_point(x, y, CG_Color(x, y, 0));
+    }
+  }
+  image.show();
+}
+
 /* TODOs
   //  Update show() to act more like a batch renderer? (instead of pixel by pixel it prints row by row)
   //  Animations
@@ -118,5 +126,6 @@ int main() {
   all();
   color_palette();
   point();
+  gradiant();
   return 0;
 }

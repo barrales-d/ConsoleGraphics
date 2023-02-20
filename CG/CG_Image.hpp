@@ -3,6 +3,7 @@
 
 #include "ColorCodes.hpp"
 
+// TODO: Create CG namespace
 
 #define DEFAULT_FILL "  "
 #define WIDTH_SCALER 2 
