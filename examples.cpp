@@ -102,11 +102,12 @@ void point() {
   image.show();
 }
 /* TODOs
-  //  Explore Testcases and unit tests by creating a class TestCase friend of CG_Image
   //  Update show() to act more like a batch renderer? (instead of pixel by pixel it prints row by row)
-  //  Explore triangle scaler? 
-  //  Animations?
-  //  Create cooler examples like circles() which is a bulls-eye 
+  //  Animations
+  //  Implement stb_image_write to save images to png
+  //    - think of a way to convert CG_Pixel[] to uint32_t[] (maybe a static function in CG_Image that returns a uint32_t[])
+  //    - Use saved png test cases to compare against the draw functions in TestCase.cpp
+  //  Implement actual text rendering (and then rename current draw_text -> draw_acsii)
 
 */
 
