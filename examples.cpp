@@ -48,7 +48,9 @@ void all() {
   image.show();
 }
 void circles() {
-  CG::Image image(WIDTH, HEIGHT);
+  CG::Image r_circle(WIDTH, HEIGHT);
+  CG::Image g_circle(WIDTH, HEIGHT);
+  CG::Image b_circle(WIDTH, HEIGHT);
   int cx = WIDTH / 2;
   int cy = HEIGHT / 2;
 
@@ -56,12 +58,25 @@ void circles() {
   uint8_t green = 0;
   uint8_t blue = 0;
   for (int r = WIDTH / 2; r >= 3; r -= 1) {
-    image.fill_circle(cx, cy, r, Color(red, green, blue));
-    red += r / 3;
-    green += r;
+    r_circle.fill_circle(cx, cy, r, Color(red, green, blue));
+    red += r * 3 / 2;
+  }
+  red = 0;
+  green = 0;
+  blue = 0;
+  for (int r = WIDTH / 2; r >= 3; r -= 1) {
+    g_circle.fill_circle(cx, cy, r, Color(red, green, blue));
+    green += r * 3 / 2;
+  }
+  red = 0;
+  green = 0;
+  blue = 0;
+  for (int r = WIDTH / 2; r >= 0; r -= 1) {
+    b_circle.fill_circle(cx, cy, r, Color(red, green, blue));
     blue += r * 3 / 2;
   }
-  image.show();
+  CG::Image image = CG::Image::combine_image(r_circle, g_circle);
+  CG::Image::combine_image(image, b_circle).show();
 }
 
 void insert_text(const std::string &text) {

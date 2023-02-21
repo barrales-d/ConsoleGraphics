@@ -198,7 +198,7 @@ void CG::Image::draw_text(int x, int y, const std::string &text,
     }
   }
 }
-CG::Image CG::Image::combine_image(const CG::Image &img1, const CG::Image &img2) {
+CG::Image CG::Image::combine_image(const CG::Image &img1, const CG::Image &img2, const CG::Color& sep) {
   int new_width = img1.m_width + img2.m_width + 1;
   CG::Image result(new_width, img1.m_height);
   for (int y = 0; y < result.m_height; y++) {
@@ -207,7 +207,7 @@ CG::Image CG::Image::combine_image(const CG::Image &img1, const CG::Image &img2)
         result.m_pixels[y * result.m_width + x] =
             img1.m_pixels[y * img1.m_width + x];
       } else if (x == img1.m_width) {
-        result.m_pixels[y * result.m_width + x].bg_color = CG::Color(0xFFC7F7);
+        result.m_pixels[y * result.m_width + x].bg_color = sep;
       } else {
         result.m_pixels[y * result.m_width + x] =
             img2.m_pixels[y * img2.m_width + (x - (img1.m_width + 1))];

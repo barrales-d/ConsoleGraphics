@@ -46,7 +46,7 @@ namespace CG {
     void draw_text(int x, int y, const std::string &text, const Color &fg_color);
     void draw_text(int x, int y, const std::string &text, const Color &fg_color, const Color &bg_color);
   // 
-    static Image combine_image(const Image& img1, const Image& img2);
+    static Image combine_image(const Image& img1, const Image& img2, const Color &sep = Color::darkgrey);
     friend class TestCase;
   };//  Image
 }
