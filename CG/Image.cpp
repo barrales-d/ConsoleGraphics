@@ -131,34 +131,36 @@ void CG::Image::draw_line(int x1, int y1,
 }
 
 void CG::Image::fill_triangle(int x1, int y1,
-                             int x2, int y2,
-                             int x3, int y3, const CG::Color &bg_color) {
+                              int x2, int y2,
+                              int x3, int y3, const CG::Color &bg_color) {
   sort_by_x(x1, y1, x2, y2, x3, y3);
 
   //  slope and intercept for x1, y1 -> x2, y2
-  float m_1 = (x2 - x1 != 0) ? (y2 + 0.5f - y1 + 0.5f) / (x2 + 0.5f - x1 + 0.5f) : 0;
-  float b_1 = y1 - m_1 * x1;
+  float m_1 = (x2 - x1 != 0) ? (float)(y2 - y1) / (float)(x2 - x1) : 0;
+  float b_1 = (float)y1 - m_1 * (float)x1;
+
   // slope and intercept for x1, y1 -> x3, y3
-  float m_2 = (x3 - x1 != 0) ? (y3 + 0.5f - y1 + 0.5f) / (x3 + 0.5f - x1 + 0.5f) : 0;
-  float b_2 = y1 - m_2 * x1;
+  float m_2 = (x3 - x1 != 0) ? (float)(y3 - y1) / (float)(x3 - x1) : 0;
+  float b_2 = (float)y1 - m_2 * (float)x1;
   //  left half of the triangle
-  for (int x = x1; x <= x2; x++) {
+  for (int x = x1; x < x2; x++) {
     int y_start = x * m_1 + b_1;
     int y_end = x * m_2 + b_2;
     if (y_start > y_end) {
       swap(y_start, y_end);
     }
-    for (int y = y_start; y < y_end; y++) {
+    for (int y = y_start; y <= y_end; y++) {
       this->fill_point(x, y, bg_color);
     }
   }
   //  right half of the triangle
   //  slope and intercept for x3, y3 -> x2, y2
-  m_1 = (x3 - x2 != 0) ? (float)(y3 - y2) / (float)(x3 - x2) : 0;
-  b_1 = y2 - m_1 * x2;
+  float m_3 = (x3 - x2 != 0) ? (float)(y3 - y2) / (float)(x3 - x2) : 0;
+  float b_3 = (float)y2 - m_3 * (float)x2;
   for (int x = x2; x <= x3; x++) {
-    int y_start = x * m_1 + b_1;
-    int y_end = x * m_2 + b_2;
+    int y_start = (float)x * m_3 + b_3;
+    int y_end = (float)x * m_2 + b_2;
+
     if (y_start > y_end) {
       swap(y_start, y_end);
     }
