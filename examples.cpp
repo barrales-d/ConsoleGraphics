@@ -119,7 +119,6 @@ void gradiant() {
   CG::Image image(width, height);
   for(uint8_t y = 0; y < width; y++) {
     for(uint8_t x = 0; x < width; x++) {
-        int true_y = y * height / width;
         image.fill_point(x, y, Color(x, y, 0));
     }
   }
@@ -128,7 +127,6 @@ void gradiant() {
 
 /* TODOs
   //  Update show() to act more like a batch renderer? (instead of pixel by pixel it prints row by row)
-  //  Animations
   //  Implement stb_image_write to save images to png
   //    - think of a way to convert CG_Pixel[] to uint32_t[] (maybe a static function in CG::Image that returns a uint32_t[])
   //    - Use saved png test cases to compare against the draw functions in TestCase.cpp
