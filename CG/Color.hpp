@@ -43,6 +43,9 @@ namespace CG {
 
 struct ansi_code {
    static std::string reset;
+   static std::string hide_cursor;
+
+   static std::string move_cursor(int up, int left);
    static std::string background(const CG::Color& col);
    static std::string foreground(const CG::Color& col);
 };
