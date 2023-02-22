@@ -5,28 +5,25 @@
 #include <chrono>
 #include <iostream>
 
-#define FPS 30.0f
+namespace CG {
+    class Animation {
+    public: 
+        virtual ~Animation() {}
+        virtual void on_update(float) = 0;
+        virtual void on_render() = 0;
+    };
 
-class CG_Animation {
-public: 
-    virtual ~CG_Animation() = default;
-    virtual void on_update(float) = 0;
-    virtual void on_render() = 0;
-    //  provide the width and height of the Animation you create, so that the Animator has access to it 
-    virtual int get_width() = 0;
-    virtual int get_height() = 0;
-};
+    class Animator {
+    private:
+        Animation *m_animation;    
+    public:
+        Animator(Animation *animation) : m_animation(animation) {}
+        ~Animator() = default;
 
-class CG_Animator {
-private:
-    CG_Animation *m_animation;    
-public:
-    CG_Animator(CG_Animation *animation) : m_animation(animation) {}
-    ~CG_Animator() = default;
+        void play_animation(int width, int height);
 
-    void play_animation();
+        static float fps;
 
-};
-
-
-#endif // __CG_ANIMATOR_HPP__
+    };
+}
+#endif // __ANIMATOR_HPP__
