@@ -1,4 +1,4 @@
-#include "./CG_Animator.hpp"
+#include "./Animator.hpp"
 
 float CG::Animator::fps = 30.0f;
 
