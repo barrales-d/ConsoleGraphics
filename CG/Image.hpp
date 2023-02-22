@@ -32,6 +32,10 @@ namespace CG {
   public:
     Image(const int width, const int height);
     ~Image(); 
+    // | returns screen width = m_width * WIDTH_SCALER | pixel width = get_width() / WIDTH_SCALER |
+    int get_width() { return m_width * WIDTH_SCALER; }
+    // | reutnr screen height = m_height + 1(because of '\n' in CG::Image::show()) | pixel height = get_height() - 1 |
+    int get_height() { return m_height + 1; }
 
     void fill_background(const Color &bg_color = Color::darkgrey);
 
