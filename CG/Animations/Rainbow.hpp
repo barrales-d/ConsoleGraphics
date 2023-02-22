@@ -3,7 +3,7 @@
 
 #include "..\Color.hpp"
 #include "..\Image.hpp"
-#include "..\Animator.hpp"
+#include "..\Animation.hpp"
 
 #include <cmath>
 
