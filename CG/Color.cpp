@@ -73,3 +73,7 @@ std::string ansi_code::foreground(const CG::Color& col)
             std::to_string(col.b()) + "m";
 }
 
+std::string ansi_code::hide_cursor = "\x1b[?25l";// "\x1b\e[?25l" // throws warning;
+std::string ansi_code::move_cursor(int up, int left) {
+    return "\x1b["+ std::to_string(left) +"D\x1b["+ std::to_string(up) +"A";
+}
