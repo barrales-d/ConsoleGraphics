@@ -5,100 +5,83 @@
 #include "./TestCase.hpp"
 
 int main() {
+  //  TODO: create TESTCASE::load_image and TESTCASE::save_image when I introduce stb::load/write_image
+  //    use them to compare test images saved in png format 
   { 
     TESTCASE::createTest("Constructor");
     CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
+
     TESTCASE::assertEqual(base_image, CG::Image(TEST_WIDTH, TEST_HEIGHT));
   }
+/////////////////////////////////////////////////////////////////////////////////////
   { 
     TESTCASE::createTest("Constructor with wrong height");
     CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
+
     TESTCASE::assertNotEqual(base_image, CG::Image(TEST_WIDTH, 5));
   }
-  // {
-  //   TestCase test("Constructor with wrong width");
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("Constructor with wrong width");
+    CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
 
-  //   CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
-  //   test.runTest(base_image, []() {
-  //     CG_Image result(3, TEST_HEIGHT);
-  //     return result;
-  //   });
-  //   test.expectFailure();
-  // }
-  // {
-  //   TestCase test("Constructor default fill background");
+    TESTCASE::assertNotEqual(base_image, CG::Image(3, TEST_HEIGHT));
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("Constructor default fill background");
 
-  //   CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
-  //   base_image.fill_background(ColorCodes::bg_DarkGrey);
+    CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    base_image.fill_background(CG::Color::darkgrey);
 
-  //   test.runTest(base_image, []() {
-  //     CG_Image result(TEST_WIDTH, TEST_HEIGHT);
-  //     return result;
-  //   });
-  // }
-  // {
-  //   TestCase test("CG_Image::fillbackground(Blue)");
+    TESTCASE::assertEqual(base_image,CG::Image(TEST_WIDTH, TEST_HEIGHT));
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("CG::Image::fill_background(CG::Color::blue)");
 
-  //   CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
-  //   base_image.fill_background(ColorCodes::bg_Blue);
-  //   test.runTest(base_image, []() {
-  //     CG_Image result(TEST_WIDTH, TEST_HEIGHT);
-  //     result.fill_background(ColorCodes::bg_Blue);
-  //     return result;
-  //   });
-  // }
+    CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    base_image.fill_background(CG::Color::blue);
 
-  // {
-  //   TestCase test("CG_Image::fill_rect() matching");
+    CG::Image result_image(TEST_WIDTH, TEST_HEIGHT);
+    result_image.fill_background(CG::Color::blue);
 
-  //   CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
-  //   int wd = TEST_WIDTH / 5;
-  //   int x = TEST_WIDTH / 2 - wd;
-  //   int ht = TEST_WIDTH / 5;
-  //   int y = TEST_HEIGHT / 2 - ht;
-  //   base_image.fill_rect(x, y, wd, ht, ColorCodes::bg_Red);
+    TESTCASE::assertEqual(base_image, result_image);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("CG::Image::fill_rect() matching");
 
-  //   test.runTest(base_image, []() {
-  //     CG_Image result(TEST_WIDTH, TEST_HEIGHT);
-  //     int wd = TEST_WIDTH / 5;
-  //     int x = TEST_WIDTH / 2 - wd;
-  //     int ht = TEST_WIDTH / 5;
-  //     int y = TEST_HEIGHT / 2 - ht;
-  //     result.fill_rect(x, y, wd, ht, ColorCodes::bg_Red);
-  //     return result;
-  //   });
-  // }
-  // {
-  //   TestCase test("CG_Image::fill_rect() Don't Match");
+    CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    base_image.fill_rect(3, 3, 2, 2, CG::Color::red);
 
-  //   CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
-  //   int wd = TEST_WIDTH / 3;
-  //   int x = TEST_WIDTH / 2 - wd;
-  //   int ht = TEST_WIDTH / 2;
-  //   int y = TEST_HEIGHT / 2 - ht;
-  //   base_image.fill_rect(x, y, wd, ht, ColorCodes::bg_Red);
+    CG::Image result_image(TEST_WIDTH, TEST_HEIGHT);
+    int wd = TEST_WIDTH / 5;
+    int x = TEST_WIDTH / 2 - wd;
+    int ht = TEST_HEIGHT / 5;
+    int y = TEST_HEIGHT / 2 - ht;
+    result_image.fill_rect(x, y, wd, ht, CG::Color::red);
 
-  //   test.runTest(base_image, []() {
-  //     CG_Image result(TEST_WIDTH, TEST_HEIGHT);
-  //     int wd = TEST_WIDTH / 5;
-  //     int x = TEST_WIDTH / 2 - wd;
-  //     int ht = TEST_WIDTH / 5;
-  //     int y = TEST_HEIGHT / 2 - ht;
-  //     result.fill_rect(x, y, wd, ht, ColorCodes::bg_Red);
-  //     return result;
-  //   });
-  //   test.expectFailure();
-  // }
+    TESTCASE::assertEqual(base_image, result_image);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("CG::Image::fill_rect() Don't Match");
 
-  // if (TestCase::s_passed == TestCase::s_total) {
-  //   std::cout << ColorCodes::fg_Green;
-  // } else {
-  //   std::cout << ColorCodes::fg_Red;
-  // }
-  // std::cout << TestCase::s_passed << " out of " << TestCase::s_total
-  //           << " PASSED!\n";
-  // std::cout << ColorCodes::Reset;
-  
+    CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    base_image.fill_rect(3, 3, 2, 2, CG::Color::red);
+
+    CG::Image result_image(TEST_WIDTH, TEST_HEIGHT);
+    int wd = TEST_WIDTH / 2;
+    int x = TEST_WIDTH / 2 - wd;
+    int ht = TEST_WIDTH / 5;
+    int y = TEST_HEIGHT / 2 - ht;
+    result_image.fill_rect(x, y, wd, ht, CG::Color::red);
+
+    TESTCASE::assertNotEqual(base_image, result_image);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+
   TESTCASE::summarizeCases();
   return 0;
 }
