@@ -26,28 +26,27 @@ void TESTCASE::summarizeCases()
     if(test_results[ct] == true) {
       pass_tests++;
       std::cout << ansi_code::foreground(CG::Color::green);
-      passed_failed = "[PASSED]!";
+      passed_failed = "[PASSED]";
     } else {
       std::cout << ansi_code::foreground(CG::Color::red);
-      passed_failed = "[FAILED]!";
+      passed_failed = "[FAILED]";
     }
     
     std::cout << "TESTCASE " << std::to_string(ct + 1) << ": " << test_names[ct];
-    std::cout << std::setw(CONSOLE_WIDTH - passed_failed.size()) << std::right << passed_failed << "\n";
+    std::cout << std::setw(CONSOLE_WIDTH - test_names[ct].size() + passed_failed.size()) << std::right << passed_failed << "\n";
     if(test_reasons[ct].size() > 0) {
       std::cout << test_reasons[ct] << std::endl;
     }
-    std::string test_summary = std::to_string(pass_tests) + " / " + std::to_string(total_tests);
-
-    std::cout << (pass_tests == total_tests) ? 
-      ansi_code::foreground(CG::Color::green) : ansi_code::foreground(CG::Color::red);
-    
-    std::cout << "\nTOTAL TESTS PASSED:";
-    std::cout << std::setw(CONSOLE_WIDTH - test_summary.size()) << std::right;
-    std::cout << test_summary << std::endl;
-    std::cout << ansi_code::reset;
-
   }
+  std::string summary_output = std::to_string(pass_tests) + "/" + std::to_string(total_tests);
+
+  std::cout << ansi_code::foreground(CG::Color::darkgrey);
+  
+  std::cout << "\nTOTAL TESTS PASSED:\n";
+  std::cout << std::setw(CONSOLE_WIDTH) << std::right;
+  std::cout << pass_tests << " / " << total_tests << std::endl;
+  std::cout << ansi_code::reset;
+
 }
 
 bool TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)

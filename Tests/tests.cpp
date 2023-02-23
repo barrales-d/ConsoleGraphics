@@ -5,24 +5,16 @@
 #include "./TestCase.hpp"
 
 int main() {
-  {
+  { 
     TESTCASE::createTest("Constructor");
     CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
-
     TESTCASE::assertEqual(base_image, CG::Image(TEST_WIDTH, TEST_HEIGHT));
-    
-    TESTCASE::summarizeCases();
   }
-  // {
-  //   TestCase test("Constructor with wrong height");
-
-  //   CG_Image base_image(TEST_WIDTH, TEST_HEIGHT);
-  //   test.runTest(base_image, []() {
-  //     CG_Image result(TEST_WIDTH, 5);
-  //     return result;
-  //   });
-  //   test.expectFailure();
-  // }
+  { 
+    TESTCASE::createTest("Constructor with wrong height");
+    CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
+    TESTCASE::assertNotEqual(base_image, CG::Image(TEST_WIDTH, 5));
+  }
   // {
   //   TestCase test("Constructor with wrong width");
 
@@ -106,5 +98,7 @@ int main() {
   // std::cout << TestCase::s_passed << " out of " << TestCase::s_total
   //           << " PASSED!\n";
   // std::cout << ColorCodes::Reset;
+  
+  TESTCASE::summarizeCases();
   return 0;
 }
