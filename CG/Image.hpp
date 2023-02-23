@@ -33,9 +33,9 @@ namespace CG {
     Image(const int width, const int height);
     ~Image(); 
     // | returns screen width = m_width * WIDTH_SCALER | pixel width = get_width() / WIDTH_SCALER |
-    int get_width() { return m_width * WIDTH_SCALER; }
-    // | reutnr screen height = m_height + 1(because of '\n' in CG::Image::show()) | pixel height = get_height() - 1 |
-    int get_height() { return m_height + 1; }
+    int get_width() const { return m_width * WIDTH_SCALER; }
+    // | returns screen height = m_height + 1(because of '\n' in CG::Image::show()) | pixel height = get_height() - 1 |
+    int get_height() const { return m_height + 1; }
 
     void fill_background(const Color &bg_color = Color::darkgrey);
 
@@ -49,9 +49,10 @@ namespace CG {
     void draw_line(int x1, int y1, int x2, int y2, const Color &bg_color);
     void draw_text(int x, int y, const std::string &text, const Color &fg_color);
     void draw_text(int x, int y, const std::string &text, const Color &fg_color, const Color &bg_color);
-  // 
+  
     static Image combine_image(const Image& img1, const Image& img2, const Color &sep = Color::darkgrey);
-    friend class TestCase;
+    // friend class TestCase;
+    friend class TESTCASE;
   };//  Image
 }
 #endif //  __Image_HPP__
