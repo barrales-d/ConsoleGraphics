@@ -6,8 +6,6 @@
 
 #include <vector>
 
-#define TEST_WIDTH 10
-#define TEST_HEIGHT 10
 #define CONSOLE_WIDTH 80
 
 //  Testcase static class for CG::Image
@@ -15,6 +13,9 @@
   private:
     TESTCASE() {}
   public:
+    static int width;
+    static int height;
+
     static int total_tests;
     static int pass_tests;
 

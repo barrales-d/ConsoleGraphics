@@ -4,6 +4,10 @@
 
 #include ".\TestCase.hpp"
 
+
+int TESTCASE::width = 10;
+int TESTCASE::height = 10;
+
 int TESTCASE::total_tests = 0;
 int TESTCASE::pass_tests  = 0;
 std::vector<std::string> TESTCASE::test_names   = std::vector<std::string>();
