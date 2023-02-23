@@ -10,28 +10,10 @@
 #define TEST_HEIGHT 10
 #define CONSOLE_WIDTH 80
 
-// class TestCase {
-// private:
-//   std::string m_name;
-//   std::string m_reason;
-//   bool m_result;
-//   int m_current;
-// public:
-//   static int s_total;
-//   static int s_passed;
-//   TestCase(const std::string& name);
-//   bool runTest(const CG_Image& base, CG_Image (*callback)(void));
-//   ~TestCase();
-//   void expectFailure();
-
-// };
-
 //  Testcase static class for CG::Image
   class TESTCASE {
   private:
     TESTCASE() {}
-    static void appendTest(const std::string& name);
-
   public:
     static int total_tests;
     static int pass_tests;
