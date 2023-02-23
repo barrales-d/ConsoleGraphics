@@ -25,7 +25,8 @@
 //   void expectFailure();
 
 // };
-namespace CG {
+
+//  Testcase static class for CG::Image
   class TESTCASE {
   private:
     TESTCASE() {}
@@ -46,5 +47,5 @@ namespace CG {
     static void summarizeCases();
 
   };
-}
+
 #endif // __TEST_CASE_HPP__

@@ -6,14 +6,12 @@
 
 int main() {
   {
-    CG::TESTCASE::createTest("Constructor");
+    TESTCASE::createTest("Constructor");
     CG::Image base_image(TEST_WIDTH, TEST_HEIGHT);
-    CG::Image new_image(TEST_WIDTH, TEST_HEIGHT);
 
-    CG::TESTCASE::assertEqual(base_image, new_image);
+    TESTCASE::assertEqual(base_image, CG::Image(TEST_WIDTH, TEST_HEIGHT));
     
-    CG::TESTCASE::summarizeCases();
-
+    TESTCASE::summarizeCases();
   }
   // {
   //   TestCase test("Constructor with wrong height");

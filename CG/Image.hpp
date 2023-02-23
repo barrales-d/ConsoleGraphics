@@ -6,6 +6,10 @@
 #define DEFAULT_FILL "  "
 #define WIDTH_SCALER 2 
 
+//  forward delaration to not have testcase in CG namespace
+class TESTCASE;
+
+
 namespace CG {
 
   class Pixel {
@@ -52,7 +56,7 @@ namespace CG {
   
     static Image combine_image(const Image& img1, const Image& img2, const Color &sep = Color::darkgrey);
     // friend class TestCase;
-    friend class TESTCASE;
+    friend TESTCASE;
   };//  Image
 }
 #endif //  __Image_HPP__

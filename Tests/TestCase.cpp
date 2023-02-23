@@ -68,28 +68,26 @@
 // }
 // void TestCase::expectFailure() { m_result = !m_result; }
 
-int CG::TESTCASE::total_tests = 0;
-int CG::TESTCASE::pass_tests  = 0;
-std::vector<std::string> CG::TESTCASE::test_names   = std::vector<std::string>();
-std::vector<bool>        CG::TESTCASE::test_results = std::vector<bool>();
-std::vector<std::string> CG::TESTCASE::test_reasons = std::vector<std::string>();
+int TESTCASE::total_tests = 0;
+int TESTCASE::pass_tests  = 0;
+std::vector<std::string> TESTCASE::test_names   = std::vector<std::string>();
+std::vector<bool>        TESTCASE::test_results = std::vector<bool>();
+std::vector<std::string> TESTCASE::test_reasons = std::vector<std::string>();
 
-void CG::TESTCASE::appendTest(const std::string& name)
+void TESTCASE::appendTest(const std::string& name)
 {
   test_names.push_back(name);
   test_results.push_back(false);
   test_reasons.push_back("");
 }
 
-void CG::TESTCASE::createTest(const std::string& name)
+void TESTCASE::createTest(const std::string& name)
 {
   total_tests++;
-  CG::TESTCASE::appendTest(name);
-  // std::cout << ansi_code::foreground(CG::Color::darkgrey);
-  // std::cout << "TESTCASE " << total_tests << ": " << currentTestName() << "\n";
+  TESTCASE::appendTest(name);
 }
 
-void CG::TESTCASE::summarizeCases()
+void TESTCASE::summarizeCases()
 {
   std::string passed_failed;
   for(int ct = 0; ct < total_tests; ct++) {
@@ -108,13 +106,22 @@ void CG::TESTCASE::summarizeCases()
     if(test_reasons[ct].size() > 0) {
       std::cout << test_reasons[ct] << std::endl;
     }
+    std::string test_summary = std::to_string(pass_tests) + " / " + std::to_string(total_tests);
+
+    std::cout << (pass_tests == total_tests) ? 
+      ansi_code::foreground(CG::Color::green) : ansi_code::foreground(CG::Color::red);
+    
+    std::cout << "\nTOTAL TESTS PASSED:";
+    std::cout << std::setw(CONSOLE_WIDTH - test_summary.size()) << std::right;
+    std::cout << test_summary << std::endl;
     std::cout << ansi_code::reset;
+
   }
 }
 
-bool CG::TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)
+bool TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)
 {
-  bool result;
+  bool result = true;
 
   if (img1.m_height != img2.m_height) {
     test_reasons[total_tests - 1] += "|\t HEIGHT does not match!\n";
@@ -129,8 +136,8 @@ bool CG::TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)
 
   for (int y = 0; y < img1.m_height; y++) {
     for (int x = 0; x < img1.m_width; x++) {
-      const CG::Pixel *img1_pixel = &(img1.m_pixels[y * img1.m_width + x]);
-      const CG::Pixel *img2_pixel = &(img2.m_pixels[y * img2.m_width + x]);
+      const CG::Pixel img1_pixel = img1.m_pixels[y * img1.m_width + x];
+      const CG::Pixel img2_pixel = img2.m_pixels[y * img2.m_width + x];
       if (img1_pixel != img2_pixel) {
         test_reasons[total_tests - 1] += "|\t CG_PIXEL at (" + std::to_string(x) + ", " +
                     std::to_string(y) + ") does not match!\n";
@@ -141,9 +148,9 @@ bool CG::TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)
   return test_results[total_tests - 1] = result;
 }
 
-bool CG::TESTCASE::assertNotEqual(const CG::Image &img1, const CG::Image &img2)
+bool TESTCASE::assertNotEqual(const CG::Image &img1, const CG::Image &img2)
 {
-  bool r = CG::TESTCASE::assertEqual(img1, img2);
+  bool r = assertEqual(img1, img2);
   test_reasons[total_tests - 1] = "";
   return test_results[total_tests - 1] = !r; 
 }
