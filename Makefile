@@ -2,26 +2,32 @@
 CC = g++ #	clang++
 CFLAGS = -g -std=c++17 -Wno-everything -Werror -Wall -pedantic
 SRC = ./CG/*.cpp
-OBJS = Color.o Animation.o Image.o
-EXAM_T = examples
-TEST_T = tests
+LINK_CG = Color.o Image.o Animation.o
+TARGET_E = examples
+TARGET_T = tests
+TARGET_A = animations
 
-REBUILDABLES = $(EXAM_T) $(TEST_T) $(OBJS)
+REBUILDABLES = $(TARGET_E) $(TARGET_T) $(TARGET_A) $(LINK_CG)
 
-all: $(EXAM_T) $(TEST_T)
+all: $(TARGET_E) $(TARGET_T) $(TARGET_A)
 
-# dependencies
-$(EXAM_T): $(EXAM_T).cpp
-$(TEST_T): ./Tests/TestCase.cpp ./Tests/$(TEST_T).cpp
+# dependencies for rebuilding when edits are made
+$(TARGET_E): $(TARGET_E).cpp
+$(TARGET_T): ./Tests/TestCase.cpp ./Tests/$(TARGET_T).cpp
+$(TARGET_E): ./CG/Animations/$(TARGET_A).cpp
+
 
 #	build commands
-$(EXAM_T): $(OBJS) 
-	$(CC) $(CFLAGS) examples.cpp -o $(EXAM_T) $(OBJS)
+$(TARGET_E): $(LINK_CG) 
+	$(CC) $(CFLAGS) examples.cpp -o $(TARGET_E) $(LINK_CG)
 
-$(TEST_T): $(OBJS)
-	$(CC) $(CFLAGS) ./Tests/TestCase.cpp ./Tests/tests.cpp -o $(TEST_T) $(OBJS)
+$(TARGET_T): $(LINK_CG)
+	$(CC) $(CFLAGS) ./Tests/TestCase.cpp ./Tests/tests.cpp -o $(TARGET_T) $(LINK_CG)
 
-$(OBJS):
+$(TARGET_A): $(LINK_CG)
+	$(CC) $(CFLAGS) ./CG/Animations/$(TARGET_A).cpp -o $(TARGET_A) $(LINK_CG)
+
+$(LINK_CG):
 	$(CC) $(CFLAGS) -c $(SRC)
 
 clean:

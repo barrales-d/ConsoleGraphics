@@ -8,7 +8,7 @@
 #include <iostream>
 
 namespace CG {
-    class Animation : public CG::Image {
+    class Animation : protected CG::Image {
     public: 
         Animation(int width, int height) : CG::Image(width, height) {}
         virtual ~Animation() { this->CG::Image::~Image(); }
