@@ -34,7 +34,10 @@ namespace CG {
     void swap(int &a, int &b);
     void sort_by_x(int &x1, int &y1, int &x2, int &y2, int &x3, int &y3);
   public:
+    Image();
     Image(const int width, const int height);
+    Image(const CG::Image& img);
+    Image operator=(const CG::Image& img);
     ~Image(); 
     // | returns screen width = m_width * WIDTH_SCALER | pixel width = get_width() / WIDTH_SCALER |
     int get_width() const { return m_width * WIDTH_SCALER; }
@@ -55,7 +58,6 @@ namespace CG {
     void draw_text(int x, int y, const std::string &text, const Color &fg_color, const Color &bg_color);
   
     static Image combine_image(const Image& img1, const Image& img2, const Color &sep = Color::darkgrey);
-    // friend class TestCase;
     friend TESTCASE;
   };//  Image
 }

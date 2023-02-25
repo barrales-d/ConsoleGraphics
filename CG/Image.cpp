@@ -14,12 +14,39 @@ bool CG::Pixel::operator!=(const CG::Pixel &rhs) const noexcept {
   return !(*this == rhs);
 }
 
+CG::Image::Image() {
+  this->m_width = 0;
+  this->m_height = 0;
+  this->m_pixels = nullptr;
+}
 CG::Image::Image(const int width, const int height) {
   this->m_width = width;
   this->m_height = height;
   this->m_pixels = new CG::Pixel[m_width * m_height];
 
   this->fill_background();
+}
+CG::Image::Image(const CG::Image& img) {
+  this->m_width  =  img.m_width;
+  this->m_height =  img.m_height;
+  this->m_pixels = new CG::Pixel[m_width * m_height];
+  for (int y = 0; y < m_height; y++) {
+    for (int x = 0; x < m_width; x++) {
+      this->m_pixels[y * m_width + x] = img.m_pixels[y * m_width + x]; 
+    }
+  }
+}
+
+CG::Image CG::Image::operator=(const CG::Image& img) {
+  this->m_width  =  img.m_width;
+  this->m_height =  img.m_height;
+  this->m_pixels = new CG::Pixel[m_width * m_height];
+  for (int y = 0; y < m_height; y++) {
+    for (int x = 0; x < m_width; x++) {
+      this->m_pixels[y * m_width + x] = img.m_pixels[y * m_width + x]; 
+    }
+  }
+  return *this;
 }
 
 CG::Image::~Image() { delete[] this->m_pixels; }

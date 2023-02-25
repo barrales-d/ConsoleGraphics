@@ -8,24 +8,25 @@ int main() {
   //  TODO: create TESTCASE::load_image and TESTCASE::save_image when I introduce stb::load/write_image
   //    use them to compare test images saved in png format 
   { 
-    TESTCASE::createTest("Constructor");
+    TESTCASE::createTest("Constructor and Copy Constructor");
     CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    CG::Image copied_image(base_image);
 
     TESTCASE::assertEqual(base_image, CG::Image(TESTCASE::width, TESTCASE::height));
+    TESTCASE::assertEqual(base_image, copied_image);
   }
 /////////////////////////////////////////////////////////////////////////////////////
   { 
     TESTCASE::createTest("Constructor with wrong height");
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    CG::Image height_image(TESTCASE::width, 5);
 
-    TESTCASE::assertNotEqual(base_image, CG::Image(TESTCASE::width, 5));
-  }
-/////////////////////////////////////////////////////////////////////////////////////
-  {
-    TESTCASE::createTest("Constructor with wrong width");
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    TESTCASE::assertAnyNotEqual<int>(height_image.get_height(), TESTCASE::height + 1);
+    TESTCASE::assertNotEqual(height_image, CG::Image(TESTCASE::width, TESTCASE::height));
 
-    TESTCASE::assertNotEqual(base_image, CG::Image(3, TESTCASE::height));
+    CG::Image width_image(3, TESTCASE::height);
+
+    TESTCASE::assertAnyNotEqual<int>(height_image.get_width(), TESTCASE::width * WIDTH_SCALER);
+    TESTCASE::assertNotEqual(width_image, CG::Image(TESTCASE::width, TESTCASE::height));
   }
 /////////////////////////////////////////////////////////////////////////////////////
   {
@@ -38,7 +39,21 @@ int main() {
   }
 /////////////////////////////////////////////////////////////////////////////////////
   {
-    TESTCASE::createTest("CG::Image::fill_background(CG::Color::blue)");
+    TESTCASE::createTest("get_width()");
+    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    
+    TESTCASE::assertAnyEqual<int>(base_image.get_width(), TESTCASE::width * WIDTH_SCALER);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("get_height()");
+    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    
+    TESTCASE::assertAnyEqual<int>(base_image.get_height(), TESTCASE::height + 1);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("fill_background(CG::Color::blue)");
 
     CG::Image base_image(TESTCASE::width, TESTCASE::height);
     base_image.fill_background(CG::Color::blue);
@@ -50,7 +65,7 @@ int main() {
   }
 /////////////////////////////////////////////////////////////////////////////////////
   {
-    TESTCASE::createTest("fill_rect() matching");
+    TESTCASE::createTest("fill_rect() Match");
 
     CG::Image base_image(TESTCASE::width, TESTCASE::height);
     int wd = TESTCASE::width / 5;
@@ -107,9 +122,26 @@ int main() {
     base_image.fill_triangle(x1, y1,x2, y2, x3, y3, CG::Color::green);
 
     CG::Image result_image(TESTCASE::width, TESTCASE::height);
-    result_image.fill_triangle(5, 0, 1, 3, 7, 3, CG::Color::green);
+    result_image.fill_triangle(5, 0, 1, 2, 7, 2, CG::Color::green);
 
     TESTCASE::assertEqual(base_image, result_image);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("draw_line()");
+    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    CG::Image result_image(TESTCASE::width, TESTCASE::height);
+    base_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
+    base_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);
+
+    base_image.draw_line(0, 0, TESTCASE::width, TESTCASE::height, CG::Color::lightyellow);
+
+    result_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
+    result_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);    
+    result_image.draw_line(0, 0, TESTCASE::width, TESTCASE::height, CG::Color::lightyellow);
+
+    TESTCASE::assertEqual(base_image, result_image);
+
   }
 /////////////////////////////////////////////////////////////////////////////////////
 
