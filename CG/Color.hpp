@@ -4,8 +4,8 @@
 #include <string>
 
 namespace CG {
-   //  RGB color Aplha channel ignored
-   // 0xAABBGGRR
+   //  RGB color Alpha channel ignored
+   // 0xBBGGRR
    struct Color {
       uint32_t color;
 
