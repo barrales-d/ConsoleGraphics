@@ -11,9 +11,9 @@ namespace CG {
       Color(const uint32_t color = 0) : color(color) {}
       Color(const uint8_t r, const uint8_t g, const  uint8_t b);
 
-      const uint8_t r() const;
-      const uint8_t g() const;
-      const uint8_t b() const;
+      const int r() const;
+      const int g() const;
+      const int b() const;
 
       bool operator==(const Color& rhs) const noexcept; 
       bool operator!=(const Color& rhs) const noexcept; 

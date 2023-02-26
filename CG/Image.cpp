@@ -243,3 +243,11 @@ CG::Image CG::Image::combine_image(const CG::Image &img1, const CG::Image &img2,
   }
   return result;
 }
+
+void CG::Image::get_uint32_pixels(uint32_t* pixels) const {
+  for (int y = 0; y < m_height; y++) {
+    for (int x = 0; x < m_width; x++) {
+      pixels[y * m_width + x] = m_pixels[y * m_width + x].bg_color.color;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # variables
 CC = g++ #	clang++
-CFLAGS = -g -std=c++17 -Wno-everything -Werror -Wall -pedantic
+CFLAGS = -g -std=c++17 -Werror -Wall -pedantic
 SRC = ./CG/*.cpp
 LINK_CG = Color.o Image.o Animation.o
 TARGET_E = examples

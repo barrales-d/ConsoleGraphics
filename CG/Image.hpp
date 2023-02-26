@@ -39,10 +39,13 @@ namespace CG {
     Image(const CG::Image& img);
     Image operator=(const CG::Image& img);
     ~Image(); 
-    // | returns screen width = m_width * WIDTH_SCALER | pixel width = get_width() / WIDTH_SCALER |
+    //  | returns screen width = m_width * WIDTH_SCALER | pixel width = get_width() / WIDTH_SCALER |
     int get_width() const { return m_width * WIDTH_SCALER; }
-    // | returns screen height = m_height + 1(because of '\n' in CG::Image::show()) | pixel height = get_height() - 1 |
+    //  | returns screen height = m_height + 1(because of '\n' in CG::Image::show()) | pixel height = get_height() - 1 |
     int get_height() const { return m_height + 1; }
+    //  | you pass in the pointer where you want to store the pixels; you call new uint32_t[] outside this function
+    //  | you deal with deleting the pixels when you want
+    void get_uint32_pixels(uint32_t* pixels) const; 
 
     void fill_background(const Color &bg_color = Color::darkgrey);
 

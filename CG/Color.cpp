@@ -5,9 +5,9 @@ CG::Color::Color(const uint8_t r, const uint8_t g, const uint8_t b) {
     color = ((r << 8 * 2) | (g << 8 * 1) | (b << 8 * 0));
 }
 
-const uint8_t CG::Color::r() const { return   ((color >> 8 * 2) & 0xFF); }
-const uint8_t CG::Color::g() const { return   ((color >> 8 * 1) & 0xFF); }
-const uint8_t CG::Color::b() const { return   ((color >> 8 * 0) & 0xFF);}
+const int CG::Color::r() const { return   ((color >> 8 * 2) & 0xFF); }
+const int CG::Color::g() const { return   ((color >> 8 * 1) & 0xFF); }
+const int CG::Color::b() const { return   ((color >> 8 * 0) & 0xFF);}
 
 bool CG::Color::operator==(const CG::Color& rhs) const noexcept {
     return (color == rhs.color);

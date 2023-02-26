@@ -17,7 +17,11 @@ class Rainbow : public CG::Animation {
     uint8_t b;
     float global_time;
 public:
-    Rainbow(int width, int height) :  r(0), g(0), b(0), CG::Animation(width, height) {}
+    Rainbow(int width, int height) : CG::Animation(width, height) {
+        r = 0;
+        g = 0;
+        b = 0;
+    }
 
     void on_update(float dt);
     void on_render();
