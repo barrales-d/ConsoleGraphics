@@ -4,11 +4,12 @@
 #include <string>
 
 namespace CG {
-   //  RGB color
+   //  RGB color Aplha channel ignored
+   // 0xAABBGGRR
    struct Color {
       uint32_t color;
 
-      Color(const uint32_t color = 0) : color(color) {}
+      Color(const uint32_t color = 0) : color((0xFF000000|color)) {}
       Color(const uint8_t r, const uint8_t g, const  uint8_t b);
 
       const int r() const;
