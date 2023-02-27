@@ -22,6 +22,7 @@ void checker() {
     }
   }
   image.show();
+  image.save_image("./ExampleImages/checkered.png");
 }
 void triangle() {
   CG::Image image(WIDTH, HEIGHT);
@@ -136,11 +137,11 @@ void gradiant() {
 
 int main() {
   checker();
-  circles();
-  triangle();
-  all();
-  color_palette();
-  point();
-  gradiant();
+  // circles();
+  // triangle();
+  // all();
+  // color_palette();
+  // point();
+  // gradiant();
   return 0;
 }

@@ -3,6 +3,9 @@
 #include <iostream>
 #include <unistd.h>
 
+#define STB_IMAGE_WRITE_IMPLEMENTATION
+#include "../Others/stb_image_write.h"
+
 bool CG::Pixel::operator==(const CG::Pixel &rhs) const noexcept {
   if (this->bg_color == rhs.bg_color && this->fg_color == rhs.fg_color 
       && this->fill == rhs.fill) {
@@ -133,6 +136,16 @@ void CG::Image::fill_point(int x, int y, const CG::Color &bg_color) {
       this->m_pixels[y * m_width + x].bg_color = bg_color; 
     }
   }
+}
+int CG::Image::save_image(const std::string& file_name) {
+  uint32_t *pixels = new uint32_t[m_width * m_height];
+  this->get_uint32_pixels(pixels);
+
+  int err = stbi_write_png(file_name.c_str(), m_width, m_height, 4, pixels, m_width*sizeof(uint32_t));
+  if(err == 0) {
+    std::cout << "\nstbi_write_png() failed\n";
+  }
+  return err;
 }
 
 void CG::Image::fill_rect(int x, int y, int wd, int ht,

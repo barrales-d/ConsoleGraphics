@@ -187,6 +187,15 @@ int main() {
 
   }
 /////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("Save image to png");
+    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    base_image.fill_background(CG::Color::black);
+    base_image.fill_rect(TESTCASE::width / 2 - 2, TESTCASE::height / 2 - 2, 4, 4, CG::Color::red);
+    int err = base_image.save_image("./Tests/Images/red_square.png");
+    TESTCASE::assertAnyNotEqual<int>(err, 0);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
 
   TESTCASE::summarizeCases();
   return 0;

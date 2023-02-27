@@ -52,6 +52,7 @@ namespace CG {
     void fill_background(const Color &bg_color = Color::darkgrey);
 
     void show();
+    int save_image(const std::string& file_name);
 
     void fill_point(int x, int y, const Color &bg_color);
     void fill_rect(int x, int y, int wd, int ht, const Color &bg_color);
