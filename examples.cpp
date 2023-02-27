@@ -9,7 +9,7 @@ using CG::Color;
 
 void checker() {
   CG::Image image(WIDTH, HEIGHT);
-  Color red(0xFF0000);
+  Color red(0x0000FF);
   image.fill_background(red);
   int width = 5;
   int height = 5;

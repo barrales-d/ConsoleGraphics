@@ -16,6 +16,36 @@ int main() {
     TESTCASE::assertEqual(base_image, copied_image);
   }
 /////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("CG::Image CG::Color* Constructor");
+    const int wd = 2;
+    const int ht = 2;
+    CG::Image base_image(wd, ht);
+    base_image.fill_background(CG::Color::red);
+    
+    CG::Color pixels[wd * ht] = {
+      CG::Color(0x0000FF), CG::Color(0x0000FF),
+      CG::Color(0x0000FF), CG::Color(0x0000FF)
+    };
+
+    TESTCASE::assertEqual(base_image, CG::Image(pixels, wd, ht));
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("CG::Image uint32_t* Constructor");
+    const int wd = 2;
+    const int ht = 2;
+    CG::Image base_image(wd, ht);
+    base_image.fill_background(CG::Color::blue);
+    
+    uint32_t pixels[wd * ht] = {
+      0xFF0000, 0xFF0000,
+      0xFF0000, 0xFF0000
+    };
+
+    TESTCASE::assertEqual(base_image, CG::Image(pixels, wd, ht));
+  }
+/////////////////////////////////////////////////////////////////////////////////////
   { 
     TESTCASE::createTest("Constructor with wrong height");
     CG::Image height_image(TESTCASE::width, 5);
@@ -50,6 +80,19 @@ int main() {
     CG::Image base_image(TESTCASE::width, TESTCASE::height);
     
     TESTCASE::assertAnyEqual<int>(base_image.get_height(), TESTCASE::height + 1);
+  }
+/////////////////////////////////////////////////////////////////////////////////////
+  {
+    TESTCASE::createTest("get_uint32_pixels()");
+    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    base_image.fill_background(CG::Color::green);
+    uint32_t *pixels = new uint32_t[TESTCASE::width * TESTCASE::height];
+    base_image.get_uint32_pixels(pixels);
+
+    TESTCASE::assertAnyEqual<uint32_t>(pixels[0], 0xFF00FF00);
+    TESTCASE::assertAnyEqual<uint32_t>(pixels[TESTCASE::width], 0xFF00FF00);
+    TESTCASE::assertAnyEqual<uint32_t>(pixels[TESTCASE::width*TESTCASE::height - 2], 0xFF00FF00);
+    delete [] pixels;
   }
 /////////////////////////////////////////////////////////////////////////////////////
   {

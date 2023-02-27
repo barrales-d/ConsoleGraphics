@@ -37,6 +37,8 @@ namespace CG {
     Image();
     Image(const int width, const int height);
     Image(const CG::Image& img);
+    Image(Color *pixels, const int width, const int height);
+    Image(const uint32_t *pixels, const int width, const int height);
     Image operator=(const CG::Image& img);
     ~Image(); 
     //  | returns screen width = m_width * WIDTH_SCALER | pixel width = get_width() / WIDTH_SCALER |

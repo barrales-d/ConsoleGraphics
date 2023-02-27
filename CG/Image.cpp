@@ -36,6 +36,34 @@ CG::Image::Image(const CG::Image& img) {
     }
   }
 }
+CG::Image::Image(CG::Color *pixels, const int width, const int height) {
+  this->m_width  =  width;
+  this->m_height =  height;
+  this->m_pixels = new CG::Pixel[m_width * m_height];
+  for (int y = 0; y < m_height; y++) {
+    for (int x = 0; x < m_width; x++) {
+      CG::Pixel p;
+      p.fill = DEFAULT_FILL;
+      p.bg_color = pixels[y * m_width + x];
+      p.fg_color = CG::Color::white;
+      this->m_pixels[y * m_width + x] = p; 
+    }
+  }
+}
+CG::Image::Image(const uint32_t *pixels, const int width, const int height) {
+  this->m_width  =  width;
+  this->m_height =  height;
+  this->m_pixels = new CG::Pixel[m_width * m_height];
+  for (int y = 0; y < m_height; y++) {
+    for (int x = 0; x < m_width; x++) {
+      CG::Pixel p;
+      p.fill = DEFAULT_FILL;
+      p.bg_color = CG::Color(pixels[y * m_width + x]);
+      p.fg_color = CG::Color::white;
+      this->m_pixels[y * m_width + x] = p; 
+    }
+  }
+}
 
 CG::Image CG::Image::operator=(const CG::Image& img) {
   this->m_width  =  img.m_width;
