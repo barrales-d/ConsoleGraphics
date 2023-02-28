@@ -49,3 +49,6 @@ $ ./test
 
 ### `circles();` 
 ![bulls-eye](./ExampleImages/circles.png)
+
+### `gradient();` 
+![gradient](./ExampleImages/gradient.png)

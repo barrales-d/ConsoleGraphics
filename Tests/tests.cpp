@@ -4,9 +4,14 @@
 #include "../CG/Color.hpp"
 #include "./TestCase.hpp"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "../Others/stb_image.h"
+
 int main() {
   //  TODO: create TESTCASE::load_image and TESTCASE::save_image when I introduce stb::load/write_image
   //    use them to compare test images saved in png format 
+  bool record = false;
+  uint32_t *png_pixels = nullptr;
   { 
     TESTCASE::createTest("Constructor and Copy Constructor");
     CG::Image base_image(TESTCASE::width, TESTCASE::height);
@@ -62,8 +67,22 @@ int main() {
   {
     TESTCASE::createTest("Constructor default fill background");
 
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
-    base_image.fill_background(CG::Color::darkgrey);
+    std::string file_name = "./Tests/Images/fill_background_default.png";
+    int width = 0, height = 0, n = 0;
+    png_pixels = (uint32_t *)stbi_load(file_name.c_str(), &width, &height, &n, 0);
+    
+    CG::Image base_image;
+
+    //when recording use functions to save a potential new image
+    if(png_pixels == nullptr || record) {
+        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+        base_image.fill_background(CG::Color::darkgrey);
+    } else {
+        base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
+    }
+
+    if(record)
+      base_image.save_image(file_name);
 
     TESTCASE::assertEqual(base_image,CG::Image(TESTCASE::width, TESTCASE::height));
   }
@@ -98,9 +117,22 @@ int main() {
   {
     TESTCASE::createTest("fill_background(CG::Color::blue)");
 
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
-    base_image.fill_background(CG::Color::blue);
+    std::string file_name = "./Tests/Images/fill_background_blue.png";
+    int width = 0, height = 0, n = 0;
+    png_pixels = (uint32_t *)stbi_load(file_name.c_str(), &width, &height, &n, 0);
+    
+    CG::Image base_image;
 
+    if(png_pixels == nullptr || record) {
+        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+        base_image.fill_background(CG::Color::blue);
+    } else {
+        base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
+    }
+
+    if(record)
+      base_image.save_image(file_name);
+    
     CG::Image result_image(TESTCASE::width, TESTCASE::height);
     result_image.fill_background(CG::Color::blue);
 
@@ -110,16 +142,33 @@ int main() {
   {
     TESTCASE::createTest("fill_rect() Match");
 
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    std::string file_name = "./Tests/Images/fill_rect.png";
+    int width = 0, height = 0, n = 0;
+    png_pixels = (uint32_t *)stbi_load(file_name.c_str(), &width, &height, &n, 0);
+    
+    CG::Image base_image;
+
+    if(png_pixels == nullptr || record) {
+        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+        int wd = TESTCASE::width / 5;
+        int x = TESTCASE::width / 2 - wd;
+        int ht = TESTCASE::height / 5;
+        int y = TESTCASE::height / 2 - ht;
+        base_image.fill_rect(x, y, wd, ht, CG::Color::red);
+    } else {
+        base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
+    }
+
+    if(record)
+      base_image.save_image(file_name);
+    
+    CG::Image result_image(TESTCASE::width, TESTCASE::height);
     int wd = TESTCASE::width / 5;
     int x = TESTCASE::width / 2 - wd;
     int ht = TESTCASE::height / 5;
     int y = TESTCASE::height / 2 - ht;
-    base_image.fill_rect(x, y, wd, ht, CG::Color::red);
-
-    CG::Image result_image(TESTCASE::width, TESTCASE::height);
-    result_image.fill_rect(3, 3, 2, 2, CG::Color::red);
-
+    result_image.fill_rect(x, y, wd, ht, CG::Color::red);
+    
     TESTCASE::assertEqual(base_image, result_image);
   }
 /////////////////////////////////////////////////////////////////////////////////////
@@ -143,14 +192,30 @@ int main() {
   {
     TESTCASE::createTest("fill_circle()");
     
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    std::string file_name = "./Tests/Images/fill_circle.png";
+    int width = 0, height = 0, n = 0;
+    png_pixels = (uint32_t *)stbi_load(file_name.c_str(), &width, &height, &n, 0);
+    
+    CG::Image base_image;
+
+    if(png_pixels == nullptr || record) {
+        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+        int x = TESTCASE::width / 2;
+        int y = TESTCASE::height / 2;
+        int r = TESTCASE::width / 3;
+        base_image.fill_circle(x, y, r, CG::Color::cyan);
+    } else {
+        base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
+    }
+
+    if(record)
+      base_image.save_image(file_name);
+    
+    CG::Image result_image(TESTCASE::width, TESTCASE::height);
     int x = TESTCASE::width / 2;
     int y = TESTCASE::height / 2;
     int r = TESTCASE::width / 3;
-    base_image.fill_circle(x, y, r, CG::Color::cyan);
-
-    CG::Image result_image(TESTCASE::width, TESTCASE::height);
-    result_image.fill_circle(5, 5, 3, CG::Color::cyan);
+    result_image.fill_circle(x, y, r, CG::Color::cyan);
 
     TESTCASE::assertEqual(base_image, result_image);   
   }
@@ -158,26 +223,58 @@ int main() {
   {
     TESTCASE::createTest("fill_triangle()");
 
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
+    std::string file_name = "./Tests/Images/fill_triangle.png";
+    int width = 0, height = 0, n = 0;
+    png_pixels = (uint32_t *)stbi_load(file_name.c_str(), &width, &height, &n, 0);
+    
+    CG::Image base_image;
+
+    if(png_pixels == nullptr || record) {
+        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+        CG::Image base_image(TESTCASE::width, TESTCASE::height);
+        int x1 = TESTCASE::width / 2, y1 = 0;
+        int x2 = TESTCASE::width / 7, y2 = TESTCASE::height / 4;
+        int x3 = TESTCASE::width - 3, y3 = TESTCASE::height / 4;
+        base_image.fill_triangle(x1, y1,x2, y2, x3, y3, CG::Color::green);
+    } else {
+        base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
+    }
+
+    if(record)
+      base_image.save_image(file_name);
+
+    CG::Image result_image(TESTCASE::width, TESTCASE::height);
     int x1 = TESTCASE::width / 2, y1 = 0;
     int x2 = TESTCASE::width / 7, y2 = TESTCASE::height / 4;
     int x3 = TESTCASE::width - 3, y3 = TESTCASE::height / 4;
-    base_image.fill_triangle(x1, y1,x2, y2, x3, y3, CG::Color::green);
-
-    CG::Image result_image(TESTCASE::width, TESTCASE::height);
-    result_image.fill_triangle(5, 0, 1, 2, 7, 2, CG::Color::green);
+    result_image.fill_triangle(x1, y1,x2, y2, x3, y3, CG::Color::green);
 
     TESTCASE::assertEqual(base_image, result_image);
   }
 /////////////////////////////////////////////////////////////////////////////////////
   {
     TESTCASE::createTest("draw_line()");
-    CG::Image base_image(TESTCASE::width, TESTCASE::height);
-    CG::Image result_image(TESTCASE::width, TESTCASE::height);
-    base_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
-    base_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);
 
-    base_image.draw_line(0, 0, TESTCASE::width, TESTCASE::height, CG::Color::lightyellow);
+    std::string file_name = "./Tests/Images/draw_line.png";
+    int width = 0, height = 0, n = 0;
+    png_pixels = (uint32_t *)stbi_load(file_name.c_str(), &width, &height, &n, 0);
+    
+    CG::Image base_image;
+
+    if(png_pixels == nullptr || record) {
+        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+        CG::Image base_image(TESTCASE::width, TESTCASE::height);
+        base_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
+        base_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);
+        base_image.draw_line(0, 0, TESTCASE::width, TESTCASE::height, CG::Color::lightyellow);
+    } else {
+        base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
+    }
+
+    if(record)
+      base_image.save_image(file_name);
+
+    CG::Image result_image(TESTCASE::width, TESTCASE::height);
 
     result_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
     result_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);    
@@ -196,7 +293,7 @@ int main() {
     TESTCASE::assertAnyNotEqual<int>(err, 0);
   }
 /////////////////////////////////////////////////////////////////////////////////////
-
+  delete [] png_pixels;
   TESTCASE::summarizeCases();
   return 0;
 }

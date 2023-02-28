@@ -2,8 +2,8 @@
 #include "./CG/Color.hpp"
 #include <iostream>
 
-#define WIDTH 25
-#define HEIGHT 25
+#define WIDTH 32
+#define HEIGHT 32
 
 using CG::Color;
 
@@ -22,7 +22,7 @@ void checker() {
     }
   }
   image.show();
-  image.save_image("./ExampleImages/checkered.png");
+  // image.save_image("./ExampleImages/checkered.png");
 }
 void triangle() {
   CG::Image image(WIDTH, HEIGHT);
@@ -33,6 +33,8 @@ void triangle() {
   image.fill_triangle(x3, y3, x2, y3, x2, y2, Color::blue);
   image.fill_triangle(x2 - 7, y1, x2 + 7, y1 - 10, x2, y2, Color::green);
   image.show();
+  // image.save_image("./ExampleImages/triangle.png");
+
 }
 
 void all() {
@@ -47,6 +49,8 @@ void all() {
   image.draw_line(x1, y2, x3, y1, Color::magenta);
   image.fill_triangle(x1, y4, x2, y2, x4, y4, Color::green);
   image.show();
+  // image.save_image("./ExampleImages/all.png");
+
 }
 void circles() {
   CG::Image r_circle(WIDTH, HEIGHT);
@@ -77,7 +81,9 @@ void circles() {
     blue += r * 3 / 2;
   }
   CG::Image image = CG::Image::combine_image(r_circle, g_circle);
-  CG::Image::combine_image(image, b_circle).show();
+  CG::Image final = CG::Image::combine_image(image, b_circle);
+  final.show();
+  // final.save_image("./ExampleImages/circles.png");
 }
 
 void insert_text(const std::string &text) {
@@ -91,6 +97,7 @@ void insert_text(const std::string &text) {
   image.draw_text(x, y, text, Color::blue);
   image.draw_text(x, y + 1, text, Color::blue, Color::black);
   image.show();
+
 }
 
 void color_palette() {
@@ -104,6 +111,8 @@ void color_palette() {
     image.draw_text(0, y, text, Color::colors[y]);
   }
   image.show();
+  // image.save_image("./ExampleImages/color_palatte.png");
+
 }
 void point() {
   CG::Image image(WIDTH, HEIGHT);
@@ -114,8 +123,8 @@ void point() {
   image.show();
 }
 
-void gradiant() {
-  int width = 150;
+void gradient() {
+  int width = 128;
   int height = width / 2; 
   CG::Image image(width, height);
   for(uint8_t y = 0; y < width; y++) {
@@ -124,6 +133,8 @@ void gradiant() {
     }
   }
   image.show();
+  // image.save_image("./ExampleImages/gradient.png");
+
 }
 
 /* TODOs
@@ -137,11 +148,11 @@ void gradiant() {
 
 int main() {
   checker();
-  // circles();
-  // triangle();
-  // all();
-  // color_palette();
-  // point();
-  // gradiant();
+  circles();
+  triangle();
+  all();
+  color_palette();
+  point();
+  gradient();
   return 0;
 }
