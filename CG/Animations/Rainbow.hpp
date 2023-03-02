@@ -1,9 +1,9 @@
 #ifndef __COLOR_ANIMATION_HPP__
 #define __COLOR_ANIMATION_HPP__
 
-#include "..\Color.hpp"
-#include "..\Image.hpp"
-#include "..\Animation.hpp"
+#include "../Color.hpp"
+#include "../Image.hpp"
+#include "../Animation.hpp"
 
 #include <cmath>
 

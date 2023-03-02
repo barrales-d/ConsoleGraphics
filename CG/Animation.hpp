@@ -1,7 +1,7 @@
 #ifndef __CG_ANIMATION_HPP__
 #define __CG_ANIMATION_HPP__
 
-#include ".\Image.hpp"
+#include "./Image.hpp"
 
 #include <unistd.h>
 #include <chrono>

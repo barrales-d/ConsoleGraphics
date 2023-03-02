@@ -15,6 +15,7 @@ all: $(TARGET_E) $(TARGET_T) $(TARGET_A)
 $(TARGET_E): $(TARGET_E).cpp
 $(TARGET_T): ./Tests/TestCase.cpp ./Tests/$(TARGET_T).cpp
 $(TARGET_E): ./CG/Animations/$(TARGET_A).cpp
+$(LINK_CG) : ./CG/*.cpp ./CG/Animations/*.cpp
 
 
 #	build commands
