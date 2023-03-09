@@ -20,6 +20,7 @@ class TESTCASE {
 private:
   TESTCASE() {}
 public:
+  static bool print; 
   static int width;
   static int height;
 

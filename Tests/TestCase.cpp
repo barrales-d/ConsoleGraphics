@@ -10,8 +10,9 @@ int TESTCASE::height = 10;
 
 int TESTCASE::total_tests = 0;
 int TESTCASE::pass_tests  = 0;
+bool TESTCASE::print  = false;
 
-std::vector<Test> TESTCASE::tests   = std::vector<Test>();
+std::vector<Test> TESTCASE::tests = std::vector<Test>();
 
 void TESTCASE::createTest(const std::string& name)
 {
@@ -86,7 +87,7 @@ bool TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)
       }
     }
   }
-  if(result == false)
+  if(TESTCASE::print)
     tests[total_tests - 1].image = CG::Image::combine_image(img1, img2, CG::Color(0xFF12BB));
   else 
     tests[total_tests - 1].image = CG::Image(0, 0);

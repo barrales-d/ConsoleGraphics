@@ -7,11 +7,35 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Others/stb_image.h"
 
-int main() {
-  //  TODO: create TESTCASE::load_image and TESTCASE::save_image when I introduce stb::load/write_image
-  //    use them to compare test images saved in png format 
+void print_help();
+
+int main(int argc, char** argv) {
+  //  TODO: Allow command line to have test case names to run/update/print specific ones
   bool record = false;
   uint32_t *png_pixels = nullptr;
+  
+  TESTCASE::print = false;
+
+  if(argc < 2) 
+  {
+    std::cout << "ERROR: command not provided\n";
+    print_help();
+    return 1;
+  }
+    std::string command = argv[1];
+    if(command == "-r") {}
+    else if (command == "-u")
+    {
+      record = true;
+    }else if(command == "-p")
+    {
+      TESTCASE::print = true;
+    } else {
+      std::cout << "ERROR: unknown command\n";
+      print_help();
+      return 1;
+    }
+    
   { 
     TESTCASE::createTest("Constructor and Copy Constructor");
     CG::Image base_image(TESTCASE::width, TESTCASE::height);
@@ -73,16 +97,13 @@ int main() {
     
     CG::Image base_image;
 
-    //when recording use functions to save a potential new image
-    if(png_pixels == nullptr || record) {
-        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
-        base_image.fill_background(CG::Color::darkgrey);
+    if(record) {
+      base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+      base_image.fill_background(CG::Color::darkgrey);
+      base_image.save_image(file_name);
     } else {
         base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
     }
-
-    if(record)
-      base_image.save_image(file_name);
 
     TESTCASE::assertEqual(base_image,CG::Image(TESTCASE::width, TESTCASE::height));
   }
@@ -123,15 +144,14 @@ int main() {
     
     CG::Image base_image;
 
-    if(png_pixels == nullptr || record) {
-        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
-        base_image.fill_background(CG::Color::blue);
+    if(record) {
+      base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+      base_image.fill_background(CG::Color::blue);
+      base_image.save_image(file_name);
     } else {
         base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
     }
 
-    if(record)
-      base_image.save_image(file_name);
     
     CG::Image result_image(TESTCASE::width, TESTCASE::height);
     result_image.fill_background(CG::Color::blue);
@@ -148,19 +168,17 @@ int main() {
     
     CG::Image base_image;
 
-    if(png_pixels == nullptr || record) {
-        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
-        int wd = TESTCASE::width / 5;
-        int x = TESTCASE::width / 2 - wd;
-        int ht = TESTCASE::height / 5;
-        int y = TESTCASE::height / 2 - ht;
-        base_image.fill_rect(x, y, wd, ht, CG::Color::red);
+    if(record) {
+      base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+      int wd = TESTCASE::width / 5;
+      int x = TESTCASE::width / 2 - wd;
+      int ht = TESTCASE::height / 5;
+      int y = TESTCASE::height / 2 - ht;
+      base_image.fill_rect(x, y, wd, ht, CG::Color::red);
+      base_image.save_image(file_name);
     } else {
         base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
     }
-
-    if(record)
-      base_image.save_image(file_name);
     
     CG::Image result_image(TESTCASE::width, TESTCASE::height);
     int wd = TESTCASE::width / 5;
@@ -198,18 +216,16 @@ int main() {
     
     CG::Image base_image;
 
-    if(png_pixels == nullptr || record) {
+    if(record) {
         base_image = CG::Image(TESTCASE::width, TESTCASE::height);
         int x = TESTCASE::width / 2;
         int y = TESTCASE::height / 2;
         int r = TESTCASE::width / 3;
         base_image.fill_circle(x, y, r, CG::Color::cyan);
+        base_image.save_image(file_name);
     } else {
         base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
     }
-
-    if(record)
-      base_image.save_image(file_name);
     
     CG::Image result_image(TESTCASE::width, TESTCASE::height);
     int x = TESTCASE::width / 2;
@@ -229,24 +245,21 @@ int main() {
     
     CG::Image base_image;
 
-    if(png_pixels == nullptr || record) {
-        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
-        CG::Image base_image(TESTCASE::width, TESTCASE::height);
-        int x1 = TESTCASE::width / 2, y1 = 0;
-        int x2 = TESTCASE::width / 7, y2 = TESTCASE::height / 4;
-        int x3 = TESTCASE::width - 3, y3 = TESTCASE::height / 4;
-        base_image.fill_triangle(x1, y1,x2, y2, x3, y3, CG::Color::green);
+    if(record) {
+      base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+      int x1 = TESTCASE::width / 2, y1 = 0;
+      int x2 = TESTCASE::width / 7, y2 = TESTCASE::height / 4;
+      int x3 = TESTCASE::width - 3, y3 = TESTCASE::height / 4;
+      base_image.fill_triangle(x1, y1,x2, y2, x3, y3, CG::Color::green);
+      base_image.save_image(file_name);
     } else {
         base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
     }
 
-    if(record)
-      base_image.save_image(file_name);
-
     CG::Image result_image(TESTCASE::width, TESTCASE::height);
-    int x1 = TESTCASE::width / 2, y1 = 0;
-    int x2 = TESTCASE::width / 7, y2 = TESTCASE::height / 4;
-    int x3 = TESTCASE::width - 3, y3 = TESTCASE::height / 4;
+      int x1 = TESTCASE::width / 2, y1 = 0;
+      int x2 = TESTCASE::width / 7, y2 = TESTCASE::height / 4;
+      int x3 = TESTCASE::width - 3, y3 = TESTCASE::height / 4;
     result_image.fill_triangle(x1, y1,x2, y2, x3, y3, CG::Color::green);
 
     TESTCASE::assertEqual(base_image, result_image);
@@ -294,4 +307,13 @@ int main() {
   delete [] png_pixels;
   TESTCASE::summarizeCases();
   return 0;
+}
+
+void print_help()
+{
+    std::cout << "Usage: ./tests -[OPTIONS] \n";
+    std::cout << "OPTIONS: \n";
+    std::cout << "\tr = run tests\n";
+    std::cout << "\tu = update tests\n";
+    std::cout << "\tp = print tests images\n";
 }
