@@ -260,25 +260,23 @@ int main() {
     png_pixels = (uint32_t *)stbi_load(file_name.c_str(), &width, &height, &n, 0);
     
     CG::Image base_image;
-
-    if(png_pixels == nullptr || record) {
-        base_image = CG::Image(TESTCASE::width, TESTCASE::height);
-        CG::Image base_image(TESTCASE::width, TESTCASE::height);
-        base_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
-        base_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);
-        base_image.draw_line(0, 0, TESTCASE::width, TESTCASE::height, CG::Color::lightyellow);
+    if(record) {
+      base_image = CG::Image(TESTCASE::width, TESTCASE::height);
+      base_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
+      base_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);
+      base_image.draw_line(0, 0, TESTCASE::width, TESTCASE::height, CG::Color::lightyellow);
+      base_image.draw_line(TESTCASE::width / 2, 0, TESTCASE::width / 2 + 4, TESTCASE::height, CG::Color::magenta);
+      base_image.save_image(file_name);
     } else {
         base_image = CG::Image(png_pixels, TESTCASE::width, TESTCASE::height);
     }
-
-    if(record)
-      base_image.save_image(file_name);
 
     CG::Image result_image(TESTCASE::width, TESTCASE::height);
 
     result_image.draw_line(0, 0, TESTCASE::width, 0, CG::Color::red);
     result_image.draw_line(0, 0, 0, TESTCASE::height, CG::Color::blue);    
     result_image.draw_line(0, 0, TESTCASE::width, TESTCASE::height, CG::Color::lightyellow);
+    result_image.draw_line(5, 0, 9, TESTCASE::height, CG::Color::magenta);
 
     TESTCASE::assertEqual(base_image, result_image);
 

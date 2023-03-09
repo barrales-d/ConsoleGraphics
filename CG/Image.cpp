@@ -184,14 +184,20 @@ void CG::Image::draw_line(int x1, int y1,
       swap(x1, x2);
     for (int x = x1; x < x2; x++) {
       int y = x * slope + intercept;
-      this->fill_point(x, y, bg_color);
+      //  check for case when line is to vertical to render one pixel
+        if(abs(slope) > 1) {
+          for (int yn = y; yn < y + 3; yn++) {
+            this->fill_point(x, yn, bg_color);
+          }
+        } else {
+          this->fill_point(x, y, bg_color);
+        }
+
     }
   } else {
     int x = x1;
     if (y1 > y2)
       swap(y1, y2);
-    //  TODO: fix vertical line when its not straight down 
-    //  image.draw_line(0, 0, WIDTH, HEIGHT*4/2, CG::Color::white);
     for (int y = y1; y < y2; y++) {
         this->fill_point(x, y, bg_color);
     }
