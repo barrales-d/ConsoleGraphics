@@ -137,11 +137,13 @@ void CG::Image::fill_point(int x, int y, const CG::Color &bg_color) {
     }
   }
 }
-int CG::Image::save_image(const std::string& file_name) {
-  uint32_t *pixels = new uint32_t[m_width * m_height];
-  this->get_uint32_pixels(pixels);
+int CG::Image::save_image(const std::string& file_name, int scale) {
+  const int wd = m_width * scale;
+  const int ht = m_height * scale;
+  uint32_t *pixels = new uint32_t[wd * ht];
+  this->get_uint32_pixels(pixels, scale);
 
-  int err = stbi_write_png(file_name.c_str(), m_width, m_height, 4, pixels, m_width*sizeof(uint32_t));
+  int err = stbi_write_png(file_name.c_str(), wd, ht, 4, pixels, wd*sizeof(uint32_t));
   if(err == 0) {
     std::cout << "\nstbi_write_png() failed\n";
   }
@@ -291,10 +293,15 @@ CG::Image CG::Image::combine_image(const CG::Image &img1, const CG::Image &img2,
   return result;
 }
 
-void CG::Image::get_uint32_pixels(uint32_t* pixels) const {
-  for (int y = 0; y < m_height; y++) {
-    for (int x = 0; x < m_width; x++) {
-      pixels[y * m_width + x] = m_pixels[y * m_width + x].bg_color.color;
+void CG::Image::get_uint32_pixels(uint32_t* pixels, int scale) const {
+  assert(scale >= 1);
+  int wd = m_width * scale;
+  int ht = m_height * scale;
+  std::cout << wd << ", " << ht << "\n";
+  for (int y = 0; y < ht; y++) {
+    for (int x = 0; x < wd; x++) {
+      
+      pixels[y * wd + x] = m_pixels[y/scale * m_width + x/scale].bg_color.color;
     }
   }
 }

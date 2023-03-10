@@ -47,12 +47,13 @@ namespace CG {
     int get_height() const { return m_height + 1; }
     //  | you pass in the pointer where you want to store the pixels; you call new uint32_t[] outside this function
     //  | you deal with deleting the pixels when you want
-    void get_uint32_pixels(uint32_t* pixels) const; 
+    void get_uint32_pixels(uint32_t* pixels, int scale = 1) const; 
 
     void fill_background(const Color &bg_color = Color::darkgrey);
 
     void show();
-    int save_image(const std::string& file_name);
+    //  TODO: add scale functionality to save_image(), so that the output pngs are bigger 
+    int save_image(const std::string& file_name, int scale = 1);
 
     void fill_point(int x, int y, const Color &bg_color);
     void fill_rect(int x, int y, int wd, int ht, const Color &bg_color);
