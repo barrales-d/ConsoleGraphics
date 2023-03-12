@@ -245,7 +245,7 @@ void CG::Image::fill_triangle(int x1, int y1,
     }
   }
 }
-
+//  TODO: change draw_text to use Glyphs to render pixel letters 
 void CG::Image::draw_text(int x, int y, const std::string &text,
                          const CG::Color &fg_color) {
   if (y < 0 || y > m_height) { return; }
@@ -259,7 +259,7 @@ void CG::Image::draw_text(int x, int y, const std::string &text,
     }
   }
 }
-void CG::Image::draw_text(int x, int y, const std::string &text,
+void CG::Image::write_ascii(int x, int y, const std::string &text,
                          const CG::Color &fg_color,
                          const CG::Color &bg_color) {
   if (y < 0 || y > m_height) { return; }
@@ -268,7 +268,7 @@ void CG::Image::draw_text(int x, int y, const std::string &text,
     if (pos_x >= 0 && pos_x < m_width) {
       CG::Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
       pixel->fg_color = fg_color;
-      pixel->bg_color = bg_color;
+      pixel->bg_color = (bg_color != CG::Color(1)) ? bg_color : pixel->bg_color;
       pixel->fill = text[ti];
       pixel->fill.append(" ");
     }

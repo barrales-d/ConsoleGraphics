@@ -52,7 +52,6 @@ namespace CG {
     void fill_background(const Color &bg_color = Color::darkgrey);
 
     void show();
-    //  TODO: add scale functionality to save_image(), so that the output pngs are bigger 
     int save_image(const std::string& file_name, int scale = 1);
 
     void fill_point(int x, int y, const Color &bg_color);
@@ -62,7 +61,7 @@ namespace CG {
 
     void draw_line(int x1, int y1, int x2, int y2, const Color &bg_color);
     void draw_text(int x, int y, const std::string &text, const Color &fg_color);
-    void draw_text(int x, int y, const std::string &text, const Color &fg_color, const Color &bg_color);
+    void write_ascii(int x, int y, const std::string &text, const Color &fg_color, const Color &bg_color = CG::Color(1));
   
     static Image combine_image(const Image& img1, const Image& img2, const Color &sep = Color::darkgrey);
     friend TESTCASE;
