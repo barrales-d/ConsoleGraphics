@@ -3,13 +3,13 @@
 Mini 2D graphics library in C++ for the console / terminal in LINUX.
 
 It is able to create simple 2D shapes in the console (squares, circles, triangles, and lines). However, it is a little skewed vertically because of the console not 
-having a 1:1 ratio. [NOT LONGER SKEWED because of SCALERS(see CG_Image.hpp/.cpp)]
+having a 1:1 ratio. [Attempted to scale the image by width to look better(see CG_Image.hpp/.cpp)]
 
 
 ## Quick Start
 ```console
-$ make example
-$ ./example
+$ make examples
+$ ./examples
 ```
 ### To use the functions in your projects: 
 * Download the `./CG/` folder to your project directory
@@ -27,11 +27,10 @@ $ ./example
 
 ## Testing
 
-TestCase.hpp/cpp are my take on implementing a unit test system. ***I have made 7 unit tests so far!***
-
+TestCase.hpp/cpp are my take on implementing a unit test system.
 ```Console
-$ make test
-$ ./test
+$ make tests
+$ ./tests
 ```
 
 ## Examples

@@ -11,7 +11,7 @@
 std::string uppercase(const std::string& s)
 {
     std::string result = "";
-    for(char x : s) { result += std::toupper(x); }
+    for(char x : s) result += std::toupper(x);
     return result;
 }
 
