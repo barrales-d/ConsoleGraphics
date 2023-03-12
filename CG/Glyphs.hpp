@@ -1,8 +1,7 @@
 #ifndef __Alphabet_HPP__
 #define __Alphabet_HPP__
 
-namespace CG 
-{
+namespace CG {
     #define GLYPH_WIDTH 5
     #define GLYPH_HEIGHT 5
     

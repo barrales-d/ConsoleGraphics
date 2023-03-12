@@ -17,7 +17,8 @@ class Rainbow : public CG::Animation {
     uint8_t b;
     float global_time;
 public:
-    Rainbow(int width, int height) : CG::Animation(width, height) {
+    Rainbow(int width, int height) : CG::Animation(width, height)
+    {
         r = 0;
         g = 0;
         b = 0;
@@ -28,13 +29,16 @@ public:
 };
 
 
-void Rainbow::on_update(float dt) {
+void Rainbow::on_update(float dt)
+{
     global_time += dt;
     r = (sinf(global_time) + 1) / 2 * 255;
     g = (cosf(global_time) + 1) / 2 * 255;
     b = (sinf(global_time) * PI + 1) / 2 * 255;
 }
-void Rainbow::on_render() {
+
+void Rainbow::on_render()
+{
     this->fill_background( Color(r, g, b));
     this->show();
 }

@@ -3,14 +3,13 @@
 
 float CG::Animation::fps = 30.0f;
 
-void CG::Animation::play_animation() {
+void CG::Animation::play_animation()
+{
     auto current = std::chrono::steady_clock::now();
-    //  Use \e[?25l to hide cursor
     std::cout << ansi_code::hide_cursor;
 
     //TODO: create a way to exit the loop and set the cursor to the bottom right again 
     while(1) {
-
         std::chrono::duration<float> deltaTime = std::chrono::steady_clock::now() - current;
         float dt = deltaTime.count();
 
