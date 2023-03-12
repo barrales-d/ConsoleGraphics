@@ -9,9 +9,10 @@
 
 namespace CG {
     class Animation : protected CG::Image {
-    public: 
+    public:
         Animation(int width, int height) : CG::Image(width, height) {}
         virtual ~Animation() { this->CG::Image::~Image(); }
+        
         virtual void on_update(float) {}
         virtual void on_render() {}
         

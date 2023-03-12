@@ -8,20 +8,22 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include "./Others/stb_image.h"
 
-std::string uppercase(const std::string& s) {
+std::string uppercase(const std::string& s)
+{
     std::string result = "";
-    for(char x : s) { result += std::toupper(x); }
+    for(char x : s) result += std::toupper(x);
     return result;
 }
 
 int main(int argsc, char** argsv) {
     std::string png_file_name;
     std::string output_name = "image";
+
     if(argsc < 2) {
-        std::cout << ansi_code::foreground(CG::Color::red);
-        std::cout << "ERROR: No png file provided!\n";
-        std::cout << "Usage: pngTo [png file name] [output name for pixels array = 'image' default]\n\n";
-        std::cout << ansi_code::reset;
+        std::cerr << ansi_code::foreground(CG::Color::red);
+        std::cerr << "ERROR: No png file provided!\n";
+        std::cerr << "Usage: pngTo [png file name] [output name for pixels array = 'image' default]\n\n";
+        std::cerr << ansi_code::reset;
         return 1;
     }
     argsv++;
@@ -35,9 +37,9 @@ int main(int argsc, char** argsv) {
     int width = 0, height = 0, n = 0;
     uint32_t *png_pixels = (uint32_t *)stbi_load(png_file_name.c_str(), &width, &height, &n, 0);
     if(png_pixels == nullptr) {
-        std::cout << ansi_code::foreground(CG::Color::red);
-        std::cout << "ERROR: Could not read file into memory!\n";
-        std::cout << ansi_code::reset;
+        std::cerr << ansi_code::foreground(CG::Color::red);
+        std::cerr << "ERROR: Could not read file into memory!\n";
+        std::cerr << ansi_code::reset;
         return 1;
     }
 
@@ -48,9 +50,9 @@ int main(int argsc, char** argsv) {
     std::string output_file_name = output_name + ".cpp";
     std::fstream file_out = std::fstream(output_file_name, std::ios::out); 
     if(!file_out.is_open()) {
-        std::cout << ansi_code::foreground(CG::Color::red);
-        std::cout << "ERROR: couldn't open file\n";
-        std::cout << ansi_code::reset;
+        std::cerr << ansi_code::foreground(CG::Color::red);
+        std::cerr << "ERROR: couldn't open file\n";
+        std::cerr << ansi_code::reset;
         return 1;
     }
     std::string upper = uppercase(output_name);
