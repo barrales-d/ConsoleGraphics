@@ -60,7 +60,7 @@ namespace CG {
     void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, const Color &bg_color);
 
     void draw_line(int x1, int y1, int x2, int y2, const Color &bg_color);
-    void draw_text(int x, int y, const std::string &text, const Color &fg_color);
+    void draw_text(int x, int y, const std::string &text, const Color &bg_color);
     void write_ascii(int x, int y, const std::string &text, const Color &fg_color, const Color &bg_color = CG::Color(1));
   
     static Image combine_image(const Image& img1, const Image& img2, const Color &sep = Color::darkgrey);

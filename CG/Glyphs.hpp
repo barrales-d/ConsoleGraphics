@@ -4,10 +4,10 @@
 namespace CG 
 {
     #define GLYPH_WIDTH 5
-    #define GLYPH_HEIGHT 5
+    #define GLYPH_HEIGHT 6
     
     struct Glyph {
-        int data[GLYPH_WIDTH][GLYPH_HEIGHT];
+        int data[GLYPH_WIDTH * GLYPH_HEIGHT];
         static int width;
         static int height;
     };

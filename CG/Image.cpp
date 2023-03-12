@@ -1,4 +1,5 @@
 #include "./Image.hpp"
+#include "./Glyphs.hpp"
 
 #include <iostream>
 #include <unistd.h>
@@ -246,18 +247,21 @@ void CG::Image::fill_triangle(int x1, int y1,
   }
 }
 //  TODO: change draw_text to use Glyphs to render pixel letters 
-void CG::Image::draw_text(int x, int y, const std::string &text,
-                         const CG::Color &fg_color) {
-  if (y < 0 || y > m_height) { return; }
-  for (int ti = 0; ti < (int) text.size(); ti++) {
-    int pos_x = ti + x;
-    if (pos_x >= 0 && pos_x < m_width) {
-      CG::Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
-      pixel->fg_color = fg_color;
-      pixel->fill = text[ti];
-      pixel->fill.append(" ");
+void CG::Image::draw_text(int x, int y, const std::string &text, const CG::Color &bg_color) {
+  if (y < 0 || y + CG::Glyph::height > m_height) { return; }
+  if (x < 0 || x + CG::Glyph::height > m_width) { return; }
+  for(char ch : text) {
+    CG::Glyph glyph = CG::Glyphs[ch];
+    for(int py = 0; py < glyph.height; py++) {
+      for(int px = 0; px < glyph.width; px++) {
+        if(glyph.data[py * glyph.width + px] == 0) continue; 
+        this->fill_point(px + x, py + y, bg_color);
+      }
     }
+    x += glyph.width;
   }
+  // for (int ti = 0; ti < (int) text.size(); ti++) {
+
 }
 void CG::Image::write_ascii(int x, int y, const std::string &text,
                          const CG::Color &fg_color,
