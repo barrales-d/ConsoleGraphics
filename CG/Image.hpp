@@ -11,7 +11,6 @@ class TESTCASE;
 
 
 namespace CG {
-
     class Pixel {
     public: 
         Color fg_color;
@@ -63,7 +62,7 @@ namespace CG {
         void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color bg_color);
 
         void draw_line(int x1, int y1, int x2, int y2, Color bg_color);
-        void draw_text(int x, int y, const std::string &text, Color fg_color);
+        void draw_text(int x, int y, const std::string &text, Color bg_color);
 
         void write_ascii(int x, int y, const std::string &text, Color fg_color, Color bg_color = CG::Color(1));
 
