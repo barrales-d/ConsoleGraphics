@@ -271,7 +271,7 @@ void CG::Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3,
     }
 }
 //  TODO: change draw_text to use Glyphs to render pixel letters 
-void CG::Image::draw_text(int x, int y, const std::string &text, const CG::Color &bg_color) {
+void CG::Image::draw_text(int x, int y, const std::string &text, CG::Color bg_color) {
   if (y < 0 || y + CG::Glyph::height > m_height) return;
   if (x < 0 || x + CG::Glyph::height > m_width) return;
   
