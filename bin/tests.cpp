@@ -2,7 +2,7 @@
 
 #include "../CG/Image.hpp"
 #include "../CG/Color.hpp"
-#include "./TestCase.hpp"
+#include "../Tests/TestCase.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "../Others/stb_image.h"

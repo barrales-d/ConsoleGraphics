@@ -1,38 +1,33 @@
 # variables
-CC = g++ #	clang++
-CFLAGS = -g -std=c++17 -Werror -Wall
-CG = ./CG/
-CG_OBJS = Animation.o Image.o Glyph.o Color.o
+CC = g++
+DIRECTORIES = . CG Tests
+INCLUDES = . ./CG/ ./Tests/
+DEP = -MD -MP
+FLAGS = -g -std=c++17 -Werror -Wall $(foreach Dir, $(INCLUDES), -I$(Dir)) $(DEP)
 
-TARGET_E = examples
-TARGET_T = tests
-TARGET_A = animations
+CPPFILES = $(foreach Dir, $(DIRECTORIES), $(wildcard $(Dir)/*.cpp))
 
-REBUILDABLES = $(TARGET_E) $(TARGET_T) $(TARGET_A)
+OBJECTS = $(patsubst %.cpp,%.o, $(CPPFILES))
+DEPFILES = $(patsubst %.cpp,%.d, $(CPPFILES))
 
-all: $(REBUILDABLES)
+EXEFOLDER = bin/
+# TODO: create make rule for ./animations
+EXECUTABLES = $(EXEFOLDER)examples $(EXEFOLDER)tests
 
-$(TARGET_E): $(TARGET_E).cpp $(CG_OBJS) 
-	$(CC) $(CFLAGS) $(CG_OBJS) $(TARGET_E).cpp -o $(TARGET_E)
+# target rules
+all: $(EXECUTABLES)
 
-$(TARGET_T): ./Tests/$(TARGET_T).cpp ./Tests/TestCase.cpp $(CG_OBJS)
-	$(CC) $(CFLAGS) $(CG_OBJS) ./Tests/TestCase.cpp ./Tests/$(TARGET_T).cpp -o $(TARGET_T)
+examples: $(OBJECTS)
+	$(CC) $(FLAGS) $^ $(EXEFOLDER)$@.cpp -o $(EXEFOLDER)$@
 
-$(TARGET_A): ./CG/Animations/$(TARGET_A).cpp $(CG_OBJS)
-	$(CC) $(CFLAGS) $(CG_OBJS) ./CG/Animations/$(TARGET_A).cpp -o $(TARGET_A)
+tests: $(OBJECTS) 
+	$(CC) $(FLAGS) $^ $(EXEFOLDER)$@.cpp -o $(EXEFOLDER)$@
 
+%.o: %.cpp
+	$(CC) $(FLAGS) -c $< -o $@
 
-Animation.o: $(CG)Animation.cpp $(CG)Animation.hpp
-	$(CC) $(CFLAGS) -c $(CG)Animation.cpp
+clean: 
+	rm -rf $(EXECUTABLES) $(OBJECTS) $(DEPFILES) *.d *.o $(EXEFOLDER)*.o $(EXEFOLDER)*.d
 
-Image.o: $(CG)Image.cpp $(CG)Image.hpp
-	$(CC) $(CFLAGS) -c $(CG)Image.cpp
-
-Glyph.o: $(CG)Glyph.cpp $(CG)Glyph.hpp
-	$(CC) $(CFLAGS) -c $(CG)Glyph.cpp
-
-Color.o: $(CG)Color.cpp $(CG)Color.hpp
-	$(CC) $(CFLAGS) -c $(CG)Color.cpp
-
-clean:
-	rm -f *.o $(REBUILDABLES)
+# for changes in .hpp files to be recognize
+-include $(DEPFILES)

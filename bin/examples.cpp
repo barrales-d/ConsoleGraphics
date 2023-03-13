@@ -1,5 +1,5 @@
-#include "./CG/Image.hpp"
-#include "./CG/Color.hpp"
+#include "../CG/Image.hpp"
+#include "../CG/Color.hpp"
 #include <iostream>
 
 #define WIDTH 32
