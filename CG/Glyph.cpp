@@ -1,5 +1,5 @@
 
-#include "Glyphs.hpp"
+#include "Glyph.hpp"
 
 int CG::Glyph::width =  GLYPH_WIDTH;
 int CG::Glyph::height = GLYPH_HEIGHT;

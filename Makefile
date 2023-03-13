@@ -1,35 +1,38 @@
 # variables
 CC = g++ #	clang++
-CFLAGS = -g -std=c++17 -Werror -Wall -pedantic
-SRC = ./CG/*.cpp
-LINK_CG = Color.o Image.o Animation.o
+CFLAGS = -g -std=c++17 -Werror -Wall
+CG = ./CG/
+CG_OBJS = Animation.o Image.o Glyph.o Color.o
+
 TARGET_E = examples
 TARGET_T = tests
 TARGET_A = animations
 
-REBUILDABLES = $(TARGET_E) $(TARGET_T) $(TARGET_A) $(LINK_CG)
+REBUILDABLES = $(TARGET_E) $(TARGET_T) $(TARGET_A)
 
-all: $(TARGET_E) $(TARGET_T) $(TARGET_A)
+all: $(REBUILDABLES)
 
-# dependencies for rebuilding when edits are made
-$(TARGET_E): $(TARGET_E).cpp
-$(TARGET_T): ./Tests/TestCase.cpp ./Tests/$(TARGET_T).cpp
-$(TARGET_E): ./CG/Animations/$(TARGET_A).cpp
-$(LINK_CG) : ./CG/*.cpp ./CG/Animations/*.cpp
+$(TARGET_E): $(TARGET_E).cpp $(CG_OBJS) 
+	$(CC) $(CFLAGS) $(CG_OBJS) $(TARGET_E).cpp -o $(TARGET_E)
+
+$(TARGET_T): ./Tests/$(TARGET_T).cpp ./Tests/TestCase.cpp $(CG_OBJS)
+	$(CC) $(CFLAGS) $(CG_OBJS) ./Tests/TestCase.cpp ./Tests/$(TARGET_T).cpp -o $(TARGET_T)
+
+$(TARGET_A): ./CG/Animations/$(TARGET_A).cpp $(CG_OBJS)
+	$(CC) $(CFLAGS) $(CG_OBJS) ./CG/Animations/$(TARGET_A).cpp -o $(TARGET_A)
 
 
-#	build commands
-$(TARGET_E): $(LINK_CG) 
-	$(CC) $(CFLAGS) examples.cpp -o $(TARGET_E) $(LINK_CG)
+Animation.o: $(CG)Animation.cpp $(CG)Animation.hpp
+	$(CC) $(CFLAGS) -c $(CG)Animation.cpp
 
-$(TARGET_T): $(LINK_CG)
-	$(CC) $(CFLAGS) ./Tests/TestCase.cpp ./Tests/tests.cpp -o $(TARGET_T) $(LINK_CG)
+Image.o: $(CG)Image.cpp $(CG)Image.hpp
+	$(CC) $(CFLAGS) -c $(CG)Image.cpp
 
-$(TARGET_A): $(LINK_CG)
-	$(CC) $(CFLAGS) ./CG/Animations/$(TARGET_A).cpp -o $(TARGET_A) $(LINK_CG)
+Glyph.o: $(CG)Glyph.cpp $(CG)Glyph.hpp
+	$(CC) $(CFLAGS) -c $(CG)Glyph.cpp
 
-$(LINK_CG):
-	$(CC) $(CFLAGS) -c $(SRC)
+Color.o: $(CG)Color.cpp $(CG)Color.hpp
+	$(CC) $(CFLAGS) -c $(CG)Color.cpp
 
 clean:
-	rm -f $(REBUILDABLES)
+	rm -f *.o $(REBUILDABLES)
