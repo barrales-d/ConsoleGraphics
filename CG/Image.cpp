@@ -1,5 +1,5 @@
 #include "./Image.hpp"
-#include "./Glyphs.hpp"
+#include "./Glyph.hpp"
 
 #include <iostream>
 #include <unistd.h>

@@ -49,7 +49,6 @@ namespace CG {
         int get_height() const { return m_height + 1; }
         //  | you pass in the pointer where you want to store the pixels; you call new uint32_t[] outside this function
         //  | you deal with deleting the pixels when you want
-        //  TODO: we know m_width and m_height return an array instead of passing a point into this 
         void get_uint32_pixels(uint32_t* pixels, int scale = 1) const; 
 
         void show();

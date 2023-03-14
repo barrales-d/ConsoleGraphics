@@ -11,7 +11,7 @@ OBJECTS = $(patsubst %.cpp,%.o, $(CPPFILES))
 DEPFILES = $(patsubst %.cpp,%.d, $(CPPFILES))
 
 EXEFOLDER = bin/
-# TODO: create make rule for ./animations
+# TODO: create make rule for ./bin/animations
 EXECUTABLES = $(EXEFOLDER)examples $(EXEFOLDER)tests
 
 # target rules
