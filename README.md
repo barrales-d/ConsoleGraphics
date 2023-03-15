@@ -40,8 +40,8 @@ $ make tests
 $ ./bin/tests
 ```
 
-## Examples
-<style>
+## [Console Graphic Examples Website](https://barrales-d.github.io/ConsoleGraphics/) 
+<!-- <style>
     ul {
         padding: 0;
         margin: 0;
@@ -84,4 +84,4 @@ $ ./bin/tests
         <img src= "./ExampleImages/color_palatte.png" alt= "Color palette">
         <p>Color palette</p>
     </li>
-</ul>
+</ul> -->
