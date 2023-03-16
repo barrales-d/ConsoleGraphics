@@ -35,3 +35,9 @@
 # *.png
 # *.jpeg
 # *.ppm
+
+# Visual Studio
+.vscode
+.vs
+.sln
+.vcxproj
