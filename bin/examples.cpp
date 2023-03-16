@@ -1,5 +1,5 @@
 #include "../CG/Image.hpp"
-#include "../CG/Color.hpp"
+
 #include <iostream>
 
 #define WIDTH 32
@@ -93,11 +93,11 @@ void circles()
 void insert_text(const std::string &text)
 {
     CG::Image image(WIDTH, HEIGHT);
-    int x = WIDTH / 2 - text.size() / 2;
+    int x = 0;
     int y = HEIGHT / 2;
 
     image.draw_text(x, y, text, Color::blue);
-    image.write_ascii(x, y + 1, text, Color::blue, Color::black);
+    // image.write_ascii(x, y + 1, text, Color::blue, Color::black);
     image.show();
 }
 
@@ -149,6 +149,7 @@ void gradient()
 */
 
 int main() {
+    insert_text("ab abba");
     checker();
     circles();
     triangle();
