@@ -277,9 +277,11 @@ void CG::Image::draw_text(int x, int y, const std::string &text, CG::Color bg_co
         CG::Glyph glyph = CG::Glyphs::Get()[ch];
         for(int g_row = 0; g_row < glyph.height; g_row++) {
             for(int g_col = 0; g_col < glyph.width; g_col++) {
+                // std::cout << glyph[g_row][g_col] << ' ';
                 if(glyph[g_row][g_col] == 0) continue;
                 this->fill_point(g_col + x, g_row + y, bg_color);
             }
+            // std::cout << "\n";
         }
         x += glyph.width;
     }
