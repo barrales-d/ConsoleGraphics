@@ -5,6 +5,7 @@
 #include "../CG/Color.hpp"
 
 #include <vector>
+#include <optional>
 
 #define CONSOLE_WIDTH 80
 
@@ -12,7 +13,7 @@ struct Test {
     std::string name;
     bool        result;
     std::string reason;
-    CG::Image   image;
+    std::optional<CG::Image>   image;
 };
 
 //  Testcase static class for CG::Image

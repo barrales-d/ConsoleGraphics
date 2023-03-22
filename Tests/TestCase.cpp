@@ -46,7 +46,14 @@ void TESTCASE::summarizeCases()
         std::cout << "TESTCASE " << std::to_string(ct + 1) << ": " << tests[ct].name;
         std::cout << std::setw(CONSOLE_WIDTH - tests[ct].name.size() - passed_failed.size() + 10);
         std::cout << std::right << passed_failed << "\n";
-        tests[ct].image.show();
+        if(TESTCASE::print) {
+            if(tests[ct].image.has_value()) {
+                auto img = tests[ct].image.value();
+                img.show();
+            } else {
+                std::cout << "No Image Created\n";
+            }
+        }
     }
     std::string summary_output = std::to_string(pass_tests) + " / " +
                                 std::to_string(total_tests) + " Tests";
@@ -72,7 +79,7 @@ bool TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)
     }
 
     if (tests[total_tests - 1].reason.size() > 0) {
-        tests[total_tests - 1].image = CG::Image(0, 0);
+        tests[total_tests - 1].image =  std::nullopt;
         return tests[total_tests - 1].result = false;
     }
 
@@ -87,11 +94,8 @@ bool TESTCASE::assertEqual(const CG::Image &img1, const CG::Image &img2)
             }
         }
     }
-    if(TESTCASE::print)
-        tests[total_tests - 1].image = CG::Image::combine_image(img1, img2, CG::Color(0xFF12BB));
-    else 
-        tests[total_tests - 1].image = CG::Image(0, 0);
-
+    tests[total_tests - 1].image = CG::Image::combine_image(img1, img2, CG::Color(0xFF12BB));
+    
     return tests[total_tests - 1].result = result;
 }
 
