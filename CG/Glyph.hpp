@@ -217,11 +217,12 @@ std::vector<CG::Glyph> CG::Glyphs::glyphs = {
     CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(),
 //////      a, b, c, d, e, f, g, h, i ,j, k, l, m, n, o                 /////////
     CG::Glyph() = {
+        //  TODO: debate whether lowercase letters should be smaller capital letters
         /*{0, 0, 0, 0, 0, 0},*/ {0, 0, 0, 0, 0, 0},
         /*{0, 0, 1, 1, 0, 0},*/ {0, 0, 1, 1, 0, 0},
-        /*{0, 1, 0, 0, 1, 0},*/ {0, 1, 0, 0, 1, 0},
-        /*{0, 1, 1, 1, 1, 0},*/ {0, 0, 1, 1, 1, 0},
         /*{0, 1, 0, 0, 1, 0},*/ {0, 0, 0, 0, 1, 0},
+        /*{0, 1, 1, 1, 1, 0},*/ {0, 0, 1, 1, 1, 0},
+        /*{0, 1, 0, 0, 1, 0},*/ {0, 1, 0, 0, 1, 0},
         /*{0, 1, 0, 0, 1, 0} */ {0, 0, 1, 1, 0, 0}
     }, CG::Glyph() = {
         {0, 0, 0, 0, 0, 0},
