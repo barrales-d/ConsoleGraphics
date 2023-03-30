@@ -197,7 +197,21 @@ std::vector<CG::Glyph> CG::Glyphs::glyphs = {
         {0, 1, 0, 0, 1, 0},
         {0, 1, 0, 1, 0, 0},
         {0, 0, 1, 0, 1, 0}
-    }, CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(),
+    }, CG::Glyph() = {
+        {0, 1, 1, 1, 0, 0},
+        {0, 1, 0, 0, 1, 0},
+        {0, 1, 0, 0, 1, 0},
+        {0, 1, 1, 1, 0, 0},
+        {0, 1, 0, 0, 1, 0},
+        {0, 1, 0, 0, 1, 0}
+    }, CG::Glyph() = {
+        {0, 0, 1, 1, 0, 0},
+        {0, 1, 0, 0, 1, 0},
+        {0, 1, 0, 0, 0, 0},
+        {0, 0, 1, 1, 0, 0},
+        {0, 0, 0, 0, 1, 0},
+        {0, 1, 1, 1, 0, 0}
+    }, CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(),
     CG::Glyph(),
 //////                  [,\, ], ^, _, `                                 /////////
     CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(),
@@ -323,7 +337,21 @@ std::vector<CG::Glyph> CG::Glyphs::glyphs = {
         {0, 0, 1, 1, 1, 0},
         {0, 0, 0, 0, 1, 0},
         {0, 0, 0, 0, 1, 0}
-    }, CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(),
+    }, CG::Glyph() = {
+        {0, 0, 0, 0, 0, 0},
+        {0, 1, 0, 1, 1, 0},
+        {0, 1, 1, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0},
+        {0, 1, 0, 0, 0, 0}
+    }, CG::Glyph() = {
+        {0, 0, 0, 0, 0, 0},
+        {0, 0, 1, 1, 1, 0},
+        {0, 1, 0, 0, 0, 0},
+        {0, 0, 1, 1, 0, 0},
+        {0, 0, 0, 0, 1, 0},
+        {0, 1, 1, 1, 0, 0}
+    }, CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph(),
     CG::Glyph(),
 //////      {, |, }, ~                                                  /////////
     CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph()
