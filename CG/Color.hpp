@@ -4,6 +4,7 @@
 #include <string>
 
 namespace CG {
+
     //  RGBA
     struct Color {
         uint32_t color;
@@ -11,13 +12,20 @@ namespace CG {
         Color(uint32_t color = 0) : color(color) {}
         Color(uint8_t r, uint8_t g,  uint8_t b, uint8_t a = 0xFF);
 
-        const int r() const;
-        const int g() const;
-        const int b() const;
-        const int a() const;
+        const uint8_t r() const;
+        const uint8_t g() const;
+        const uint8_t b() const;
+        const uint8_t a() const;
+
+        const float normalized_r() const;
+        const float normalized_g() const;
+        const float normalized_b() const;
+        const float normalized_a() const;
 
         bool operator==(const Color& rhs) const noexcept; 
-        bool operator!=(const Color& rhs) const noexcept; 
+        bool operator!=(const Color& rhs) const noexcept;
+        //  Alphablending
+        Color operator+(const Color& rhs) const noexcept;
 
         static const Color black;
         static const Color red;

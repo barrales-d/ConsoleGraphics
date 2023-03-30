@@ -153,7 +153,8 @@ void CG::Image::fill_point(int x, int y, CG::Color bg_color)
 {
     if (y >= 0 && y < m_height) {
         if (x >= 0 && x < m_width) {
-        this->m_pixels[y * m_width + x].bg_color = bg_color; 
+            Color current_color = this->m_pixels[y * m_width + x].bg_color;
+            this->m_pixels[y * m_width + x].bg_color = current_color + bg_color; 
         }
     }
 }

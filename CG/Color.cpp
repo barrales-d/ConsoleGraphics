@@ -6,13 +6,41 @@ CG::Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     color = ((a << 8 * 3) | (b << 8 * 2) | (g << 8 * 1) | (r << 8 * 0));
 }
 
-const int CG::Color::r() const { return ((color >> 8 * 0) & 0xFF); }
-const int CG::Color::g() const { return ((color >> 8 * 1) & 0xFF); }
-const int CG::Color::b() const { return ((color >> 8 * 2) & 0xFF); }
-const int CG::Color::a() const { return ((color >> 8 * 3) & 0xFF); }
+const uint8_t CG::Color::r() const { return ((color >> 8 * 0) & 0xFF); }
+const uint8_t CG::Color::g() const { return ((color >> 8 * 1) & 0xFF); }
+const uint8_t CG::Color::b() const { return ((color >> 8 * 2) & 0xFF); }
+const uint8_t CG::Color::a() const { return ((color >> 8 * 3) & 0xFF); }
+
+const float CG::Color::normalized_r() const { return this->r() / 255.0f; }
+const float CG::Color::normalized_g() const { return this->g() / 255.0f; }
+const float CG::Color::normalized_b() const { return this->b() / 255.0f; }
+const float CG::Color::normalized_a() const { return this->a() / 255.0f; }
 
 bool CG::Color::operator==(const CG::Color& rhs) const noexcept { return (color == rhs.color); }
 bool CG::Color::operator!=(const CG::Color& rhs) const noexcept { return !(*this == rhs); }
+CG::Color CG::Color::operator+(const Color& rhs) const noexcept
+{
+    float rf =  rhs.normalized_r();
+    float rb =  this->normalized_r();
+    float gf =  rhs.normalized_g();
+    float gb =  this->normalized_g();
+    float bf =  rhs.normalized_b();
+    float bb =  this->normalized_b();
+    float af =  rhs.normalized_a();
+    float ab =  this->normalized_a();
+
+    float alpha = af + ab * (1 - af);
+    float epsilon = 0.00000001; // both bg and fg have 0 transparency 
+    if(alpha < epsilon) 
+        return CG::Color();
+    
+    return CG::Color (
+        (((rf * af + rb * ab * (1 - af)) / alpha) * 255),
+        (((gf * af + gb * ab * (1 - af)) / alpha) * 255),
+        (((bf * af + bb * ab * (1 - af)) / alpha) * 255),
+        (alpha * 255)
+    );    
+}
 
 const CG::Color CG::Color::black       = CG::Color(0xFF000000);
 const CG::Color CG::Color::red         = CG::Color(0xFF0000FF);
