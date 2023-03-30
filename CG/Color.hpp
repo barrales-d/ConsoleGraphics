@@ -2,6 +2,7 @@
 #define __COLOR_CODES_HPP__
 
 #include <string>
+#include <stdint.h>
 
 namespace CG {
 
