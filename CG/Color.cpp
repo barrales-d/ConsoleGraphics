@@ -6,38 +6,36 @@ CG::Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
     color = ((a << 8 * 3) | (b << 8 * 2) | (g << 8 * 1) | (r << 8 * 0));
 }
 
-const uint8_t CG::Color::r() const { return ((color >> 8 * 0) & 0xFF); }
-const uint8_t CG::Color::g() const { return ((color >> 8 * 1) & 0xFF); }
-const uint8_t CG::Color::b() const { return ((color >> 8 * 2) & 0xFF); }
-const uint8_t CG::Color::a() const { return ((color >> 8 * 3) & 0xFF); }
+CG::Color::Color(RGBA<uint8_t> col)
+{
+    color = ((col.a << 8 * 3) | (col.b << 8 * 2) | (col.g << 8 * 1) | (col.r << 8 * 0));
+}
 
-const float CG::Color::normalized_r() const { return this->r() / 255.0f; }
-const float CG::Color::normalized_g() const { return this->g() / 255.0f; }
-const float CG::Color::normalized_b() const { return this->b() / 255.0f; }
-const float CG::Color::normalized_a() const { return this->a() / 255.0f; }
+CG::Color::Color(RGBA<float> col)
+{
+    uint8_t r = col.r * 255;
+    uint8_t g = col.g * 255;
+    uint8_t b = col.b * 255;
+    uint8_t a = col.a * 255;
+    color = ((a << 8 * 3) | (b << 8 * 2) | (g << 8 * 1) | (r << 8 * 0));
+}
 
 bool CG::Color::operator==(const CG::Color& rhs) const noexcept { return (color == rhs.color); }
 bool CG::Color::operator!=(const CG::Color& rhs) const noexcept { return !(*this == rhs); }
 CG::Color CG::Color::operator+(const Color& rhs) const noexcept
 {
-    float rf =  rhs.normalized_r();
-    float rb =  this->normalized_r();
-    float gf =  rhs.normalized_g();
-    float gb =  this->normalized_g();
-    float bf =  rhs.normalized_b();
-    float bb =  this->normalized_b();
-    float af =  rhs.normalized_a();
-    float ab =  this->normalized_a();
+    RGBA<float> bg = this->normalized();
+    RGBA<float> fg = rhs.normalized();
 
-    float alpha = af + ab * (1 - af);
+    float alpha = fg.a + bg.a * (1 - fg.a);
     float epsilon = 0.00000001; // both bg and fg have 0 transparency 
     if(alpha < epsilon) 
         return CG::Color();
-    
+
     return CG::Color (
-        (((rf * af + rb * ab * (1 - af)) / alpha) * 255),
-        (((gf * af + gb * ab * (1 - af)) / alpha) * 255),
-        (((bf * af + bb * ab * (1 - af)) / alpha) * 255),
+        (((fg.r * fg.a + bg.r * bg.a * (1 - fg.a)) / alpha) * 255),
+        (((fg.g * fg.a + bg.g * bg.a * (1 - fg.a)) / alpha) * 255),
+        (((fg.b * fg.a + bg.b * bg.a * (1 - fg.a)) / alpha) * 255),
         (alpha * 255)
     );    
 }
@@ -85,18 +83,20 @@ const std::string ansi_code::hide_cursor = "\x1b[?25l";
 
 const std::string ansi_code::background(CG::Color col)
 {
+    CG::RGBA<uint8_t> color = col.rgba();
     return "\033[48;2;" + 
-    std::to_string(col.r()) + ";" + 
-    std::to_string(col.g()) + ";" + 
-    std::to_string(col.b()) + "m";
+    std::to_string(color.r) + ";" + 
+    std::to_string(color.g) + ";" + 
+    std::to_string(color.b) + "m";
 }
 
 const std::string ansi_code::foreground(CG::Color col)
 {
+    CG::RGBA<uint8_t> color = col.rgba();
     return "\033[38;2;" + 
-    std::to_string(col.r()) + ";" + 
-    std::to_string(col.g()) + ";" + 
-    std::to_string(col.b()) + "m";
+    std::to_string(color.r) + ";" + 
+    std::to_string(color.g) + ";" + 
+    std::to_string(color.b) + "m";
 }
 
 const std::string ansi_code::move_cursor(int up, int left)

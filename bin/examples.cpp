@@ -47,11 +47,12 @@ void all()
     int x3 = WIDTH;
     int x4 = WIDTH / 2, y4 = HEIGHT / 2;
 
-    image.fill_background(Color::black);
+    image.fill_background(Color(CG::RGBA<float>{0.5f, 0.5f, 0.2f, 1.0f}));
+    // image.fill_background(Color::black);
     image.fill_rect(x2, y2, 10, 10, Color::blue);
     image.fill_circle(x4, y4, 7, Color(0XCC8080FF));
     image.draw_line(x1, y2, x3, y1, Color::magenta);
-    image.fill_triangle(x1, y4, x2, y2, x4, y4, Color(0xAA40FF40));
+    image.fill_triangle(x1, y4, x2, y2, x4, y4, Color(0xA40FF40));
     image.show();
     // image.save_image("./ExampleImages/all.png");
 }
@@ -149,13 +150,13 @@ void gradient()
 */
 
 int main() {
-    // insert_text("ab abba");
-    // checker();
-    // circles();
-    // triangle();
-    // all();
-    // color_palette();
-    // point();
-    // gradient();
+    insert_text("ab abba");
+    checker();
+    circles();
+    triangle();
+    all();
+    color_palette();
+    point();
+    gradient();
     return 0;
 }

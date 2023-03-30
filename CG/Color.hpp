@@ -5,27 +5,48 @@
 
 namespace CG {
 
+    template<class T>
+    struct RGBA {
+        T r;
+        T g;
+        T b;
+        T a;
+
+        RGBA() : r(0), g(0), b(0), a(0) {}
+        RGBA(T r, T g, T b, T a) : r(r), g(g), b(b), a(a) {}
+    };
     //  RGBA
     struct Color {
         uint32_t color;
 
         Color(uint32_t color = 0) : color(color) {}
         Color(uint8_t r, uint8_t g,  uint8_t b, uint8_t a = 0xFF);
-
-        const uint8_t r() const;
-        const uint8_t g() const;
-        const uint8_t b() const;
-        const uint8_t a() const;
-
-        const float normalized_r() const;
-        const float normalized_g() const;
-        const float normalized_b() const;
-        const float normalized_a() const;
+        Color(RGBA<uint8_t> col);
+        Color(RGBA<float> col);
 
         bool operator==(const Color& rhs) const noexcept; 
         bool operator!=(const Color& rhs) const noexcept;
-        //  Alphablending
+        //  Alpha Blending
         Color operator+(const Color& rhs) const noexcept;
+
+        const RGBA<uint8_t> rgba() const
+        {
+            return RGBA<uint8_t> {
+                (uint8_t) ((color >> 8 * 0) & 0xFF), 
+                (uint8_t) ((color >> 8 * 1) & 0xFF), 
+                (uint8_t) ((color >> 8 * 2) & 0xFF), 
+                (uint8_t) ((color >> 8 * 3) & 0xFF)
+            }; 
+        }
+        const RGBA<float> normalized() const
+        {
+            return RGBA<float> {
+                (((color >> 8 * 0) & 0xFF) / 255.0f), 
+                (((color >> 8 * 1) & 0xFF) / 255.0f), 
+                (((color >> 8 * 2) & 0xFF) / 255.0f), 
+                (((color >> 8 * 3) & 0xFF) / 255.0f)
+            };
+        }
 
         static const Color black;
         static const Color red;
@@ -48,7 +69,6 @@ namespace CG {
         static Color colors[];
     };
 }
-
 
 struct ansi_code {
     static const std::string reset;
