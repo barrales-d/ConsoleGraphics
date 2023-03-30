@@ -110,7 +110,7 @@ void color_palette()
         image.fill_rect(x, 0, 1, Color::colors_count,Color::colors[x]);
 
     for (int y = 0; y < Color::colors_count; y++)
-        image.draw_text(0, y, text, Color::colors[y]);
+        image.write_ascii(0, y, text, Color::colors[y]);
 
     image.show();
     // image.save_image("./ExampleImages/color_palatte.png");
@@ -149,13 +149,13 @@ void gradient()
 */
 
 int main() {
-    insert_text("ab abba");
-    checker();
-    circles();
-    triangle();
-    all();
-    color_palette();
-    point();
-    gradient();
+    // insert_text("ab abba");
+    // checker();
+    // circles();
+    // triangle();
+    // all();
+    // color_palette();
+    // point();
+    // gradient();
     return 0;
 }
