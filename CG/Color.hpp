@@ -8,12 +8,13 @@ namespace CG {
     struct Color {
         uint32_t color;
 
-        Color(uint32_t color = 0) : color((0xFF000000|color)) {}
-        Color(uint8_t r, uint8_t g,  uint8_t b);
+        Color(uint32_t color = 0) : color(color) {}
+        Color(uint8_t r, uint8_t g,  uint8_t b, uint8_t a = 0xFF);
 
         const int r() const;
         const int g() const;
         const int b() const;
+        const int a() const;
 
         bool operator==(const Color& rhs) const noexcept; 
         bool operator!=(const Color& rhs) const noexcept; 
