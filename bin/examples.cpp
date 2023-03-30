@@ -49,9 +49,9 @@ void all()
 
     image.fill_background(Color::black);
     image.fill_rect(x2, y2, 10, 10, Color::blue);
-    image.fill_circle(x4, y4, 7, Color::lightred);
+    image.fill_circle(x4, y4, 7, Color(0XCC8080FF));
     image.draw_line(x1, y2, x3, y1, Color::magenta);
-    image.fill_triangle(x1, y4, x2, y2, x4, y4, Color::green);
+    image.fill_triangle(x1, y4, x2, y2, x4, y4, Color(0xAA40FF40));
     image.show();
     // image.save_image("./ExampleImages/all.png");
 }
