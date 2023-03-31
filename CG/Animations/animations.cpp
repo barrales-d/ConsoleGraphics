@@ -1,8 +1,9 @@
 #include "Rainbow.hpp"
+#include "Bouncingball.hpp"
 
-#define WIDTH 20
-#define HEIGHT 10
+#define WIDTH 30
+#define HEIGHT 20
 int main() {
-    Rainbow animation(WIDTH, HEIGHT);
+    BouncingBall animation(WIDTH, HEIGHT);
     animation.play_animation();
 }
