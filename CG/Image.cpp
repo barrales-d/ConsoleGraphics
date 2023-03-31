@@ -197,7 +197,7 @@ void CG::Image::fill_circle(int x, int y, int r, CG::Color bg_color)
     for (int y1 = min_y; y1 <= max_y; y1++) {
         for (int x1 = min_x; x1 <= max_x; x1++) {
             if ((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y) <= r_sqr - 0.5f) {
-                this->fill_point(y1, x1, bg_color);
+                this->fill_point(x1, y1, bg_color);
             }
         }
     }
