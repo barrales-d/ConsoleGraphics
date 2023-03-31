@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stdint.h>
+#include <iostream>
 
 namespace CG {
 
@@ -48,26 +49,45 @@ namespace CG {
                 (((color >> 8 * 3) & 0xFF) / 255.0f)
             };
         }
+    };
+    
+    namespace Colors {
+        inline const Color black{0xFF000000};
+        inline const Color red {0xFF0000FF};
+        inline const Color green {0xFF00FF00};
+        inline const Color blue {0xFFFF0000};
+        inline const Color yellow {0xFF00FFFF};
+        inline const Color magenta {0xFF9000FF};
+        inline const Color cyan {0xFFFFFF00};
+        inline const Color white {0xFFFFFFFF};
+        inline const Color darkgrey {0xFF474747};
+        inline const Color lightred {0xFF6F6FFF};
+        inline const Color lightgreen {0xFF90EE90};
+        inline const Color lightyellow {0xFFE0FFFF};
+        inline const Color lightblue {0xFFE6D8AD};
+        inline const Color lightpurple {255, 85, 255, 255};
+        inline const Color turquoise {0xFFC8D530};
+        inline const Color lightwhite {0xFFD1D1D1};
+    }
 
-        static const Color black;
-        static const Color red;
-        static const Color green;
-        static const Color yellow;
-        static const Color blue;
-        static const Color magenta;
-        static const Color cyan;
-        static const Color white;
-        static const Color darkgrey;
-        static const Color lightred;
-        static const Color lightgreen;
-        static const Color lightyellow;
-        static const Color lightblue;
-        static const Color lightpurple;
-        static const Color turquoise;
-        static const Color lightwhite;
-
-        static const int colors_count;
-        static Color colors[];
+    inline const int colors_count = 16;
+    inline Color colors[colors_count] = {
+        Colors::black,
+        Colors::red,
+        Colors::green,
+        Colors::blue,
+        Colors::yellow,
+        Colors::magenta,
+        Colors::cyan,
+        Colors::white,
+        Colors::darkgrey,
+        Colors::lightred,
+        Colors::lightgreen,
+        Colors::lightyellow,
+        Colors::lightblue,
+        Colors::lightpurple,
+        Colors::turquoise,
+        Colors::lightwhite
     };
 }
 

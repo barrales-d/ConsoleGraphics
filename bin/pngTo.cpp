@@ -20,7 +20,7 @@ int main(int argsc, char** argsv) {
     std::string output_name = "image";
 
     if(argsc < 2) {
-        std::cerr << ansi_code::foreground(CG::Color::red);
+        std::cerr << ansi_code::foreground(CG::Colors::red);
         std::cerr << "ERROR: No png file provided!\n";
         std::cerr << "Usage: pngTo [png file name] [output name for pixels array = 'image' default]\n\n";
         std::cerr << ansi_code::reset;
@@ -37,7 +37,7 @@ int main(int argsc, char** argsv) {
     int width = 0, height = 0, n = 0;
     uint32_t *png_pixels = (uint32_t *)stbi_load(png_file_name.c_str(), &width, &height, &n, 0);
     if(png_pixels == nullptr) {
-        std::cerr << ansi_code::foreground(CG::Color::red);
+        std::cerr << ansi_code::foreground(CG::Colors::red);
         std::cerr << "ERROR: Could not read file into memory!\n";
         std::cerr << ansi_code::reset;
         return 1;
@@ -50,7 +50,7 @@ int main(int argsc, char** argsv) {
     std::string output_file_name = output_name + ".cpp";
     std::fstream file_out = std::fstream(output_file_name, std::ios::out); 
     if(!file_out.is_open()) {
-        std::cerr << ansi_code::foreground(CG::Color::red);
+        std::cerr << ansi_code::foreground(CG::Colors::red);
         std::cerr << "ERROR: couldn't open file\n";
         std::cerr << ansi_code::reset;
         return 1;

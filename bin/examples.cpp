@@ -6,6 +6,7 @@
 #define HEIGHT 32
 
 using CG::Color;
+using namespace CG::Colors;
 
 void checker()
 {
@@ -14,11 +15,10 @@ void checker()
     image.fill_background(red);
     int width = 5;
     int height = 5;
-
     for (int y = 0; y < HEIGHT; y++) {
         for (int x = 0; x < WIDTH; x++) {
             if ((x + y) % 2 == 0) {
-                image.fill_rect(x * width, y * height, width, height, Color::black);
+                image.fill_rect(x * width, y * height, width, height, CG::Colors::black);
             }
         }
     }
@@ -32,9 +32,9 @@ void triangle()
     int x2 = WIDTH / 2, y2 = HEIGHT / 2;
     int x3 = WIDTH, y3 = 0;
 
-    image.fill_triangle(x1, y1, x2, y3, x3, y1, Color::red);
-    image.fill_triangle(x3, y3, x2, y3, x2, y2, Color::blue);
-    image.fill_triangle(x2 - 7, y1, x2 + 7, y1 - 10, x2, y2, Color::green);
+    image.fill_triangle(x1, y1, x2, y3, x3, y1, CG::Colors::red);
+    image.fill_triangle(x3, y3, x2, y3, x2, y2, CG::Colors::blue);
+    image.fill_triangle(x2 - 7, y1, x2 + 7, y1 - 10, x2, y2, CG::Colors::green);
     image.show();
     // image.save_image("./ExampleImages/triangle.png");
 }
@@ -48,10 +48,10 @@ void all()
     int x4 = WIDTH / 2, y4 = HEIGHT / 2;
 
     image.fill_background(Color(CG::RGBA<float>{0.5f, 0.5f, 0.2f, 1.0f}));
-    // image.fill_background(Color::black);
-    image.fill_rect(x2, y2, 10, 10, Color::blue);
+    // image.fill_background(CG::Colors::black);
+    image.fill_rect(x2, y2, 10, 10, CG::Colors::blue);
     image.fill_circle(x4, y4, 7, Color(0XCC8080FF));
-    image.draw_line(x1, y2, x3, y1, Color::magenta);
+    image.draw_line(x1, y2, x3, y1, CG::Colors::magenta);
     image.fill_triangle(x1, y4, x2, y2, x4, y4, Color(0xA40FF40));
     image.show();
     // image.save_image("./ExampleImages/all.png");
@@ -97,21 +97,21 @@ void insert_text(const std::string &text)
     int x = 0;
     int y = HEIGHT / 2;
 
-    image.draw_text(x, y, text, Color::blue);
-    // image.write_ascii(x, y + 1, text, Color::blue, Color::black);
+    image.draw_text(x, y, text, CG::Colors::blue);
+    // image.write_ascii(x, y + 1, text, CG::Colors::blue, CG::Colors::black);
     image.show();
 }
 
 void color_palette()
 {
     const std::string text = "CONSOLE@GRAPHICS";
-    CG::Image image(Color::colors_count, Color::colors_count);
+    CG::Image image(CG::colors_count, CG::colors_count);
 
-    for (int x = 0; x < Color::colors_count; x++)
-        image.fill_rect(x, 0, 1, Color::colors_count,Color::colors[x]);
+    for (int x = 0; x < CG::colors_count; x++)
+        image.fill_rect(x, 0, 1, CG::colors_count,CG::colors[x]);
 
-    for (int y = 0; y < Color::colors_count; y++)
-        image.write_ascii(0, y, text, Color::colors[y]);
+    for (int y = 0; y < CG::colors_count; y++)
+        image.write_ascii(0, y, text, CG::colors[y]);
 
     image.show();
     // image.save_image("./ExampleImages/color_palatte.png");
@@ -119,10 +119,10 @@ void color_palette()
 void point()
 {
     CG::Image image(WIDTH, HEIGHT);
-    image.fill_point(0, 0, Color::red);
-    image.fill_point(0, 3, Color::blue);
-    image.fill_point(3, 0, Color::green);
-    image.fill_point(WIDTH - 1, HEIGHT - 1, Color::black);
+    image.fill_point(0, 0, CG::Colors::red);
+    image.fill_point(0, 3, CG::Colors::blue);
+    image.fill_point(3, 0, CG::Colors::green);
+    image.fill_point(WIDTH - 1, HEIGHT - 1, CG::Colors::black);
     image.show();
 }
 
@@ -145,13 +145,13 @@ void gradient()
 */
 
 int main() {
-    insert_text("ab abba");
+    // insert_text("ab abba");
     checker();
     circles();
     triangle();
     all();
     color_palette();
-    point();
-    gradient();
+    // point();
+    // gradient();
     return 0;
 }

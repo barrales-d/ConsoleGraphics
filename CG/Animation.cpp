@@ -1,5 +1,4 @@
 #include "./Animation.hpp"
-#include "./Color.hpp"
 
 float CG::Animation::fps = 30.0f;
 

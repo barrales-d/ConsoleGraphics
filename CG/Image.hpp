@@ -54,7 +54,7 @@ namespace CG {
         void show();
         int save_image(const std::string& file_name, int scale = 1);
 
-        void fill_background(Color bg_color = Color::darkgrey);
+        void fill_background(Color bg_color = CG::Colors::darkgrey);
         void fill_point(int x, int y, Color bg_color);
         void fill_rect(int x, int y, int wd, int ht, Color bg_color);
         void fill_circle(int x, int y, int r, Color bg_color);
@@ -65,7 +65,7 @@ namespace CG {
 
         void write_ascii(int x, int y, const std::string &text, Color fg_color, Color bg_color = CG::Color(1));
 
-        static Image combine_image(const Image& img1, const Image& img2, Color sep = Color::darkgrey);
+        static Image combine_image(const Image& img1, const Image& img2, Color sep = CG::Colors::darkgrey);
         friend TESTCASE;
     };//  Image
 }

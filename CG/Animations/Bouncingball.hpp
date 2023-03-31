@@ -60,10 +60,10 @@ void BouncingBall::on_update(float dt)
 
 void BouncingBall::on_render()
 {
-    this->fill_background(Color::black);
+    this->fill_background(CG::Colors::black);
     this->fill_rect(this->get_width() / WIDTH_SCALER / 2  - 4, 
                     this->get_height() / 2 - 4,
-                    8, 8, Color::red);
+                    8, 8, CG::Colors::red);
     this->fill_circle(position.x, position.y, radius, Color(0x45FF2084));
     // this->fill_rect(position.x, position.y, 2, 2, Color(0xCCE320FF));
     this->show();

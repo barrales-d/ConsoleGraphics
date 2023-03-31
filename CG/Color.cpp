@@ -40,44 +40,6 @@ CG::Color CG::Color::operator+(const Color& rhs) const noexcept
     );    
 }
 
-const CG::Color CG::Color::black       = CG::Color(0xFF000000);
-const CG::Color CG::Color::red         = CG::Color(0xFF0000FF);
-const CG::Color CG::Color::green       = CG::Color(0xFF00FF00);
-const CG::Color CG::Color::blue        = CG::Color(0xFFFF0000);
-const CG::Color CG::Color::yellow      = CG::Color(0xFF00FFFF);
-const CG::Color CG::Color::magenta     = CG::Color(0xFF9000FF);
-const CG::Color CG::Color::cyan        = CG::Color(0xFFFFFF00);
-const CG::Color CG::Color::white       = CG::Color(0xFFFFFFFF);
-const CG::Color CG::Color::darkgrey    = CG::Color(0xFF474747);
-const CG::Color CG::Color::lightred    = CG::Color(0xFF6F6FFF);
-const CG::Color CG::Color::lightgreen  = CG::Color(0xFF90EE90);
-const CG::Color CG::Color::lightyellow = CG::Color(0xFFE0FFFF);
-const CG::Color CG::Color::lightblue   = CG::Color(0xFFE6D8AD);
-const CG::Color CG::Color::lightpurple = CG::Color(255, 85, 255);
-const CG::Color CG::Color::turquoise   = CG::Color(0xFFC8D530);
-const CG::Color CG::Color::lightwhite  = CG::Color(0xFFD1D1D1);
-
-const int CG::Color::colors_count = 16;
-
-CG::Color CG::Color::colors[CG::Color::colors_count] = {
-    CG::Color::black,
-    CG::Color::red,
-    CG::Color::green,
-    CG::Color::yellow,
-    CG::Color::blue,
-    CG::Color::magenta,
-    CG::Color::cyan,
-    CG::Color::white,
-    CG::Color::darkgrey,
-    CG::Color::lightred,
-    CG::Color::lightgreen,
-    CG::Color::lightyellow,
-    CG::Color::lightblue,
-    CG::Color::lightpurple,
-    CG::Color::turquoise,
-    CG::Color::lightwhite
-};
-
 const std::string ansi_code::reset = "\033[0m";
 const std::string ansi_code::hide_cursor = "\x1b[?25l";
 

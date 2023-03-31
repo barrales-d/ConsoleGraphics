@@ -60,7 +60,7 @@ CG::Image::Image(const CG::Color *pixels, int width, int height)
             CG::Pixel p;
             p.fill = DEFAULT_FILL;
             p.bg_color = pixels[y * m_width + x];
-            p.fg_color = CG::Color::white;
+            p.fg_color = CG::Colors::white;
             this->m_pixels[y * m_width + x] = p; 
         }
     }
@@ -76,7 +76,7 @@ CG::Image::Image(const uint32_t *pixels, int width, int height)
             CG::Pixel p;
             p.fill = DEFAULT_FILL;
             p.bg_color = CG::Color(pixels[y * m_width + x]);
-            p.fg_color = CG::Color::white;
+            p.fg_color = CG::Colors::white;
             this->m_pixels[y * m_width + x] = p; 
         }
     }
@@ -128,7 +128,7 @@ void CG::Image::fill_background(CG::Color bg_color)
             CG::Pixel *pixel = &this->m_pixels[y * m_width + x];
             pixel->fill = DEFAULT_FILL;
             pixel->bg_color = bg_color;
-            pixel->fg_color = CG::Color::white;
+            pixel->fg_color = CG::Colors::white;
         }
     }
 }
