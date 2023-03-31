@@ -63,7 +63,7 @@ namespace CG {
         void draw_line(int x1, int y1, int x2, int y2, Color bg_color);
         void draw_text(int x, int y, const std::string &text, Color bg_color);
 
-        void write_ascii(int x, int y, const std::string &text, Color fg_color, Color bg_color = CG::Color(1));
+        void write_ascii(int x, int y, const std::string &text, Color fg_color, Color bg_color = CG::Color(0));
 
         static Image combine_image(const Image& img1, const Image& img2, Color sep = CG::Colors::darkgrey);
         friend TESTCASE;

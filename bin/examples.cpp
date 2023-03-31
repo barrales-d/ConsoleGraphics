@@ -98,7 +98,7 @@ void insert_text(const std::string &text)
     int y = HEIGHT / 2;
 
     image.draw_text(x, y, text, CG::Colors::blue);
-    // image.write_ascii(x, y + 1, text, CG::Colors::blue, CG::Colors::black);
+    image.write_ascii(x, y + 1, text, CG::Colors::blue);
     image.show();
 }
 
@@ -145,13 +145,13 @@ void gradient()
 */
 
 int main() {
-    // insert_text("ab abba");
+    insert_text("ab abba");
     checker();
     circles();
     triangle();
     all();
     color_palette();
-    // point();
-    // gradient();
+    point();
+    gradient();
     return 0;
 }

@@ -298,7 +298,7 @@ void CG::Image::write_ascii(int x, int y, const std::string &text,CG::Color fg_c
         if (pos_x >= 0 && pos_x < m_width) {
             CG::Pixel *pixel = &this->m_pixels[y * m_width + pos_x];
             pixel->fg_color = fg_color;
-            pixel->bg_color = (bg_color != CG::Color(1)) ? bg_color : pixel->bg_color;
+            pixel->bg_color = pixel->bg_color + bg_color;
             pixel->fill = text[ti];
             pixel->fill.append(" ");
         }
