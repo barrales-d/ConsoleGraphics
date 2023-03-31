@@ -37,28 +37,7 @@ namespace CG {
         }
     };
 
-    static class Glyphs {
-    public:
-        static std::vector<Glyph> glyphs;
-        const Glyph& operator[](char character) const
-        {
-            int index = character - 32;
-            if(index  < 0 || index >= 96) {
-                std::cerr << "ERROR: CG::Glyphs::glyphs index "<<  index << " Out of range\n"; 
-                exit(1);
-            }
-            return glyphs[index];
-        }
-        
-        static const Glyphs& Get();
-    } S_Glyphs;
-};
-#endif //   __GLYPH_HPP__
-
-///////////////////////////////// STATIC DECLARATIONS ///////////////////////////////////
-const CG::Glyphs& CG::Glyphs::Get() { return S_Glyphs; } 
-
-std::vector<CG::Glyph> CG::Glyphs::glyphs = {
+    inline std::vector<Glyph> glyphs = {
 //////          ' ', !, ", #, $, %, &, ', (, ), *, +, ",", -, ., /      /////////
     CG::Glyph() = {
         {0, 0, 0, 0, 0, 0},
@@ -356,6 +335,17 @@ std::vector<CG::Glyph> CG::Glyphs::glyphs = {
     CG::Glyph(),
 //////      {, |, }, ~                                                  /////////
     CG::Glyph(), CG::Glyph(), CG::Glyph(), CG::Glyph()
-};
+    };
 
-//  End of STATIC IMPLEMENTATION
+    const Glyph& get_glyph(char character)
+    {
+        int index = character - 32;
+        if(index  < 0 || index >= 96) {
+            std::cerr << "ERROR: CG::Glyphs::glyphs index "<< index << " Out of range\n"; 
+            exit(1);
+        }
+        return glyphs[index];
+    }
+
+};
+#endif //   __GLYPH_HPP__

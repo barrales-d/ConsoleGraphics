@@ -275,7 +275,7 @@ void CG::Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3,
 void CG::Image::draw_text(int x, int y, const std::string &text, CG::Color bg_color)
 {
     for(char ch : text) {
-        CG::Glyph glyph = CG::Glyphs::Get()[ch];
+        CG::Glyph glyph = CG::get_glyph(ch);
         for(int g_row = 0; g_row < glyph.height; g_row++) {
             for(int g_col = 0; g_col < glyph.width; g_col++) {
                 // std::cout << glyph[g_row][g_col] << ' ';
