@@ -1,5 +1,5 @@
-#ifndef __COLOR_CODES_HPP__
-#define __COLOR_CODES_HPP__
+#ifndef __COLOR_HPP__
+#define __COLOR_HPP__
 
 #include <string>
 #include <stdint.h>
@@ -99,4 +99,4 @@ struct ansi_code {
     static const std::string background(CG::Color col);
     static const std::string foreground(CG::Color col);
 };
-#endif // __COLOR_CODES_HPP__
+#endif // __COLOR_HPP__

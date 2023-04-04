@@ -11,7 +11,7 @@ using namespace CG::Colors;
 void checker()
 {
     CG::Image image(WIDTH, HEIGHT);
-    Color red(0x0000FF);
+    Color red(0x000000FF);
     image.fill_background(red);
     int width = 5;
     int height = 5;
