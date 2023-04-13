@@ -12,13 +12,19 @@ endif()
 project (ConsoleGraphics)
 
 # Add source to this project's executable.
-add_executable (ConsoleGraphics 
+add_executable( examples
 				example.cpp
+				src/Ansi_codes.cpp
+				src/Image.cpp)
+				
+add_executable( tests
+				test.cpp
 				src/Ansi_codes.cpp
 				src/Image.cpp)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET ConsoleGraphics PROPERTY CXX_STANDARD 20)
+  set_property(TARGET examples PROPERTY CXX_STANDARD 20)
+  set_property(TARGET tests PROPERTY CXX_STANDARD 20)
 endif()
 
 # TODO: Add tests and install targets if needed.
