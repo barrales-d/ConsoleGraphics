@@ -19,7 +19,7 @@ using namespace CG;
 int main() {
 	Image image(WIDTH, HEIGHT);
 	image.fill_background(Colors::black);
-    image.fill_rect(-9, -9, 15, 15, Color(0xFFFFFF00));
+	image.fill_rect(-9, -9, 15, 15, Color(0xFFFFFF00));
 	image.fill_rect(1, 1, 11, 20, Color(255, 20, 20, 128));
 	image.fill_triangle(20, 0, 10, 10, 20, 20, Colors::red, Colors::green, Colors::blue);
 	image.show();
