@@ -23,6 +23,7 @@ int main()
 	int x2 = rand() % 20;
 	int y2 = rand() % 20;
 	image2.fill_line(x1, y1, x2, y2, Colors::turquoise);
+	image2.fill_text(x1, y1, "\t", Colors::turquoise);
 	image2.show();
 	return 0;
 }

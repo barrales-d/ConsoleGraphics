@@ -5,6 +5,8 @@
 
 namespace CG {
 	class Font {
+	private:
+		static inline constexpr int err = '?' - 32;
 	public:
 		Font() = delete;
 		static inline constexpr int height = 6;
@@ -12,7 +14,11 @@ namespace CG {
 
 		static inline const std::vector<int>& get(const char ch)
 		{
-			return glyphs[ch - 32];
+			int index = ch - 32;
+			if (index < 0 || index >= 95)
+				return glyphs[err];
+			else
+				return glyphs[index];
 		}
 	private:
 		static inline const std::vector<std::vector<int>> glyphs = {
@@ -268,12 +274,12 @@ namespace CG {
 				0, 0, 0, 0, 0, 0
 			},
 			{
+				0, 1, 1, 0, 0, 0,
+				1, 0, 0, 1, 0, 0,
+				0, 0, 0, 1, 0, 0,
+				0, 1, 1, 0, 0, 0,
 				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0,
-				0, 0, 0, 0, 0, 0
+				0, 1, 0, 0, 0, 0
 			},
 			{
 				0, 0, 0, 0, 0, 0,
