@@ -27,6 +27,7 @@ Image::Image(int width, int height)
 
 void Image::show()
 {
+	std::cout << Ansi::Codes::hide_cursor;
 	for (size_t y = 0; y < m_height; y++) {
 		for (size_t x = 0; x < m_width; x++) {
 			auto& pixel = m_pixels[y * m_width + x];
