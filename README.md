@@ -1,6 +1,6 @@
 # ConsoleGraphics
 
-Mini 2D graphics library in C++ for the console / terminal.
+Mini 2D graphics library in C++ for the console / terminal. 
 
 Create drawings in the console!
 - Rectangles / Squares
@@ -8,6 +8,8 @@ Create drawings in the console!
 - Lines
 - Triangles with 1 color or interpolate with 3 colors using barycentric coordinates!
 - Text rendering using a minecraft style Font
+
+**NOTE**: To view/use my first iteration code of this project look at the legacy branch, It does *NOT* have some features of the new version has like barycentric coords. but It *DOES* have a support for png saving and a linux Makefile 
 
 ## Simple program example: 
 ```cpp
