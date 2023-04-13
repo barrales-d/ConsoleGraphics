@@ -2,12 +2,12 @@
 
 Mini 2D graphics library in C++ for the console / terminal.
 
-Create drawings in the console
-	- Rectangles / Squares
-	- Circles / Ellipses
-	- Lines
-	- Triangles with 1 color or interpolate with 3 colors using barycentric coordinates!
-	- Text rendering using a minecraft style Font
+Create drawings in the console!
+- Rectangles / Squares
+- Circles / Ellipses
+- Lines
+- Triangles with 1 color or interpolate with 3 colors using barycentric coordinates!
+- Text rendering using a minecraft style Font
 
 ## Simple program example: 
 ```cpp
