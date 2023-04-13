@@ -41,6 +41,7 @@
 .vs
 .sln
 .vcxproj
+out/
 ## Ignore Visual Studio temporary files, build results
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
@@ -50,7 +51,6 @@
 *.user
 *.userosscache
 *.sln.docstates
-
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
