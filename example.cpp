@@ -19,7 +19,7 @@ int main()
 	image.fill_triangle(20, 0, 10, 10, 20, 20, Colors::red, Colors::green, Colors::blue);
 	image.show();
 	
-	std::cout << Ansi::Codes::move_cursor(20, 20 * 2);
+	ansi_codes::move_cursor(20, 20 * 2);
 	
 	Image image2 = image;
 	image2.fill_background();

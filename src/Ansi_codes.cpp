@@ -1,15 +1,24 @@
 #include "../include/Ansi_codes.h"
 
-using namespace Ansi;
 
-const std::string Codes::move_cursor(int up, int left)
+void ansi_codes::reset()
 {
-	return "\x1b[" + std::to_string(left) + "D\x1b[" + std::to_string(up) + "A";
+	std::cout << "\x1b[0m";
 }
 
-const std::string Codes::background(CG::Color col)
+void ansi_codes::hide_cursor()
 {
-	return "\x1b[48;2;" +
+	std::cout << "\x1b[?25l";
+}
+
+void ansi_codes::move_cursor(int up, int left)
+{
+	std::cout << "\x1b[" + std::to_string(left) + "D\x1b[" + std::to_string(up) + "A";
+}
+
+void ansi_codes::background(CG::Color col)
+{
+	std::cout << "\x1b[48;2;" +
 		std::to_string(col.r) + ";" +
 		std::to_string(col.g) + ";" +
 		std::to_string(col.b) + "m";
