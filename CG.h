@@ -2,8 +2,6 @@
 #pragma once
 
 #include <iostream>
-#include <iomanip>
-#include <ctime>
 
 #include "include/Vector.h"
 #include "include/Math.h"

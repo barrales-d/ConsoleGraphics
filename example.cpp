@@ -3,6 +3,9 @@
 #include "CG.h"
 using namespace CG;
 
+#include <iomanip>
+#include <ctime>
+
 int main()
 {
 	srand(time(NULL));
@@ -15,14 +18,29 @@ int main()
 	image.fill_line_rect(3, 6, 5, 4, Colors::lightgreen);
 	image.fill_triangle(20, 0, 10, 10, 20, 20, Colors::red, Colors::green, Colors::blue);
 	image.show();
-
-	Image image2(image);
+	
+	std::cout << Ansi::Codes::move_cursor(20, 20 * 2);
+	
+	Image image2 = image;
 	image2.fill_background();
-	int x1 = rand() % 20;
-	int y1 = rand() % 20;
-	int x2 = rand() % 20;
-	int y2 = rand() % 20;
-	image2.fill_line(x1, y1, x2, y2, Colors::turquoise);
+	image.fill_triangle(20, 0, 10, 10, 20, 20, Colors::magenta, Colors::yellow, Colors::cyan);
+	image.fill_triangle(0, 20, 10, 10, 20, 20, Colors::magenta, Colors::yellow, Colors::cyan);
+	image.fill_triangle(20, 0, 10, 10, 0, 0, Colors::magenta, Colors::yellow, Colors::cyan);
+	image.fill_triangle(0, 20, 10, 10, 0, 0, Colors::magenta, Colors::yellow, Colors::cyan);
+	image2.show();
+
+	image2.fill_background();
+	image.fill_triangle(20, 0, 10, 10, 20, 20, Colors::yellow, Colors::magenta, Colors::cyan);
+	image.fill_triangle(0, 20, 10, 10, 20, 20, Colors::yellow, Colors::magenta, Colors::cyan);
+	image.fill_triangle(20, 0, 10, 10, 0, 0, Colors::yellow, Colors::magenta, Colors::cyan);
+	image.fill_triangle(0, 20, 10, 10, 0, 0, Colors::yellow, Colors::magenta, Colors::cyan);
+	image2.show();
+
+	image2.fill_background();
+	image.fill_triangle(20, 0, 10, 10, 20, 20, Colors::cyan, Colors::yellow, Colors::magenta);
+	image.fill_triangle(0, 20, 10, 10, 20, 20, Colors::cyan, Colors::yellow, Colors::magenta);
+	image.fill_triangle(20, 0, 10, 10, 0, 0, Colors::cyan, Colors::yellow, Colors::magenta);
+	image.fill_triangle(0, 20, 10, 10, 0, 0, Colors::cyan, Colors::yellow, Colors::magenta);
 	image2.show();
 
 	return 0;

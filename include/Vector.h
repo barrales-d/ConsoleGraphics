@@ -100,12 +100,12 @@ namespace CG
 	template<class T>
 	bool operator==(__BASE_VEC4__<T> a, __BASE_VEC4__<T> b);
 
-	typedef __BASE_VEC2__<int> Vec2;
-	typedef __BASE_VEC2__<float> Vec2f;
-	typedef __BASE_VEC3__<int> Vec3;
-	typedef __BASE_VEC3__<float> Vec3f;
-	typedef __BASE_VEC4__<int> Vec4;
-	typedef __BASE_VEC4__<float> Vec4f;
+	using Vec2 = __BASE_VEC2__<int>;
+	using Vec2f = __BASE_VEC2__<float>;
+	using Vec3 = __BASE_VEC3__<int>;
+	using Vec3f = __BASE_VEC3__<float>;
+	using Vec4 = __BASE_VEC4__<int>;
+	using Vec4f = __BASE_VEC4__<float>;
 }
 
 namespace CG
