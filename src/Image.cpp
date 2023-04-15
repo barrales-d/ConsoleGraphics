@@ -196,6 +196,22 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 	}
 }
 
+void Image::resize(int width, int height)
+{
+	std::shared_ptr<Color[]> resized_pixels = std::shared_ptr<Color[]>(new Color[width * height]);
+	for (size_t y = 0; y < height; y++) {
+		for (size_t x = 0; x < width; x++) {
+			size_t nx = x * m_width / width;
+			size_t ny = y * m_height / height;
+			resized_pixels[y * width + x] = m_pixels[ny * m_width + nx];
+		}
+	}
+	this->m_pixels.reset();
+	this->m_pixels = resized_pixels;
+	m_width = width;
+	m_height = height;
+}
+
 Vec4 Image::clamp_rect(int x, int y, int wd, int ht)
 {
 	//	completely out of bounds

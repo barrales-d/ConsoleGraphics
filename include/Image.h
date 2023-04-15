@@ -26,6 +26,8 @@ namespace CG {
 		void fill_text(int x, int y, const std::string& text, Color bg_color);
 		void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color c1,
 							Color c2 = Colors::transparent, Color c3 = Colors::transparent);
+		
+		void resize(int width, int height);
 
 	protected:
 		int m_width;
