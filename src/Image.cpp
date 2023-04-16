@@ -191,11 +191,48 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 	}
 }
 
+void Image::fill_bezier_curve(Vec2 p1, Vec2 p2, Vec2 p3, Color c1, Color c2, float step)
+{
+	float t = 0;
+	float nt = 1 - t;
+	int sx = Math::floor((Math::pow(nt, 2) * p1.x) + (2 * nt * t * p2.x) + (Math::pow(t, 2) * p3.x));
+	int sy = Math::floor((Math::pow(nt, 2) * p1.y) + (2 * nt * t * p2.y) + (Math::pow(t, 2) * p3.y));
+	Vec2 start(sx, sy);
+	for (t = step; t < 1.0f; t += step) {
+		nt = 1 - t;
+		int px = Math::ceil((Math::pow(nt, 2) * p1.x) + (2 * nt * t * p2.x) + (Math::pow(t, 2) * p3.x));
+		int py = Math::ceil((Math::pow(nt, 2) * p1.y) + (2 * nt * t * p2.y) + (Math::pow(t, 2) * p3.y));
+		Vec2 point(px, py);
+		this->fill_bezier_curve_line(start, point, c1, c2, step);
+	}
+}
+
+void Image::fill_bezier_curve(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Color c1, Color c2, float step)
+{
+	float t = 0;
+	float nt = 1 - t;
+	int sx = Math::floor((Math::pow(nt, 3) * p1.x) + (3 * Math::pow(nt, 2) * t * p2.x) +
+		(3 * nt * Math::pow(t, 2) * p3.x) + (Math::pow(t, 3) * p4.x));
+	int sy = Math::floor((Math::pow(nt, 3) * p1.y) + (3 * Math::pow(nt, 2) * t * p2.y) +
+		(3 * nt * Math::pow(t, 2) * p3.y) + (Math::pow(t, 3) * p4.y));
+	Vec2 start(sx, sy);
+
+	for (t = step; t < 1.0f; t += step) {
+		nt = 1 - t;
+		int px = Math::ceil((Math::pow(nt, 3) * p1.x) + (3 * Math::pow(nt, 2) * t * p2.x) +
+			(3 * nt * Math::pow(t, 2) * p3.x) + (Math::pow(t, 3) * p4.x));
+
+		int py = Math::ceil((Math::pow(nt, 3) * p1.y) + (3 * Math::pow(nt, 2) * t * p2.y) +
+			(3 * nt * Math::pow(t, 2) * p3.y) + (Math::pow(t, 3) * p4.y));
+		Vec2 point(px, py);
+		this->fill_bezier_curve_line(start, point, c1, c2, step);
+	}
+}
 void Image::fill_bezier_curve_line(Vec2 p1, Vec2 p2, Color c1, Color c2, float step)
 {
 	for (float t = 0; t < 1.0f; t += step) {
-		int px = (1 - t) * p1.x + t * p2.x;
-		int py = (1 - t) * p1.y + t * p2.y;
+		int px = Math::floor((1 - t) * p1.x + t * p2.x);
+		int py = Math::floor((1 - t) * p1.y + t * p2.y);
 		if (px < m_width && py < m_height && px >= 0 && py >= 0)
 			this->fill_point(px, py, Color::lerp_colors(t, c1, c2));
 	}
@@ -205,23 +242,23 @@ void Image::fill_bezier_curve_line(Vec2 p1, Vec2 p2, Vec2 p3, Color c1, Color c2
 {
 	for (float t = 0; t < 1.0f; t += step) {
 		float nt = 1 - t;
-		int px = (Math::pow(nt, 2) * p1.x) + (2 * nt * t * p2.x) + (Math::pow(t, 2) * p3.x);
-		int py = (Math::pow(nt, 2) * p1.y) + (2 * nt * t * p2.y) + (Math::pow(t, 2) * p3.y);
+		int px = Math::floor((Math::pow(nt, 2) * p1.x) + (2 * nt * t * p2.x) + (Math::pow(t, 2) * p3.x));
+		int py = Math::floor((Math::pow(nt, 2) * p1.y) + (2 * nt * t * p2.y) + (Math::pow(t, 2) * p3.y));
 
 		if (px < m_width && py < m_height && px >= 0 && py >= 0)
 			this->fill_point(px, py, Color::lerp_colors(t, c1, c2));
 	}
 }
 
-void CG::Image::fill_bezier_curve_line(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Color c1, Color c2, float step)
+void Image::fill_bezier_curve_line(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Color c1, Color c2, float step)
 {
 	for (float t = 0; t < 1.0f; t += step) {
 		float nt = 1 - t;
-		int px = (Math::pow(nt, 3) * p1.x) + (3 * Math::pow(nt, 2) * t * p2.x) + 
-				 (3 * nt * Math::pow(t, 2) * p3.x) + (Math::pow(t, 3) * p4.x);
+		int px = Math::floor((Math::pow(nt, 3) * p1.x) + (3 * Math::pow(nt, 2) * t * p2.x) + 
+				 (3 * nt * Math::pow(t, 2) * p3.x) + (Math::pow(t, 3) * p4.x));
 
-		int py = (Math::pow(nt, 3) * p1.y) + (3 * Math::pow(nt, 2) * t * p2.y) + 
-				 (3 * nt * Math::pow(t, 2) * p3.y) + (Math::pow(t, 3) * p4.y);
+		int py = Math::floor((Math::pow(nt, 3) * p1.y) + (3 * Math::pow(nt, 2) * t * p2.y) + 
+				 (3 * nt * Math::pow(t, 2) * p3.y) + (Math::pow(t, 3) * p4.y));
 
 		if (px < m_width && py < m_height && px >= 0 && py >= 0)
 			this->fill_point(px, py, Color::lerp_colors(t, c1, c2));

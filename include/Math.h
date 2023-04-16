@@ -36,10 +36,10 @@ namespace CG {
 		T max(T a, T b, Args... args) { return Math::max(a, Math::max(b, args...)); }
 
 		template<class T>
-		T ceil(T a) { return static_cast<T>(a < 0 ? int(a) : int(a) + 1); }
+		int ceil(T a) { return a < 0 ? int(a) : int(a) + 1; }
 
 		template<class T>
-		T floor(T a) { return static_cast<T>(a < 0 ? int(a) - 1 : int(a)); }
+		int floor(T a) { return a < 0 ? int(a) - 1 : int(a); }
 		
 		template<class T>
 		T pow(T a, int b) { return static_cast<T>(b == 0 ? 0 : (b == 1 ? a : pow(a, b - 1) * a)); }

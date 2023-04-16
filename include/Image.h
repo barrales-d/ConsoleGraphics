@@ -27,11 +27,16 @@ namespace CG {
 		void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color c1,
 							Color c2 = Colors::transparent, Color c3 = Colors::transparent);
 
+		void fill_bezier_curve(Vec2 p1, Vec2 p2, Vec2 p3, Color c1, 
+							   Color c2 = Colors::transparent, float step = 0.01f);
+		void fill_bezier_curve(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Color c1,
+							   Color c2 = Colors::transparent, float step = 0.01f);
+
 		void fill_bezier_curve_line(Vec2 p1, Vec2 p2, Color c1, 
-			Color c2 = Colors::transparent, float step = 0.01f);
+									Color c2 = Colors::transparent, float step = 0.01f);
 
 		void fill_bezier_curve_line(Vec2 p1, Vec2 p2, Vec2 p3, Color c1, 
-			Color c2 = Colors::transparent, float step = 0.01f);
+									Color c2 = Colors::transparent, float step = 0.01f);
 
 		void fill_bezier_curve_line(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Color c1,
 									Color c2 = Colors::transparent, float step = 0.01f);

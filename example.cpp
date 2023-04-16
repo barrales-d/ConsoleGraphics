@@ -46,5 +46,21 @@ int main()
 	image2.fill_bezier_curve_line(Vec2(0, 0), Vec2(20, 0), Vec2(20, 20), Colors::black);
 	image2.show();
 
+	Image image3(50, 50);
+
+	image3.fill_background(Colors::black);
+
+	Vec2 p1(0, 0);
+	Vec2 p2(25, 50);
+	Vec2 p3(50, 0);
+	Vec2 p4(50, 50);
+	//image3.fill_bezier_curve(p1, p2, p3, Colors::blue, 0.001f);
+	//image3.fill_bezier_curve_line(p1, p2, p3, Color(255, 40, 40, 128), 0.001f);
+
+	image3.fill_bezier_curve(p1, p2, p3, p4, Color(0, 254, 0, 255), 0.001f);
+	image3.fill_bezier_curve_line(p1, p2, p3, p4, Color(255, 255, 40, 128), 0.001f);
+
+	//image3.fill_bezier_curve_line(p1, p2, Colors::magenta, 0.001f);
+	image3.show();
 	return 0;
 }
