@@ -84,15 +84,18 @@ namespace CG {
 			return (a << 8 * 3) | (b << 8 * 2) | (g << 8 * 1) | (r << 8 * 0);
 		}
 
-		static inline Color lerp_colors(Color c1, Color c2, float t)
+		static inline Color lerp_colors(float t, Color c1, Color c2)
 		{
+			//	if lerping with invisible color return the color that isn't invisable
+			//	useful when lerping with Colors::transparent
 			return Color(
-				Math::lerp(c1.r, c2.r, t),
-				Math::lerp(c1.g, c2.g, t),
-				Math::lerp(c1.b, c2.b, t),
-				Math::lerp(c1.a, c2.a, t)
+				(c2.a > 0 ? (c1.a > 0? Math::lerp(c1.r, c2.r, t) : c2.r): c1.r),
+				(c2.a > 0 ? (c1.a > 0? Math::lerp(c1.g, c2.g, t) : c2.g): c1.g),
+				(c2.a > 0 ? (c1.a > 0? Math::lerp(c1.b, c2.b, t) : c2.b): c1.b),
+				(c2.a > 0 ? (c1.a > 0? Math::lerp(c1.a, c2.a, t) : c2.a): c1.a)
 			);
 		}
+
 	};
 
 	namespace Colors {

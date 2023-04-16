@@ -21,7 +21,7 @@ namespace CG
 			: x(v.x), y(v.y) {}
 		__BASE_VEC2__(__BASE_VEC4__<T> v)
 			: x(v.x), y(v.y) {}
-		T magnitude();
+		float magnitude();
 	};
 	template<class T>
 	struct __BASE_VEC3__ {
@@ -34,7 +34,7 @@ namespace CG
 			: x(v.x), y(v.y), z(0) {}
 		__BASE_VEC3__(__BASE_VEC4__<T> v)
 			: x(v.x), y(v.y), z(v.z) {}
-		T magnitude();
+		float magnitude();
 	};
 	template<class T>
 	struct __BASE_VEC4__ {
@@ -47,7 +47,7 @@ namespace CG
 			: x(v.x), y(v.y), z(0), w(0) {}
 		__BASE_VEC4__(__BASE_VEC3__<T> v)
 			: x(v.x), y(v.y), z(v.z), w(0) {}
-		T magnitude();
+		float magnitude();
 	};
 	//	VECTOR 2 OPERATIONS
 	template<class T>
@@ -153,9 +153,9 @@ namespace CG
 		return __BASE_VEC2__<T>(a.x / scalar, a.y / scalar);
 	}
 	template<class T>
-	T __BASE_VEC2__<T>::magnitude()
+	float __BASE_VEC2__<T>::magnitude()
 	{
-		return static_cast<T>(sqrt(x * x + y * y));
+		return static_cast<float>(sqrt(x * x + y * y));
 	}
 	//	VEC 3
 	template<class T>
@@ -194,9 +194,9 @@ namespace CG
 		return __BASE_VEC3__<T>(a.x / scalar, a.y / scalar, a.z / scalar);
 	}
 	template<class T>
-	T __BASE_VEC3__<T>::magnitude()
+	float __BASE_VEC3__<T>::magnitude()
 	{
-		return static_cast<T>(sqrt(x * x + y * y + z * z));
+		return static_cast<float>(sqrt(x * x + y * y + z * z));
 	}
 	//	VEC4
 	template<class T>
@@ -240,9 +240,9 @@ namespace CG
 		return (a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w);
 	}
 	template<class T>
-	T __BASE_VEC4__<T>::magnitude()
+	float __BASE_VEC4__<T>::magnitude()
 	{
-		return static_cast<T>(sqrt(x * x + y * y + z * z + w * w));
+		return static_cast<float>(sqrt(x * x + y * y + z * z + w * w));
 	}
 }
 

@@ -40,6 +40,9 @@ namespace CG {
 
 		template<class T>
 		T floor(T a) { return static_cast<T>(a < 0 ? int(a) - 1 : int(a)); }
+		
+		template<class T>
+		T pow(T a, int b) { return static_cast<T>(b == 1 ? a : pow(a, b - 1) * a); }
 	}
 }
 
