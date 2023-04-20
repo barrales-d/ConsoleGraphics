@@ -22,6 +22,7 @@ namespace CG
 		__BASE_VEC2__(__BASE_VEC4__<T> v)
 			: x(v.x), y(v.y) {}
 		float magnitude();
+		__BASE_VEC2__<T> normalized();
 	};
 	template<class T>
 	struct __BASE_VEC3__ {
@@ -156,6 +157,11 @@ namespace CG
 	float __BASE_VEC2__<T>::magnitude()
 	{
 		return static_cast<float>(sqrt(x * x + y * y));
+	}
+	template<class T>
+	__BASE_VEC2__<T> __BASE_VEC2__<T>::normalized()
+	{
+		return __BASE_VEC2__<T>(*this / (T)this->magnitude());
 	}
 	//	VEC 3
 	template<class T>

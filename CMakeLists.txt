@@ -2,6 +2,8 @@
 
 cmake_minimum_required (VERSION 3.8)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Enable Hot Reload for MSVC compilers if supported.
 if (POLICY CMP0141)
@@ -11,16 +13,23 @@ endif()
 
 project (ConsoleGraphics)
 
+# Create ConsoleGraphic library
+add_library( ConsoleGraphics
+			 src/Ansi_codes.cpp
+			 src/Image.cpp
+)
 # Add source to this project's executable.
 add_executable( examples
 				example.cpp
-				src/Ansi_codes.cpp
-				src/Image.cpp)
+)
 				
 add_executable( tests
 				test.cpp
-				src/Ansi_codes.cpp
-				src/Image.cpp)
+)
+
+# reference ConsoleGraphics
+target_link_libraries(examples ConsoleGraphics)
+target_link_libraries(tests ConsoleGraphics)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET examples PROPERTY CXX_STANDARD 20)
