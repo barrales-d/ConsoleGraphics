@@ -27,14 +27,14 @@ Image::Image(int width, int height)
 
 void Image::show()
 {
-	ansi_codes::hide_cursor();
+	ansi::hide_cursor();
 	for (size_t y = 0; y < m_height; y++) {
 		for (size_t x = 0; x < m_width; x++) {
 			auto& pixel = m_pixels[y * m_width + x];
-			ansi_codes::background(pixel);
+			ansi::background(pixel);
 			std::cout << deafult_fill;
 		}
-		ansi_codes::reset();
+		ansi::reset();
 		std::cout << std::flush << "\r\n";
 	}
 }

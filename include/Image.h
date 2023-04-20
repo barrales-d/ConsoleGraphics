@@ -1,7 +1,7 @@
 #ifndef __IMAGE_H__
 #define __IMAGE_H__
 #include "Color.h"
-#include "Ansi_codes.h"
+#include "Ansi.h"
 #include "Font.h"
 
 #include <memory>

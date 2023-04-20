@@ -15,7 +15,7 @@ project (ConsoleGraphics)
 
 # Create ConsoleGraphic library
 add_library( ConsoleGraphics
-			 src/Ansi_codes.cpp
+			 "src/Ansi.cpp"
 			 src/Image.cpp
 )
 # Add source to this project's executable.
