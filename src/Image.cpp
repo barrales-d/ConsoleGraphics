@@ -130,9 +130,9 @@ void Image::fill_circle(int x, int y, int r, Color bg_color)
 
 void Image::fill_circle_line(int x, int y, int r, Color bg_color)
 {
-	for (float angle = 1; angle < 360; angle++) {
-		int px = Math::floor(r * sinf(angle) + x);
-		int py = Math::floor(r * cosf(angle) + y);
+	for (float angle = 1; angle < 360.0f; angle++) {
+		int px = Math::floor(r * sinf(angle * Math::PI / 180.0f) + x);
+		int py = Math::floor(r * cosf(angle * Math::PI / 180.0f) + y);
 		if (px < m_width && py < m_height && px >= 0 && py >= 0)
 			this->fill_point(px, py, bg_color);
 	}
