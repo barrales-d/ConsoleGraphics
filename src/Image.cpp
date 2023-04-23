@@ -85,6 +85,9 @@ void Image::fill_rect_line(int x, int y, int width, int height, Color bg_color)
 void Image::fill_line(int x1, int y1, int x2, int y2, Color bg_color)
 {
 	Vec4 bound_box = clamp_rect(Math::min(x1, x2), Math::min(y1, y2), Math::abs(x2 - x1), Math::abs(y2 - y1));
+	if (bound_box == Vec4::zero)
+		return;
+
 	int dx = x2 - x1;
 	if (dx == 0) { //	vertical line
 		for (int y = bound_box.z; y <= bound_box.w; y++)
@@ -113,14 +116,25 @@ void Image::fill_circle(int x, int y, int r, Color bg_color)
 	Vec4 circle_bound = clamp_rect(x - r, y - r, x + r, y + r);
 	if (circle_bound == Vec4::zero)
 		return;
-	float dr = (r + 0.5f) * (r + 0.5f);
+
+	float dr = r * r + 0.5f;
 	for (int py = circle_bound.z; py < circle_bound.w; py++) {
 		for (int px = circle_bound.x; px < circle_bound.y; px++) {
-			float dx = (float)(px - x);
-			float dy = (float)(py - y);
+			float dx = (float)(px - x) + 0.5f;
+			float dy = (float)(py - y) + 0.5f;
 			if (dx * dx + dy * dy < dr)
 				this->fill_point(px, py, bg_color);
 		}
+	}
+}
+
+void Image::fill_circle_line(int x, int y, int r, Color bg_color)
+{
+	for (float angle = 1; angle < 360; angle++) {
+		int px = Math::floor(r * sinf(angle) + x);
+		int py = Math::floor(r * cosf(angle) + x);
+		if (px < m_width && py < m_height && px >= 0 && py >= 0)
+			this->fill_point(px, py, bg_color);
 	}
 }
 
@@ -174,6 +188,9 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 	Vec2 point = Vec2(Math::min(x1, x2, x3), Math::min(y1, y2, y3));
 
 	Vec4 tri_bound = clamp_rect(point.x, point.y, Math::max(x1, x2, x3) - point.x, Math::max(y1, y2, y3) - point.y);
+	if (tri_bound == Vec4::zero)
+		return;
+
 	float epsilon = -0.000001f;
 	for (int py = tri_bound.z; py < tri_bound.w; py++) {
 		for (int px = tri_bound.x; px < tri_bound.y; px++) {

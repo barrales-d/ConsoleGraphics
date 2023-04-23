@@ -22,6 +22,7 @@ namespace CG {
 		void fill_rect_line(int x, int y, int width, int height, Color bg_color);
 		void fill_line(int x1, int y1, int x2, int y2, Color bg_color);
 		void fill_circle(int x, int y, int r, Color bg_color);
+		void fill_circle_line(int x, int y, int r, Color bg_color);
 		void fill_ellipse(int x, int y, int rx, int ry, Color bg_color);
 		void fill_text(int x, int y, const std::string& text, Color bg_color);
 		void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color c1,

@@ -5,6 +5,11 @@ void ansi::reset()
 	std::cout << "\x1b[0m";
 }
 
+void ansi::clear_screen()
+{
+	std::cout << "\x1b[2J";
+}
+
 void ansi::hide_cursor()
 {
 	std::cout << "\x1b[?25l";
