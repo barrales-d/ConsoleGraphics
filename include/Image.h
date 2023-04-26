@@ -8,8 +8,7 @@
 #include <iostream>
 
 namespace CG {
-	class Image
-	{
+	class Image {
 	public:
 		Image();
 		Image(int width, int height);
@@ -28,6 +27,8 @@ namespace CG {
 		void fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color c1,
 							Color c2 = Colors::transparent, Color c3 = Colors::transparent);
 
+		void fill_sprite(int x, int y, const std::vector<uint32_t>& sprite, int width, int height);
+
 		void fill_bezier_curve(Vec2 p1, Vec2 p2, Vec2 p3, Color c1, 
 							   Color c2 = Colors::transparent, float step = 0.01f);
 		void fill_bezier_curve(Vec2 p1, Vec2 p2, Vec2 p3, Vec2 p4, Color c1,
@@ -43,7 +44,7 @@ namespace CG {
 									Color c2 = Colors::transparent, float step = 0.01f);
 		
 		void resize(int width, int height);
-
+		
 	protected:
 		int m_width;
 		int m_height;

@@ -19,9 +19,8 @@ Image::Image()
 //}
 
 Image::Image(int width, int height)
+	: m_width(width), m_height(height)
 {
-	m_width = width;
-	m_height = height;
 	m_pixels = std::unique_ptr<Color[]>(new Color[m_width * m_height]);
 }
 
@@ -207,7 +206,18 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 		}
 	}
 }
-
+void Image::fill_sprite(int x, int y, const std::vector<uint32_t>& sprite, int width, int height)
+{
+	Vec4 sprite_bound = clamp_rect(x, y, width, height);
+	for (int py = sprite_bound.z; py < sprite_bound.w; py++) {
+		for (int px = sprite_bound.x; px < sprite_bound.y; px++) {
+			size_t sx = (size_t)px - sprite_bound.x;
+			size_t sy = (size_t)py - sprite_bound.z;
+			Color sprite_col = Color(sprite[sy * width + sx]);
+			this->fill_point(px, py, sprite_col);
+		}
+	}
+}
 void Image::fill_bezier_curve(Vec2 p1, Vec2 p2, Vec2 p3, Color c1, Color c2, float step)
 {
 	float t = 0;
