@@ -28,6 +28,14 @@ void ansi::background(CG::Color col)
 		std::to_string(col.b) + "m";
 }
 
+void ansi::foreground(CG::Color col)
+{
+	std::cout << "\x1b[38;2;" +
+		std::to_string(col.r) + ";" +
+		std::to_string(col.g) + ";" +
+		std::to_string(col.b) + "m";
+}
+
 void ansi::linewrap(bool enable)
 {
 	if (enable)

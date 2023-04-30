@@ -14,17 +14,21 @@ endif()
 project (ConsoleGraphics)
 
 # Create ConsoleGraphic library
-add_library( ConsoleGraphics
-			 "src/Ansi.cpp"
-			 src/Image.cpp
+add_library( 
+	ConsoleGraphics
+	src/Ansi.cpp
+	src/Image.cpp
 )
 # Add source to this project's executable.
-add_executable( examples
-				example.cpp
+add_executable ( 
+	examples
+	example.cpp
 )
 				
-add_executable( tests
-				test.cpp
+add_executable ( 
+	tests
+	test.cpp
+	Tests/Testcase.cpp
 )
 
 # reference ConsoleGraphics

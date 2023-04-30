@@ -70,7 +70,7 @@ void Image::fill_rect_line(int x, int y, int width, int height, Color bg_color)
 	Vec4 rect_bound = clamp_rect(x, y, width, height);
 	if (rect_bound == Vec4::zero)
 		return;
-	for (int py = rect_bound.z; py <= rect_bound.w; py++) {
+	for (int py = rect_bound.z; py < rect_bound.w; py++) {
 		this->fill_point(rect_bound.x, py, bg_color);
 		this->fill_point(rect_bound.y, py, bg_color);
 	}
@@ -89,16 +89,16 @@ void Image::fill_line(int x1, int y1, int x2, int y2, Color bg_color)
 
 	int dx = x2 - x1;
 	if (dx == 0) { //	vertical line
-		for (int y = bound_box.z; y <= bound_box.w; y++)
+		for (int y = bound_box.z; y < bound_box.w; y++)
 			this->fill_point(x1, y, bg_color);
 		return;
 	}
 	
 	//	y = mx + b
-	float m = (float)(y2 - y1) / dx;
+	float m = (float)(y2 - y1) / (float)dx;
 	float b = y1 - m * x1;
 	for (int x = bound_box.x; x < bound_box.y; x++) {
-		int y = static_cast<int>(x * m + b);
+		int y = Math::floor(x * m + b);
 		if (Math::abs(m) > 1.0f) {
 			//	use clamp instead of min to allow for negative values?
 			int next_y = Math::clamp(y + (int)m, bound_box.z, bound_box.w - 1);

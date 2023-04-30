@@ -52,6 +52,11 @@ namespace CG {
 				b == rhs.b &&
 				a == rhs.a);
 		}
+		bool operator!=(Color rhs) const
+		{
+			return !(*this == rhs);
+		}
+
 		Vec4f rgba() const 
 		{
 			return Vec4f(

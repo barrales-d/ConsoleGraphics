@@ -8,6 +8,7 @@
 #include <iostream>
 
 namespace CG {
+	class Testcase;
 	class Image {
 	public:
 		Image();
@@ -45,6 +46,7 @@ namespace CG {
 		
 		void resize(int width, int height);
 		
+		friend class Testcase;
 	protected:
 		int m_width;
 		int m_height;

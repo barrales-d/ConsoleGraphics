@@ -11,6 +11,7 @@ namespace ansi {
     void hide_cursor();
     void move_cursor(int up, int left);
     void background(CG::Color col);
+    void foreground(CG::Color col);
     void linewrap(bool enable = false);
 }
 
