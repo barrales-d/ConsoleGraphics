@@ -3,7 +3,7 @@
 using namespace CG;
 
 namespace {
-	constexpr const char* deafult_fill = "  ";
+	constexpr const char* default_fill = "  ";
 }
 
 Image::Image()
@@ -31,7 +31,7 @@ void Image::show()
 		for (size_t x = 0; x < m_width; x++) {
 			auto& pixel = m_pixels[y * m_width + x];
 			ansi::background(pixel);
-			std::cout << deafult_fill;
+			std::cout << default_fill;
 		}
 		ansi::reset();
 		std::cout << std::flush << "\r\n";
@@ -191,8 +191,8 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 		return;
 
 	float epsilon = -0.000001f;
-	for (int py = tri_bound.z; py < tri_bound.w; py++) {
-		for (int px = tri_bound.x; px < tri_bound.y; px++) {
+	for (int py = tri_bound.z; py <= tri_bound.w; py++) {
+		for (int px = tri_bound.x; px <= tri_bound.y; px++) {
 			float d1 = ((y2 - y3) * (px - x3) + (x3 - x2) * (py - y3)) / determinate;
 			float d2 = ((y3 - y1) * (px - x3) + (x1 - x3) * (py - y3)) / determinate;
 			float d3 = 1 - d1 - d2;
@@ -209,8 +209,8 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 void Image::fill_sprite(int x, int y, const std::vector<uint32_t>& sprite, int width, int height)
 {
 	Vec4 sprite_bound = clamp_rect(x, y, width, height);
-	for (int py = sprite_bound.z; py < sprite_bound.w; py++) {
-		for (int px = sprite_bound.x; px < sprite_bound.y; px++) {
+	for (int py = sprite_bound.z; py <= sprite_bound.w; py++) {
+		for (int px = sprite_bound.x; px <= sprite_bound.y; px++) {
 			size_t sx = (size_t)px - sprite_bound.x;
 			size_t sy = (size_t)py - sprite_bound.z;
 			Color sprite_col = Color(sprite[sy * width + sx]);

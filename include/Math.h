@@ -2,10 +2,11 @@
 #define __MATH_H__
 
 namespace CG {
+	template<class T>
+	void swap(T& x, T& y) { T tmp = x; x = y; y = tmp; }
+
 	namespace Math {
 		inline constexpr float PI = 3.14159265359f;
-		template<class T>
-		void swap(T& x, T& y) { T tmp = x; x = y; y = tmp; }
 
 		template<class T>
 		T abs(T x) { return x < 0 ? -x : x; }

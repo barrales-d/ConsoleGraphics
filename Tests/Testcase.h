@@ -8,7 +8,7 @@
 
 #include "../CG.h"
 
-#define TEST_FILEPATH "C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/Tests/ExpectedImages/"
+constexpr auto TEST_FILEPATH = "C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/Tests/ExpectedImages/";
 
 namespace CG {
 	class Testcase
