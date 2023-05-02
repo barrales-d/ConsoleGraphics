@@ -58,8 +58,8 @@ void Image::fill_rect(int x, int y, int width, int height, Color bg_color)
 	Vec4 rect_bound = clamp_rect(x, y, width, height);
 	if (rect_bound == Vec4::zero)
 		return;
-	for (int py = rect_bound.z; py < rect_bound.w; py++) {
-		for (int px = rect_bound.x; px < rect_bound.y; px++) {
+	for (int py = rect_bound.z; py <= rect_bound.w; py++) {
+		for (int px = rect_bound.x; px <= rect_bound.y; px++) {
 			this->fill_point(px, py, bg_color);
 		}
 	}
@@ -70,12 +70,12 @@ void Image::fill_rect_line(int x, int y, int width, int height, Color bg_color)
 	Vec4 rect_bound = clamp_rect(x, y, width, height);
 	if (rect_bound == Vec4::zero)
 		return;
-	for (int py = rect_bound.z; py < rect_bound.w; py++) {
+	for (int py = rect_bound.z; py <= rect_bound.w; py++) {
 		this->fill_point(rect_bound.x, py, bg_color);
 		this->fill_point(rect_bound.y, py, bg_color);
 	}
 
-	for (int px = rect_bound.x; px < rect_bound.y; px++) {
+	for (int px = rect_bound.x; px <= rect_bound.y; px++) {
 		this->fill_point(px, rect_bound.z, bg_color);
 		this->fill_point(px, rect_bound.w, bg_color);
 	}
@@ -89,7 +89,7 @@ void Image::fill_line(int x1, int y1, int x2, int y2, Color bg_color)
 
 	int dx = x2 - x1;
 	if (dx == 0) { //	vertical line
-		for (int y = bound_box.z; y < bound_box.w; y++)
+		for (int y = bound_box.z; y <= bound_box.w; y++)
 			this->fill_point(x1, y, bg_color);
 		return;
 	}
@@ -97,11 +97,11 @@ void Image::fill_line(int x1, int y1, int x2, int y2, Color bg_color)
 	//	y = mx + b
 	float m = (float)(y2 - y1) / (float)dx;
 	float b = y1 - m * x1;
-	for (int x = bound_box.x; x < bound_box.y; x++) {
+	for (int x = bound_box.x; x <= bound_box.y; x++) {
 		int y = Math::floor(x * m + b);
 		if (Math::abs(m) > 1.0f) {
 			//	use clamp instead of min to allow for negative values?
-			int next_y = Math::clamp(y + (int)m, bound_box.z, bound_box.w - 1);
+			int next_y = Math::clamp(y + (int)m, bound_box.z, bound_box.w);
 			this->fill_line(x, y, x, next_y, bg_color);
 		}
 		else {
@@ -145,8 +145,8 @@ void Image::fill_ellipse(int x, int y, int rx, int ry, Color bg_color)
 
 	float drx = 2.0f * rx;
 	float dry = 2.0f * ry;
-	for (int py = ellipse_bound.z; py < ellipse_bound.w; py++) {
-		for (int px = ellipse_bound.x; px < ellipse_bound.y; px++) {
+	for (int py = ellipse_bound.z; py <= ellipse_bound.w; py++) {
+		for (int px = ellipse_bound.x; px <= ellipse_bound.y; px++) {
 			float dx = (px - x) / drx;
 			float dy = (py - y) / dry;
 			if (dx * dx + dy * dy < 0.5f * 0.5f)
@@ -311,13 +311,13 @@ void Image::resize(int width, int height)
 Vec4 Image::clamp_rect(int x, int y, int wd, int ht)
 {
 	//	completely out of bounds
-	if ((x > m_width || x + wd < 0) || (y > m_height || y + ht < 0))
+	if ((x >= m_width || x + wd < 0) || (y >= m_height || y + ht < 0))
 		return Vec4::zero;
 	//	partially out of bounds
 	return Vec4(
 		Math::max(x, 0),
-		Math::min(x + wd, m_width),
+		Math::min(x + wd, m_width - 1),
 		Math::max(y, 0),
-		Math::min(y + ht, m_height)
+		Math::min(y + ht, m_height - 1)
 	);
 }

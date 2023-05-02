@@ -10,6 +10,7 @@ int main()
 	Testcase test_line = Testcase::declare_test("match_line", "match_line.expected.txt");
 	Testcase test_mult = Testcase::declare_test("match_mult_lines", "match_mult_lines.expected.txt");
 	Testcase test_tran = Testcase::declare_test("test_transparency", "test_transparency.expected.txt");
+	Testcase test_rectline = Testcase::declare_test("match_rectline", "match_rectline.expected.txt");
 
 
 	{
@@ -30,7 +31,7 @@ int main()
 	}
 	{
 		test_mult.test_image.fill_background();
-		test_mult.test_image.fill_line(0, 0, 4, 4, Colors::lightblue);
+		test_mult.test_image.fill_line(0, 0, 3, 3, Colors::lightblue);
 		test_mult.test_image.fill_line(0, 0, 0, 5, Colors::lightblue);
 		test_mult.test_image.fill_line(0, 0, 5, 0, Colors::lightblue);
 		test_mult.test_image.fill_line(5, 5, 0, 0, Color(255, 50, 50, 120));
@@ -41,6 +42,12 @@ int main()
 		test_tran.test_image.fill_rect(0, 0, 2, 2, Color(0, 200, 240, 128));
 		test_tran.test_image.fill_rect(1, 1, 3, 3, Color(120, 250, 50, 95));
 	}
-	Testcase::run_tests();
 
+	{
+		test_rectline.test_image.fill_background();
+		test_rectline.test_image.fill_rect(0, 0, 5, 5, Colors::black);
+		test_rectline.test_image.fill_rect_line(0, 0, 5, 5, Colors::lightred);
+	}
+
+	Testcase::run_tests();
 }
