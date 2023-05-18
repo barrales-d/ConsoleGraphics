@@ -1,0 +1,71 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-family: 'Consolas';
+    background-color: #1a1818;
+    color: #dadada;
+}
+
+h1.title {
+    text-align: center;
+    animation: 20s cubic-bezier(0.62, 1.4, 0, -0.32) infinite rainbow;
+}
+
+ul {
+    list-style: none;
+}
+
+.image-gallery-cols {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1em;
+    padding: 20px;
+    width: 90vw;
+}
+
+ul > li > img {
+    outline: auto;
+}
+
+ul > li > p {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+@keyframes rainbow {
+    0% {
+        color: red;
+    }
+
+    14% {
+        color: orange;
+    }
+
+    28% {
+        color: yellow;
+    }
+
+    42% {
+        color: green;
+    }
+
+    56% {
+        color: blue;
+    }
+
+    70% {
+        color: indigo;
+    }
+
+    84% {
+        color: violet;
+    }
+
+    100% {
+        color: red;
+    }
+}

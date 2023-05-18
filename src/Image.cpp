@@ -320,6 +320,8 @@ void Image::save_txt(const std::string& filename)
 		CG_ERROR(filename + " Could not be opened to save image!\n");
 		return;
 	}
+
+	output_file << this->m_width << " " << this->m_height << "\n";
 	for (size_t y = 0; y < this->m_height; y++) {
 		for (size_t x = 0; x < this->m_width; x++) {
 			auto expected_color = this->m_pixels[y * this->m_width + x].color();
@@ -334,9 +336,16 @@ void Image::load_txt(const std::string& filename)
 {
 	std::fstream infile(filename, std::ios::in);
 	if (!infile.is_open()) {
-		CG_ERROR(filename + " Could not be opened to load image!\n")
+		CG_ERROR(filename + " Could not be opened to load image!\n");
 		return;
 	}
+	int wd = 0, ht = 0;
+	infile >> wd >> ht;
+	if (this->m_width != wd || this->m_height != ht) {
+		CG_ERROR("Width and Height in " + filename + " file do not match with size allocated\n");
+		return;
+	}
+
 	uint32_t color = 0;
 	for (size_t y = 0; y < this->m_height; y++) {
 		for (size_t x = 0; x < this->m_width; x++) {
