@@ -74,13 +74,7 @@ void CG::Testcase::save_test()
 	std::fstream output_file(TEST_FILEPATH + this->file_name, std::ios::out);
 
 	if (this->expected_pixels.empty()) {
-		for (size_t y = 0; y < Testcase::size; y++) {
-			for (size_t x = 0; x < Testcase::size; x++) {
-				auto expected_color = this->test_image.m_pixels[y * Testcase::size + x].color();
-				output_file << std::hex << expected_color << " ";
-			}
-			output_file << '\n';
-		}
+		this->test_image.save_txt(TEST_FILEPATH + this->file_name);
 	}
 	else {
 		for (size_t y = 0; y < Testcase::size; y++) {
@@ -96,15 +90,6 @@ void CG::Testcase::save_test()
 
 	if (!this->passed) {
 		std::string diff_filename = TEST_FILEPATH + this->name + ".diff.txt";
-		std::fstream output_file(diff_filename, std::ios::out);
-
-		for (size_t y = 0; y < Testcase::size; y++) {
-			for (size_t x = 0; x < Testcase::size; x++) {
-				auto expected_color = this->test_image.m_pixels[y * Testcase::size + x].color();
-				output_file << std::hex << expected_color << " ";
-			}
-			output_file << '\n';
-		}
-		output_file.close();
+		this->test_image.save_txt(diff_filename);
 	}
 }

@@ -101,6 +101,25 @@ namespace CG {
 			);
 		}
 
+		static inline Color random()
+		{
+			return Color(
+				((uint32_t)rand() % 256),
+				((uint32_t)rand() % 256),
+				((uint32_t)rand() % 256)
+			);
+		}
+
+		static inline Color random_alpha()
+		{
+			return Color(
+				((uint32_t)rand() % 256),
+				((uint32_t)rand() % 256),
+				((uint32_t)rand() % 256),
+				((uint32_t)rand() % 256 + 1)
+			);
+		}
+
 	};
 
 	namespace Colors {

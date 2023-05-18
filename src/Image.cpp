@@ -22,6 +22,11 @@ Image::Image(int width, int height)
 	: m_width(width), m_height(height)
 {
 	m_pixels = std::unique_ptr<Color[]>(new Color[m_width * m_height]);
+	if (m_pixels == NULL) {
+		CG_ERROR("Couldn't allocate enough memory for " + std::to_string(width) + "x" + std::to_string(height) + " image\n");
+		exit(0);
+	}
+
 }
 
 void Image::show()
@@ -306,6 +311,41 @@ void Image::resize(int width, int height)
 	this->m_pixels = std::move(resized_pixels);
 	m_width = width;
 	m_height = height;
+}
+
+void Image::save_txt(const std::string& filename)
+{
+	std::fstream output_file(filename, std::ios::out);
+	if (!output_file.is_open()) {
+		CG_ERROR(filename + " Could not be opened to save image!\n");
+		return;
+	}
+	for (size_t y = 0; y < this->m_height; y++) {
+		for (size_t x = 0; x < this->m_width; x++) {
+			auto expected_color = this->m_pixels[y * this->m_width + x].color();
+			output_file << std::hex << expected_color << " ";
+		}
+		output_file << '\n';
+	}
+	output_file.close();
+}
+
+void Image::load_txt(const std::string& filename)
+{
+	std::fstream infile(filename, std::ios::in);
+	if (!infile.is_open()) {
+		CG_ERROR(filename + " Could not be opened to load image!\n")
+		return;
+	}
+	uint32_t color = 0;
+	for (size_t y = 0; y < this->m_height; y++) {
+		for (size_t x = 0; x < this->m_width; x++) {
+			infile >> std::hex >> color;
+			this->m_pixels[y * this->m_width + x] = Color(color);
+			color = 0;
+		}
+	}
+	infile.close();
 }
 
 Vec4 Image::clamp_rect(int x, int y, int wd, int ht)

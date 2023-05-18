@@ -6,6 +6,12 @@
 
 #include <memory>
 #include <iostream>
+#include <string>
+#include <fstream>
+
+#define CG_ERROR(msg) do { ansi::foreground(Colors::red);		\
+						   std::cerr << "ERROR: " << (msg);					\
+						   ansi::reset(); } while(0);			\
 
 namespace CG {
 	class Testcase;
@@ -45,8 +51,12 @@ namespace CG {
 									Color c2 = Colors::transparent, float step = 0.01f);
 		
 		void resize(int width, int height);
+
+		void save_txt(const std::string& filename);
+		void load_txt(const std::string& filename);
 		
 		friend class Testcase;
+
 	protected:
 		int m_width;
 		int m_height;
