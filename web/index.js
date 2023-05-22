@@ -6,7 +6,7 @@ class CGImage {
         this.pixels = pixels; 
     }
 
-    render(ctx, x, y) {
+    Render(ctx, x, y) {
         for (let row = 0; row < this.height; row++) {
             for (let col = 0; col < this.width; col++) {
                 ctx.fillStyle = this.pixels[row * this.width + col];
@@ -20,7 +20,16 @@ class CGImage {
 async function parseImage(file) {
     const image = new CGImage();
 
-    const input_str = await fetch(file).then(x => x.text());
+    const input_str = await fetch(file)
+        .then((response) => {
+        if (!response.ok) {
+            throw new Error(`Fetching ${file} HTTP error: ${response.status}`);
+        }
+        return response.text();
+        })
+        .catch((error) => {
+            console.error(`${error.message}`)
+        });
     const image_str = input_str.trim();
 
     const size = image_str.slice(0, 5).split(" ");
@@ -47,9 +56,23 @@ window.onload = async () => {
     const canvas = document.getElementById("app");
     const ctx = canvas.getContext("2d");
 
-    const rainbow_square = await parseImage("web/Images/rainbow_square.txt");
-    const rainbow_tri = await parseImage("web/Images/rainbow_tri.txt");
+    let images = []
 
-    rainbow_square.render(ctx, 0, 0);
-    rainbow_tri.render(ctx, 450, 0);
-};
+    const imageStr = await fetch('web/image_list.txt').then(x => x.text());
+    const imageList = imageStr.split('\n');
+    imageList.forEach(async (filepath) => {
+        images.push(parseImage(filepath));
+    });
+
+    images.forEach(async (img, idx) => {
+        image = await img;
+
+        const imgWidth = image.width * PIXEL_SIZE;
+        const imgHeight = image.height * PIXEL_SIZE;
+        const x = ((idx * imgWidth) % canvas.width);
+        const y = (Math.floor((idx * imgHeight) / canvas.width)) * imgHeight;
+        console.log(x, y);
+        image.Render(ctx, x, y);
+    });
+
+}

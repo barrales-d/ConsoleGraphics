@@ -1,0 +1,2 @@
+web/Images/rainbow_square.txt
+web/Images/rainbow_tri.txt
