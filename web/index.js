@@ -47,8 +47,8 @@ window.onload = async () => {
     const canvas = document.getElementById("app");
     const ctx = canvas.getContext("2d");
 
-    const rainbow_square = await parseImage("Images/rainbow_square.txt");
-    const rainbow_tri = await parseImage("Images/rainbow_tri.txt");
+    const rainbow_square = await parseImage("web/Images/rainbow_square.txt");
+    const rainbow_tri = await parseImage("web/Images/rainbow_tri.txt");
 
     rainbow_square.render(ctx, 0, 0);
     rainbow_tri.render(ctx, 450, 0);

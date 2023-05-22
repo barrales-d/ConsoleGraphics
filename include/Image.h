@@ -10,7 +10,7 @@
 #include <fstream>
 
 #define CG_ERROR(msg) do { ansi::foreground(Colors::red);		\
-						   std::cerr << "ERROR: " << (msg);					\
+						   std::cerr << "ERROR: " << (msg);		\
 						   ansi::reset(); } while(0);			\
 
 namespace CG {
