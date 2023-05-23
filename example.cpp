@@ -6,6 +6,7 @@ using namespace CG;
 #include <iomanip>
 #include <ctime>
 
+
 int main()
 {
 
@@ -23,6 +24,13 @@ int main()
 	rainbow_square.fill_triangle(0, 20, 10, 10, 0, 0, Colors::magenta, Colors::yellow, Colors::cyan);
 	rainbow_square.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/rainbow_square.txt");
 	rainbow_square.show();
+
+	Image transparent_circle(20, 20);
+	transparent_circle.fill_background();
+	transparent_circle.fill_rect(3, 3, 13, 13, Colors::black);
+	transparent_circle.fill_circle(10, 10, 8, Color(255, 255, 50, 128));
+	transparent_circle.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/transparent_circle.txt");
+	transparent_circle.show();
 
 #if 0
 	srand(time(NULL));

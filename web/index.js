@@ -71,7 +71,6 @@ window.onload = async () => {
         const imgHeight = image.height * PIXEL_SIZE;
         const x = ((idx * imgWidth) % canvas.width);
         const y = (Math.floor((idx * imgHeight) / canvas.width)) * imgHeight;
-        console.log(x, y);
         image.Render(ctx, x, y);
     });
 
