@@ -11,31 +11,6 @@ h1.title {
     animation: 20s cubic-bezier(0.62, 1.4, 0, -0.32) infinite rainbow;
 }
 
-ul {
-    list-style: none;
-}
-
-.image-gallery-cols {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1em;
-    padding: 20px;
-    width: 90vw;
-}
-
-ul > li > img {
-    outline: auto;
-}
-
-ul > li > p {
-    text-align: center;
-    font-size: 15px;
-    font-weight: 600;
-}
-
 @keyframes rainbow {
     0% {
         color: red;
@@ -68,4 +43,8 @@ ul > li > p {
     100% {
         color: red;
     }
+}
+
+canvas {
+    margin: 50px;
 }

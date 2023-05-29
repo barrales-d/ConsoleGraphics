@@ -1,16 +1,22 @@
-const PIXEL_SIZE = 20
+const PIXEL_SIZE = 20;
+const MAX_IMG_SIZE = 400;
 class CGImage {
     constructor(width = 0, height = 0, pixels = null) {
         this.width = width;
         this.height = height;
-        this.pixels = pixels; 
+        this.pixels = pixels;
+        if (width != 0) {
+            this.pixel_size = MAX_IMG_SIZE / width;
+        }
     }
 
     Render(ctx, x, y) {
         for (let row = 0; row < this.height; row++) {
             for (let col = 0; col < this.width; col++) {
                 ctx.fillStyle = this.pixels[row * this.width + col];
-                ctx.fillRect(col * PIXEL_SIZE + x, row * PIXEL_SIZE + y, PIXEL_SIZE, PIXEL_SIZE);
+                const px = col * this.pixel_size + x;
+                const py = row * this.pixel_size + y;
+                ctx.fillRect(px, py, this.pixel_size, this.pixel_size);
             }
         }
     }
@@ -18,8 +24,6 @@ class CGImage {
 
 
 async function parseImage(file) {
-    const image = new CGImage();
-
     const input_str = await fetch(file)
         .then((response) => {
         if (!response.ok) {
@@ -33,8 +37,8 @@ async function parseImage(file) {
     const image_str = input_str.trim();
 
     const size = image_str.slice(0, 5).split(" ");
-    image.width = parseInt(size[0]);
-    image.height = parseInt(size[1]);
+
+    const image = new CGImage(parseInt(size[0]), parseInt(size[1]));
 
     image.pixels = image_str.slice(5).split(' ');
     for (idx in image.pixels) {
@@ -67,11 +71,13 @@ window.onload = async () => {
     images.forEach(async (img, idx) => {
         image = await img;
 
-        const imgWidth = image.width * PIXEL_SIZE;
-        const imgHeight = image.height * PIXEL_SIZE;
+        const imgWidth = image.width * image.pixel_size;
+        const imgHeight = image.height * image.pixel_size;
         const x = ((idx * imgWidth) % canvas.width);
         const y = (Math.floor((idx * imgHeight) / canvas.width)) * imgHeight;
-        image.Render(ctx, x, y);
+        ctx.fillStyle = '#181818';
+        ctx.fillRect(x, y, imgWidth + 20, imgHeight + 20);
+        image.Render(ctx, x + 10, y + 10);
     });
 
 }
