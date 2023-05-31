@@ -64,6 +64,9 @@ window.onload = async () => {
 
     const imageStr = await fetch('web/image_list.txt').then(x => x.text());
     const imageList = imageStr.split('\n');
+    const pad = 10;
+    canvas.height = Math.ceil(imageList.length / 3) * (MAX_IMG_SIZE) + pad;
+    console.log(canvas.height);
     imageList.forEach(async (filepath) => {
         images.push(parseImage(filepath));
     });
@@ -76,8 +79,8 @@ window.onload = async () => {
         const x = ((idx * imgWidth) % canvas.width);
         const y = (Math.floor((idx * imgHeight) / canvas.width)) * imgHeight;
         ctx.fillStyle = '#181818';
-        ctx.fillRect(x, y, imgWidth + 20, imgHeight + 20);
-        image.Render(ctx, x + 10, y + 10);
+        ctx.fillRect(x, y, imgWidth + (pad * 2), imgHeight + (pad * 2));
+        image.Render(ctx, x + pad, y + pad);
     });
 
 }
