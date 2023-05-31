@@ -27,8 +27,9 @@ int main()
 
 	Image transparent_circle(20, 20);
 	transparent_circle.fill_background();
-	transparent_circle.fill_rect(3, 3, 13, 13, Colors::black);
-	transparent_circle.fill_circle(10, 10, 8, Color(255, 255, 50, 128));
+	transparent_circle.fill_rect(3, 3, 13, 13, Colors::lightred);
+	transparent_circle.fill_circle(5, 5, 5, Color(255, 0, 160, 128));
+	transparent_circle.fill_circle(15, 15, 4, Color(255, 0, 160, 128));
 	transparent_circle.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/transparent_circle.txt");
 	transparent_circle.show();
 
@@ -41,6 +42,25 @@ int main()
 	font_render.fill_text(5, center_y, msg, Colors::lightblue);
 	font_render.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/font_render.txt");
 	font_render.show();
+	
+
+	Image gradient_circle(size, size);
+	gradient_circle.fill_background();
+	uint8_t blue = 0;
+	for (int r = size / 3; r >= 0; r -= 1) {
+		gradient_circle.fill_circle((size / 2), (size / 2), r, Color(0, 0, blue));
+		blue += r * 3 / 2;
+	}
+	gradient_circle.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/gradient_circle.txt");
+	gradient_circle.show();
+	
+	Image line_bezier(30, 30);
+	line_bezier.fill_background(Colors::black);
+	line_bezier.fill_bezier_curve_line({ 0, 0 }, { 10, 20 }, { 30, 30 }, Colors::red);
+	line_bezier.fill_bezier_curve_line({ 0, 10 }, { 20, 10 }, { 0, 30 }, { 30, 10 }, Colors::green);
+	line_bezier.fill_bezier_curve_line({ 5, 15}, { 20, 30}, Colors::blue);
+	line_bezier.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/line_bezier.txt");
+	line_bezier.show();
 
 #if 0
 	srand(time(NULL));
