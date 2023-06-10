@@ -53,7 +53,7 @@ namespace CG {
 		void resize(int width, int height);
 
 		void save_txt(const std::string& filename);
-		void load_txt(const std::string& filename);
+		bool load_txt(const std::string& filename);
 		
 		friend class Testcase;
 

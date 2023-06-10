@@ -1,3 +1,4 @@
+5 5
 ff6f6fff ff6f6fff ff6f6fff ff6f6fff ff6f6fff 
 ff6f6fff ff000000 ff000000 ff000000 ff6f6fff 
 ff6f6fff ff000000 ff000000 ff000000 ff6f6fff 

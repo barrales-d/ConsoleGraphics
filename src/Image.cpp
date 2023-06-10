@@ -332,18 +332,18 @@ void Image::save_txt(const std::string& filename)
 	output_file.close();
 }
 
-void Image::load_txt(const std::string& filename)
+bool Image::load_txt(const std::string& filename)
 {
 	std::fstream infile(filename, std::ios::in);
 	if (!infile.is_open()) {
 		CG_ERROR(filename + " Could not be opened to load image!\n");
-		return;
+		return false;
 	}
 	int wd = 0, ht = 0;
 	infile >> wd >> ht;
 	if (this->m_width != wd || this->m_height != ht) {
 		CG_ERROR("Width and Height in " + filename + " file do not match with size allocated\n");
-		return;
+		return false;
 	}
 
 	uint32_t color = 0;
@@ -355,6 +355,7 @@ void Image::load_txt(const std::string& filename)
 		}
 	}
 	infile.close();
+	return true;
 }
 
 Vec4 Image::clamp_rect(int x, int y, int wd, int ht)

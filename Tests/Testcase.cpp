@@ -16,15 +16,14 @@ Testcase Testcase::declare_test(const std::string& name, const std::string& file
 	test.test_image = Image(Testcase::size, Testcase::size);
 	test.expected_pixels = std::vector<uint32_t>();
 
-	std::fstream file(TEST_FILEPATH + filename, std::ios::in);
-	uint32_t pixel = 0;
-	while (file >> std::hex >> pixel)
-		test.expected_pixels.push_back(pixel);
-	file.close();
-	//	set image to expected pixels (in main you edit the test_image and should be the same as expected_pixels)
-	if(!test.expected_pixels.empty())
-		test.test_image.fill_sprite(0, 0, test.expected_pixels, Testcase::size, Testcase::size);
-		
+	if (test.test_image.load_txt(TEST_FILEPATH + filename)) {
+		for (size_t y = 0; y < Testcase::size; y++) {
+			for (size_t x = 0; x < Testcase::size; x++) {
+				test.expected_pixels.push_back(test.test_image.m_pixels[y * Testcase::size + x].color());
+			}
+		}
+	}
+	
 	testcases.push_back(&test);
 	total_tests++;
 	return test;
@@ -77,6 +76,7 @@ void CG::Testcase::save_test()
 		this->test_image.save_txt(TEST_FILEPATH + this->file_name);
 	}
 	else {
+		output_file << Testcase::size << " " << Testcase::size << std::endl;
 		for (size_t y = 0; y < Testcase::size; y++) {
 			for (size_t x = 0; x < Testcase::size; x++) {
 				auto expected_color = this->expected_pixels[y * Testcase::size + x];
