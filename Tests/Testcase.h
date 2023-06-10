@@ -10,6 +10,8 @@
 
 constexpr auto TEST_FILEPATH = "C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/Tests/ExpectedImages/";
 
+#define DIFF_COLOR Color(230, 230, 230, 230)
+
 namespace CG {
 	class Testcase
 	{

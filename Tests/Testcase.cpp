@@ -36,14 +36,14 @@ void Testcase::run_tests()
 		for (int y = 0; y < Testcase::size; y++) {
 			for (int x = 0; x < Testcase::size; x++) {
 				auto& image_color = test->test_image.m_pixels[(size_t)y * Testcase::size + x];
-				auto expected_color = (test->expected_pixels.empty() ? Color(241, 75, 40) 
+				auto expected_color = (test->expected_pixels.empty() ? DIFF_COLOR 
 						: Color(test->expected_pixels[y * Testcase::size + x]));
 
 				if (image_color != expected_color) {
 					test->passed = false;
 
 					if(!test->expected_pixels.empty())	//	only make diff if there exists expected_pixels already
-						test->test_image.fill_point(x, y, Color(241, 75, 40));
+						test->test_image.fill_point(x, y, DIFF_COLOR);
 				}
 			}
 		}
