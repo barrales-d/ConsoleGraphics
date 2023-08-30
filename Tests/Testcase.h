@@ -18,6 +18,7 @@ namespace CG {
 	private: 
 		std::vector<uint32_t> expected_pixels = std::vector<uint32_t>();
 		bool passed = false;
+		bool save_diff = false;
 		void save_test();
 	public:
 		CG::Image test_image = Image();

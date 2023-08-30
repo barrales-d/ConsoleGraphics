@@ -38,8 +38,8 @@ int main()
 	font_render.fill_background();
 	const std::string msg = "Console\nGraphics";
 	int center_y = (size / 2) - Font::height;
-	font_render.fill_ellipse(int(size / 2), int(size / 2), Math::ceil(Font::width * size / 6), Font::height * 2, Color(201, 150, 20, 200));
-	font_render.fill_text(5, center_y, msg, Colors::lightblue);
+	font_render.fill_ellipse(int(size / 2), int(size / 2), Math::ceil(Font::width * size / 6), Font::height * 2, Color(255, 16, 31, 200));
+	font_render.fill_text(5, center_y, msg, Color(253, 255, 252));
 	font_render.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/font_render.txt");
 	font_render.show();
 	

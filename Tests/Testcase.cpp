@@ -17,6 +17,8 @@ Testcase Testcase::declare_test(const std::string& name, const std::string& file
 	test.expected_pixels = std::vector<uint32_t>();
 
 	if (test.test_image.load_txt(TEST_FILEPATH + filename)) {
+		//if expected.txt exits then you can save diff.txt if anything goes wrong
+		test.save_diff = true;
 		for (size_t y = 0; y < Testcase::size; y++) {
 			for (size_t x = 0; x < Testcase::size; x++) {
 				test.expected_pixels.push_back(test.test_image.m_pixels[y * Testcase::size + x].color());
@@ -42,7 +44,7 @@ void Testcase::run_tests()
 				if (image_color != expected_color) {
 					test->passed = false;
 
-					if(!test->expected_pixels.empty())	//	only make diff if there exists expected_pixels already
+					if (test->save_diff)
 						test->test_image.fill_point(x, y, DIFF_COLOR);
 				}
 			}
@@ -88,7 +90,7 @@ void CG::Testcase::save_test()
 
 	output_file.close();
 
-	if (!this->passed) {
+	if (!this->passed && this->save_diff) {
 		std::string diff_filename = TEST_FILEPATH + this->name + ".diff.txt";
 		this->test_image.save_txt(diff_filename);
 	}
