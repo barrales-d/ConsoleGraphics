@@ -43,7 +43,7 @@ async function parseImage(file) {
     image.pixels = imageStr.slice(5).split(' ');
     for (idx in image.pixels) {
         strColor = image.pixels[idx];
-        if (strColor.startsWith('\r\n')) {
+        if (idx % image.width == 0) {
             strColor = strColor.slice(2);
         }
         const withoutAlpha = strColor.slice(2);
@@ -66,7 +66,7 @@ window.onload = async () => {
     const pad = 10;
     const maxCols = 3;
 
-    canvas.width = maxCols * (MAX_IMG_SIZE + pad);
+    canvas.width = Math.ceil(maxCols * (MAX_IMG_SIZE + pad));
     canvas.height = Math.ceil(imageList.length / maxCols) * (MAX_IMG_SIZE + pad);
 
     imageList.forEach(async (filepath) => {
@@ -79,7 +79,7 @@ window.onload = async () => {
         let y = Math.floor(idx / maxCols) * MAX_IMG_SIZE;
         if (x > 0) { x += pad * (idx % maxCols); }
         if (y > 0) { y += pad * (Math.floor(idx / maxCols)); }
-        await image.Render(ctx, x, y);
+        image.Render(ctx, x, y);
     });
 
 }
