@@ -6,7 +6,7 @@ class CGImage {
         this.height = height;
         this.pixels = pixels;
         if (width != 0) {
-            this.pixelSize = Math.floor(MAX_IMG_SIZE / width);
+            this.pixelSize = Math.ceil(MAX_IMG_SIZE / width);
         }
     }
 
@@ -79,7 +79,7 @@ window.onload = async () => {
         let y = Math.floor(idx / maxCols) * MAX_IMG_SIZE;
         if (x > 0) { x += pad * (idx % maxCols); }
         if (y > 0) { y += pad * (Math.floor(idx / maxCols)); }
-        image.Render(ctx, x, y);
+        await image.Render(ctx, x, y);
     });
 
 }
