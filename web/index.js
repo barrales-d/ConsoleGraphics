@@ -34,25 +34,21 @@ async function parseImage(file) {
         .catch((error) => {
             console.error(`${error.message}`)
         });
-    const imageStr = inputStr.trim();
+    const imageData = inputStr.trim().split('\r\n').join(' ').split(' ');
 
-    const size = imageStr.slice(0, 5).split(' ');
+    const imageWidth = parseInt(imageData[0]);
+    const imageHeight = parseInt(imageData[1]);
+    const image = new CGImage(imageWidth, imageHeight);
 
-    const image = new CGImage(parseInt(size[0]), parseInt(size[1]));
+    image.pixels = imageData.slice(2).filter(code => code !== '');
 
-    image.pixels = imageStr.slice(5).split(' ');
     for (idx in image.pixels) {
-        strColor = image.pixels[idx];
-        if (idx % image.width == 0) {
-            strColor = strColor.slice(2);
-        }
-        const withoutAlpha = strColor.slice(2);
-        const blue = withoutAlpha.slice(0, 2);
-        const green = withoutAlpha.slice(2, 4);
-        const red = withoutAlpha.slice(4, 6);
+        bgr_hexcode = image.pixels[idx].slice(2);
+        rgb_hexcode = bgr_hexcode.slice(4, 6) + bgr_hexcode.slice(2, 4) + bgr_hexcode.slice(0, 2);
+        image.pixels[idx] = '#' + rgb_hexcode;
 
-        image.pixels[idx] = '#' + red + green + blue;
     }
+
     return image;
 }
 
