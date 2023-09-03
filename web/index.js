@@ -43,13 +43,14 @@ async function parseImage(file) {
     image.pixels = imageData.slice(2).filter(code => code !== '');
 
     for (idx in image.pixels) {
-        bgr_hexcode = image.pixels[idx].slice(2);
-        rgb_hexcode = bgr_hexcode.slice(4, 6) + bgr_hexcode.slice(2, 4) + bgr_hexcode.slice(0, 2);
-        image.pixels[idx] = '#' + rgb_hexcode;
-
+        abgr_hexcode = image.pixels[idx];
+        image.pixels[idx] = `rgba(${parseInt(abgr_hexcode.substring(6, 8), 16)},
+                                  ${parseInt(abgr_hexcode.substring(4, 6), 16)},  
+                                  ${parseInt(abgr_hexcode.substring(2, 4), 16)},
+                                  ${parseInt(abgr_hexcode.substring(0, 2), 16)})`;
     }
 
-    return image;
+    return await image;
 }
 
 window.onload = async () => {
