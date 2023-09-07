@@ -1,0 +1,6 @@
+5 5
+ff474747 ff0000ff ff0000ff ff0000ff ff0000ff 
+ffff0000 ff0000ff ff0000ff ff0000ff ff0000ff 
+ffff0000 ffff0000 ff474747 ff474747 ff00ff00 
+ffff0000 ffff0000 ff474747 ff474747 ff00ff00 
+ffff0000 ffff55ff ffff55ff ffff55ff ffff55ff 

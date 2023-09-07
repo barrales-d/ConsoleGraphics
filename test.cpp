@@ -11,6 +11,7 @@ int main()
 	Testcase test_mult = Testcase::declare_test("match_mult_lines", "match_mult_lines.expected.txt");
 	Testcase test_tran = Testcase::declare_test("test_transparency", "test_transparency.expected.txt");
 	Testcase test_rectline = Testcase::declare_test("match_rectline", "match_rectline.expected.txt");
+	Testcase test_clamp_rect = Testcase::declare_test("clamp_rect", "clamp_rect.expected.txt");
 
 
 	{
@@ -47,6 +48,18 @@ int main()
 		test_rectline.test_image.fill_background();
 		test_rectline.test_image.fill_rect(0, 0, 5, 5, Colors::black);
 		test_rectline.test_image.fill_rect_line(0, 0, 5, 5, Colors::lightred);
+	}
+
+	{
+		test_clamp_rect.test_image.fill_background();
+		//	left clamp
+		test_clamp_rect.test_image.fill_rect(-2, 1, 3, 3, Colors::blue);
+		//	right clamp
+		test_clamp_rect.test_image.fill_rect(4, 1, 3, 3, Colors::green);
+		//	top clamp
+		test_clamp_rect.test_image.fill_rect(1, -2, 3, 3, Colors::red);
+		//	bottom clamp
+		test_clamp_rect.test_image.fill_rect(1, 4, 3, 3, Colors::lightpurple);
 	}
 
 	Testcase::run_tests();

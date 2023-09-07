@@ -7,7 +7,6 @@ using namespace CG;
 
 int main()
 {
-
 	Image rainbow_tri(20, 20);
 	rainbow_tri.fill_background(Colors::black);
 	rainbow_tri.fill_triangle(0, 10, 10, 0, 20, 20, Colors::red, Colors::blue, Colors::green);
@@ -59,6 +58,30 @@ int main()
 	line_bezier.fill_bezier_curve_line({ 5, 15 }, { 20, 40 }, Colors::blue);
 	line_bezier.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/line_bezier.txt");
 	line_bezier.show();
+#define SMALL_CANVAS 20
+
+	srand(2023);
+	Image dots(SMALL_CANVAS, SMALL_CANVAS);
+	dots.fill_background();
+
+	int max = 4, min = 1;
+
+		int radius = max;
+	for (int i = 0; i < SMALL_CANVAS * SMALL_CANVAS; i++) {
+		int pos_x = (rand() % SMALL_CANVAS * 2);
+		int pos_y = (rand() % SMALL_CANVAS * 2);
+		Color col;
+		if(i % 2 == 0) {
+			col = Color::random();
+		}
+		else {
+			col = Color::random_alpha();
+		}
+		dots.fill_circle(pos_x, pos_y, radius, col);
+
+	} 
+	dots.show();
+	dots.save_txt("C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/web/Images/dots.txt");
 
 	return 0;
 }

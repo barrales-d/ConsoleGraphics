@@ -117,11 +117,11 @@ void Image::fill_line(int x1, int y1, int x2, int y2, Color bg_color)
 
 void Image::fill_circle(int x, int y, int r, Color bg_color)
 {
-	Vec4 circle_bound = clamp_rect(x - r, y - r, x + r, y + r);
+	Vec4 circle_bound = clamp_rect(x - r, y - r, 2 * r, 2 * r);
 	if (circle_bound == Vec4::zero)
 		return;
 
-	float dr = r * r + 0.5f;
+	float dr = r * r;
 	for (int py = circle_bound.z; py < circle_bound.w; py++) {
 		for (int px = circle_bound.x; px < circle_bound.y; px++) {
 			float dx = (float)(px - x) + 0.5f;
@@ -150,8 +150,8 @@ void Image::fill_ellipse(int x, int y, int rx, int ry, Color bg_color)
 
 	float drx = 2.0f * rx;
 	float dry = 2.0f * ry;
-	for (int py = ellipse_bound.z; py <= ellipse_bound.w; py++) {
-		for (int px = ellipse_bound.x; px <= ellipse_bound.y; px++) {
+	for (int py = ellipse_bound.z; py < ellipse_bound.w; py++) {
+		for (int px = ellipse_bound.x; px < ellipse_bound.y; px++) {
 			float dx = (px - x) / drx;
 			float dy = (py - y) / dry;
 			if (dx * dx + dy * dy < 0.5f * 0.5f)
@@ -196,13 +196,13 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 		return;
 
 	float epsilon = -0.000001f;
-	for (int py = tri_bound.z; py <= tri_bound.w; py++) {
-		for (int px = tri_bound.x; px <= tri_bound.y; px++) {
+	for (int py = tri_bound.z; py < tri_bound.w; py++) {
+		for (int px = tri_bound.x; px < tri_bound.y; px++) {
 			float d1 = ((y2 - y3) * (px - x3) + (x3 - x2) * (py - y3)) / determinate;
 			float d2 = ((y3 - y1) * (px - x3) + (x1 - x3) * (py - y3)) / determinate;
 			float d3 = 1 - d1 - d2;
 
-			if (d1 <= epsilon || d2 <= epsilon || d3 <= epsilon)
+			if (d1 < epsilon || d2 < epsilon || d3 < epsilon)
 				continue;
 
 			Color color = c1;
@@ -366,8 +366,8 @@ Vec4 Image::clamp_rect(int x, int y, int wd, int ht)
 	//	partially out of bounds
 	return Vec4(
 		Math::max(x, 0),
-		Math::min(x + wd, m_width - 1),
+		Math::min(x + wd, m_width),
 		Math::max(y, 0),
-		Math::min(y + ht, m_height - 1)
+		Math::min(y + ht, m_height)
 	);
 }
