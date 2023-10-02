@@ -14,14 +14,14 @@ Testcase Testcase::declare_test(const std::string& name, const std::string& file
 	test.file_name = filename;
 	test.passed = true;
 	test.test_image = Image(Testcase::size, Testcase::size);
-	test.expected_pixels = std::vector<uint32_t>();
+	test.expected_pixels = std::vector<uint32_t>(Testcase::size * Testcase::size, 0);
 
 	if (test.test_image.load_txt(TEST_FILEPATH + filename)) {
 		//if expected.txt exits then you can save diff.txt if anything goes wrong
 		test.save_diff = true;
 		for (size_t y = 0; y < Testcase::size; y++) {
 			for (size_t x = 0; x < Testcase::size; x++) {
-				test.expected_pixels.push_back(test.test_image.m_pixels[y * Testcase::size + x].color());
+				test.expected_pixels[y * Testcase::size + x] = test.test_image.m_pixels[y * Testcase::size + x].color();
 			}
 		}
 	}
@@ -38,8 +38,7 @@ void Testcase::run_tests()
 		for (int y = 0; y < Testcase::size; y++) {
 			for (int x = 0; x < Testcase::size; x++) {
 				auto& image_color = test->test_image.m_pixels[(size_t)y * Testcase::size + x];
-				auto expected_color = (test->expected_pixels.empty() ? DIFF_COLOR 
-						: Color(test->expected_pixels[y * Testcase::size + x]));
+				auto expected_color = Color(test->expected_pixels[y * Testcase::size + x]);
 
 				if (image_color != expected_color) {
 					test->passed = false;
@@ -51,11 +50,11 @@ void Testcase::run_tests()
 		}
 
 		std::cout << "Testcase " << id + 1 << " " << test->name << ":";
-		auto txt_width = Math::abs(50 - test->name.size());
+		int txt_width = Math::abs(50 - test->name.size());
 		for (int i = 0; i < txt_width; i++)
 			std::cout << ".";
 
-		if (test->passed || test->expected_pixels.empty()) {
+		if (test->passed || !test->save_diff) {
 			ansi::foreground(Colors::lightgreen);
 			std::cout << "PASSED!\n";
 		}
@@ -74,10 +73,7 @@ void CG::Testcase::save_test()
 {
 	std::fstream output_file(TEST_FILEPATH + this->file_name, std::ios::out);
 
-	if (this->expected_pixels.empty()) {
-		this->test_image.save_txt(TEST_FILEPATH + this->file_name);
-	}
-	else {
+	if (this->save_diff) {
 		output_file << Testcase::size << " " << Testcase::size << std::endl;
 		for (size_t y = 0; y < Testcase::size; y++) {
 			for (size_t x = 0; x < Testcase::size; x++) {
@@ -86,6 +82,9 @@ void CG::Testcase::save_test()
 			}
 			output_file << '\n';
 		}
+	}
+	else {
+		this->test_image.save_txt(TEST_FILEPATH + this->file_name);
 	}
 
 	output_file.close();

@@ -13,7 +13,7 @@ endif()
 
 project (ConsoleGraphics)
 
-# Create ConsoleGraphic library
+# Create ConsoleGraphics library
 add_library( 
 	ConsoleGraphics
 	src/Ansi.cpp
