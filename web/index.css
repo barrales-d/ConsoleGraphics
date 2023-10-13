@@ -11,6 +11,17 @@ h1.title {
     animation: 20s cubic-bezier(0.62, 1.4, 0, -0.32) infinite rainbow;
 }
 
+#app {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+#app > img {
+    width: 360px;
+}
+
 @keyframes rainbow {
     0% {
         color: red;

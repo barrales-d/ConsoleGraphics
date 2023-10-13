@@ -1,8 +1,0 @@
-web/Images/rainbow_square.txt
-web/Images/rainbow_tri.txt
-web/Images/transparent_circle.txt
-web/Images/font_render.txt
-web/Images/gradient_circle.txt
-web/Images/line_bezier.txt
-web/Images/dots.txt
-web/Images/gradient_square.txt

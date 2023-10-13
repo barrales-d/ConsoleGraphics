@@ -54,6 +54,7 @@ namespace CG {
 
 		void save_txt(const std::string& filename);
 		bool load_txt(const std::string& filename);
+		void save_svg(const std::string& filename);
 		
 		friend class Testcase;
 

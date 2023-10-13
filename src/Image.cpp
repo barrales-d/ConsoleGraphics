@@ -358,6 +358,31 @@ bool Image::load_txt(const std::string& filename)
 	return true;
 }
 
+void Image::save_svg(const std::string& filename)
+{
+	std::fstream output_file(filename, std::ios::out);
+	if (!output_file.is_open()) {
+		CG_ERROR(filename + " Could not be opened to save image!\n");
+		return;
+	}
+
+	output_file << "<?xml version=\"1.0\" standalone=\"no\"?>"<< '\n';
+	output_file << "<svg width=\"" << this->m_width << "\" height=\""<< this->m_height << "\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">" << '\n';
+	for (size_t y = 0; y < this->m_height; y++) {
+		for (size_t x = 0; x < this->m_width; x++) {
+			auto col = this->m_pixels[y * this->m_width + x].rgba();
+			float alpha = col.w;
+			col = col * 255.0f;
+			output_file << "    <rect width=\"1\" height=\"1\" x=\"" << x << "\" y=\"" << y << "\"";
+			output_file << " fill=\"rgba( " << Math::floor(col.x) << ", " << Math::floor(col.y) 
+				<< ", " << Math::floor(col.z) << ", " << alpha << ")\"/>" << '\n';
+		}
+		output_file << '\n';
+	}
+	output_file << "</svg>";
+	output_file.close();
+}
+
 Vec4 Image::clamp_rect(int x, int y, int wd, int ht)
 {
 	//	completely out of bounds
