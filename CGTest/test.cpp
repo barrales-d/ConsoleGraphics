@@ -1,20 +1,29 @@
-#include "CG.h"
-#include "Tests/Testcase.h"
+#include <CG.h>
+#include "Testcase.h"
 using namespace CG;
 
 int main()
 {
+	Testcase test_clamp_rect = Testcase::declare_test("clamp_rect", "clamp_rect.expected.txt");
 	Testcase test_rect		 = Testcase::declare_test("match_rect", "match_rect.expected.txt");
-#if 1
 	Testcase test_circ		 = Testcase::declare_test("match_circ", "match_circ.expected.txt");
 	Testcase test_elip		 = Testcase::declare_test("match_elip", "match_elip.expected.txt");
 	Testcase test_line		 = Testcase::declare_test("match_line", "match_line.expected.txt");
 	Testcase test_mult		 = Testcase::declare_test("match_mult_lines", "match_mult_lines.expected.txt");
 	Testcase test_tran		 = Testcase::declare_test("test_transparency", "test_transparency.expected.txt");
 	Testcase test_rectline	 = Testcase::declare_test("match_rectline", "match_rectline.expected.txt");
-#else	
-	Testcase test_clamp_rect = Testcase::declare_test("clamp_rect", "clamp_rect.expected.txt");
-#endif
+
+	{
+		test_clamp_rect.test_image.fill_background();
+		//	left clamp
+		test_clamp_rect.test_image.fill_rect(-2, 1, 3, 3, Colors::blue);
+		//	right clamp
+		test_clamp_rect.test_image.fill_rect(4, 1, 3, 3, Colors::green);
+		//	top clamp
+		test_clamp_rect.test_image.fill_rect(1, -2, 3, 3, Colors::red);
+		//	bottom clamp
+		test_clamp_rect.test_image.fill_rect(1, 4, 3, 3, Colors::lightpurple);
+	}
 
 	{
 		test_rect.test_image.fill_background();
@@ -51,18 +60,5 @@ int main()
 		test_rectline.test_image.fill_rect(0, 0, 5, 5, Colors::black);
 		test_rectline.test_image.fill_rect_line(0, 0, 5, 5, Colors::lightred);
 	}
-#if 0
-	{
-		test_clamp_rect.test_image.fill_background();
-		//	left clamp
-		test_clamp_rect.test_image.fill_rect(-2, 1, 3, 3, Colors::blue);
-		//	right clamp
-		test_clamp_rect.test_image.fill_rect(4, 1, 3, 3, Colors::green);
-		//	top clamp
-		test_clamp_rect.test_image.fill_rect(1, -2, 3, 3, Colors::red);
-		//	bottom clamp
-		test_clamp_rect.test_image.fill_rect(1, 4, 3, 3, Colors::lightpurple);
-	}
-#endif 
 	Testcase::run_tests();
 }

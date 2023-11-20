@@ -6,9 +6,7 @@
 #include <iostream>
 #include <fstream>
 
-#include "../CG.h"
-
-constexpr auto TEST_FILEPATH = "C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/Tests/ExpectedImages/";
+#include <CG.h>
 
 #define DIFF_COLOR Color(250, 10, 10)
 
@@ -21,6 +19,8 @@ namespace CG {
 		bool save_diff = false;
 		void save_test();
 	public:
+		Testcase() = default;
+		Testcase(Testcase&& test) noexcept;
 		CG::Image test_image = Image();
 		std::string name = "";
 		std::string file_name = "";

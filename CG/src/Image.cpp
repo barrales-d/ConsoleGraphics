@@ -1,4 +1,4 @@
-#include "../include/Image.h"
+#include <ConsoleGraphics/Image.h>
 
 using namespace CG;
 

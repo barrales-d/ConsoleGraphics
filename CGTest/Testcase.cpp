@@ -5,6 +5,7 @@ using namespace CG;
 namespace {
 	std::vector<Testcase*> testcases;
 	int total_tests = 0;
+	constexpr auto TEST_FILEPATH = "C:/Users/Diego Barrales/Documents/barrales-d/ConsoleGraphics/CGTest/ExpectedImages/";
 }
 
 Testcase Testcase::declare_test(const std::string& name, const std::string& filename)
@@ -17,7 +18,7 @@ Testcase Testcase::declare_test(const std::string& name, const std::string& file
 	test.expected_pixels = std::vector<uint32_t>(Testcase::size * Testcase::size, 0);
 
 	if (test.test_image.load_txt(TEST_FILEPATH + filename)) {
-		//if expected.txt exits then you can save diff.txt if anything goes wrong
+		//if expected.txt exists then you can save diff.txt if anything goes wrong
 		test.save_diff = true;
 		for (size_t y = 0; y < Testcase::size; y++) {
 			for (size_t x = 0; x < Testcase::size; x++) {
@@ -93,4 +94,11 @@ void CG::Testcase::save_test()
 		std::string diff_filename = TEST_FILEPATH + this->name + ".diff.txt";
 		this->test_image.save_txt(diff_filename);
 	}
+}
+
+CG::Testcase::Testcase(Testcase&& t) noexcept
+	: name(t.name), file_name(t.file_name), passed(t.passed) 
+{
+	this->test_image = std::move(t.test_image);
+	this->expected_pixels = std::move(t.expected_pixels);
 }

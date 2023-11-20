@@ -1,6 +1,6 @@
 ﻿//	example program to create different images in the terminal
 
-#include "CG.h"
+#include <CG.h>
 using namespace CG;
 
 #define SMALL_CANVAS 20

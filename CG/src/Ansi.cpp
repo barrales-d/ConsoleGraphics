@@ -1,4 +1,4 @@
-#include "../include/Ansi.h"
+#include <ConsoleGraphics/Ansi.h>
 
 void ansi::reset()
 {

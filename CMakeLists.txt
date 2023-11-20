@@ -1,6 +1,4 @@
-﻿# CMakeList.txt : CMake project for ConsoleGraphics
-
-cmake_minimum_required (VERSION 3.8)
+﻿cmake_minimum_required (VERSION 3.8)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -11,29 +9,12 @@ if (POLICY CMP0141)
   set(CMAKE_MSVC_DEBUG_INFORMATION_FORMAT "$<IF:$<AND:$<C_COMPILER_ID:MSVC>,$<CXX_COMPILER_ID:MSVC>>,$<$<CONFIG:Debug,RelWithDebInfo>:EditAndContinue>,$<$<CONFIG:Debug,RelWithDebInfo>:ProgramDatabase>>")
 endif()
 
-project (ConsoleGraphics)
+project(CGEnv)
 
-# Create ConsoleGraphics library
-add_library( 
-	ConsoleGraphics
-	src/Ansi.cpp
-	src/Image.cpp
-)
-# Add source to this project's executable.
-add_executable ( 
-	examples
-	example.cpp
-)
-				
-add_executable ( 
-	tests
-	test.cpp
-	Tests/Testcase.cpp
-)
+add_subdirectory(CG)
+add_subdirectory(CGTest)
+add_subdirectory(CGApp)
 
-# reference ConsoleGraphics
-target_link_libraries(examples ConsoleGraphics)
-target_link_libraries(tests ConsoleGraphics)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET examples PROPERTY CXX_STANDARD 20)
