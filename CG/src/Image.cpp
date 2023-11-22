@@ -12,7 +12,11 @@ Image::Image()
 	m_height = 0;
 	m_pixels = nullptr;
 }
-
+Image::Image(Image&& img) noexcept
+	: m_width(img.m_width), m_height(img.m_height)
+{
+	m_pixels = std::move(img.m_pixels);
+}
 //Image::~Image()
 //{
 //	free_pixels();

@@ -14,11 +14,14 @@
 						   ansi::reset(); } while(0);			\
 
 namespace CG {
-	class Testcase;
 	class Image {
 	public:
 		Image();
+		Image(Image&& img) noexcept;
 		Image(int width, int height);
+
+		int get_width()  { return m_width; }
+		int get_height() { return m_height; }
 		
 		void show();
 
@@ -56,15 +59,13 @@ namespace CG {
 		bool load_txt(const std::string& filename);
 		// **NOTE: produces unoptimized SVG file using <rect>'s
 		void save_svg(const std::string& filename);
-		
-		friend class Testcase;
 
-	protected:
+		const Color& get(int x, int y) const { return m_pixels[y * m_width + x]; }
+	private:
 		int m_width;
 		int m_height;
 		std::unique_ptr<Color[]> m_pixels;
 
-	private:
 		//	X, Y = left and right of rectangle and Z, W = top and bottom
 		//	iterate through for y = Vec4.z; y < Vec4.w
 		//						for x = Vec4.x; x < Vec4.y

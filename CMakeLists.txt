@@ -10,15 +10,8 @@ if (POLICY CMP0141)
 endif()
 
 project(CGEnv)
+enable_testing()
 
 add_subdirectory(CG)
 add_subdirectory(CGTest)
 add_subdirectory(CGApp)
-
-
-if (CMAKE_VERSION VERSION_GREATER 3.12)
-  set_property(TARGET examples PROPERTY CXX_STANDARD 20)
-  set_property(TARGET tests PROPERTY CXX_STANDARD 20)
-endif()
-
-# TODO: Add tests and install targets if needed.
