@@ -395,8 +395,8 @@ Vec4 Image::clamp_rect(int x, int y, int wd, int ht)
 	//	partially out of bounds
 	return Vec4(
 		Math::max(x, 0),
-		Math::min(x + wd, m_width),
+		Math::min(x + wd, m_width - 1),
 		Math::max(y, 0),
-		Math::min(y + ht, m_height)
+		Math::min(y + ht, m_height - 1)
 	);
 }

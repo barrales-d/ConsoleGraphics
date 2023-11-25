@@ -66,10 +66,12 @@ namespace {
 		Image* m_img;
 		static inline int SIZE = 10;
 		Color m_testColor;
+		Color m_backgroundColor = Colors::darkgrey;
 
 		virtual void SetUp() override {
 			m_img = new Image(SIZE, SIZE);
-			m_testColor = Color(0xFF90502e);
+			m_img->fill_background(m_backgroundColor);
+			m_testColor = Color(0xFF90502E);
 		}
 
 		virtual void TearDown() override {
@@ -81,7 +83,8 @@ namespace {
 		}
 	};
 
-	TEST_F(CGImageTest, FillPoint) {
+	TEST_F(CGImageTest, FillPoint)
+	{
 		Vec2 p1 = { 0, 0 };
 		Vec2 p2 = { SIZE - 1, SIZE - 1 };
 		Vec2 p3 = { SIZE / 2, SIZE / 2 };
@@ -98,6 +101,22 @@ namespace {
 
 		pointColor = m_img->get(p3.x, p3.y);
 		ASSERT_EQ(m_testColor, pointColor);
+	}
+
+	TEST_F(CGImageTest, FillRectOutOfBounds)
+	{
+		m_img->fill_rect(-5, -5, 3, 3, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(0, 0));
+		m_img->fill_rect(SIZE, SIZE, 3, 3, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(SIZE - 1, SIZE - 1));
+	}
+
+	TEST_F(CGImageTest, FillRectinBounds)
+	{
+		m_img->fill_rect(0, 0, 3, 3, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(3, 3));
+		m_img->fill_rect(SIZE - 3, SIZE - 3, 3, 3, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(SIZE - 1, SIZE - 1));
 	}
 
 }// end of CG::Image Tests
