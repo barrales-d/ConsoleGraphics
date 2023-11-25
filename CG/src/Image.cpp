@@ -126,8 +126,8 @@ void Image::fill_circle(int x, int y, int r, Color bg_color)
 		return;
 
 	float dr = r * r;
-	for (int py = circle_bound.z; py < circle_bound.w; py++) {
-		for (int px = circle_bound.x; px < circle_bound.y; px++) {
+	for (int py = circle_bound.z; py <= circle_bound.w; py++) {
+		for (int px = circle_bound.x; px <= circle_bound.y; px++) {
 			float dx = (float)(px - x) + 0.5f;
 			float dy = (float)(py - y) + 0.5f;
 			if (dx * dx + dy * dy < dr)
@@ -200,8 +200,8 @@ void Image::fill_triangle(int x1, int y1, int x2, int y2, int x3, int y3, Color 
 		return;
 
 	float epsilon = -0.000001f;
-	for (int py = tri_bound.z; py < tri_bound.w; py++) {
-		for (int px = tri_bound.x; px < tri_bound.y; px++) {
+	for (int py = tri_bound.z; py <= tri_bound.w; py++) {
+		for (int px = tri_bound.x; px <= tri_bound.y; px++) {
 			float d1 = ((y2 - y3) * (px - x3) + (x3 - x2) * (py - y3)) / determinate;
 			float d2 = ((y3 - y1) * (px - x3) + (x1 - x3) * (py - y3)) / determinate;
 			float d3 = 1 - d1 - d2;

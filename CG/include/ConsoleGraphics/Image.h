@@ -67,8 +67,8 @@ namespace CG {
 		std::unique_ptr<Color[]> m_pixels;
 
 		//	X, Y = left and right of rectangle and Z, W = top and bottom
-		//	iterate through for y = Vec4.z; y < Vec4.w
-		//						for x = Vec4.x; x < Vec4.y
+		//	iterate through for y = Vec4.z; y <= Vec4.w
+		//						for x = Vec4.x; x <= Vec4.y
 		Vec4 clamp_rect(int x, int y, int wd, int ht);
 	};
 }

@@ -66,7 +66,7 @@ namespace {
 		Image* m_img;
 		static inline int SIZE = 10;
 		Color m_testColor;
-		Color m_backgroundColor = Colors::darkgrey;
+		Color m_backgroundColor = Colors::black;
 
 		virtual void SetUp() override {
 			m_img = new Image(SIZE, SIZE);
@@ -111,12 +111,26 @@ namespace {
 		ASSERT_EQ(m_backgroundColor, m_img->get(SIZE - 1, SIZE - 1));
 	}
 
-	TEST_F(CGImageTest, FillRectinBounds)
+	TEST_F(CGImageTest, FillRectInBounds)
 	{
 		m_img->fill_rect(0, 0, 3, 3, m_testColor);
 		ASSERT_EQ(m_testColor, m_img->get(3, 3));
 		m_img->fill_rect(SIZE - 3, SIZE - 3, 3, 3, m_testColor);
 		ASSERT_EQ(m_testColor, m_img->get(SIZE - 1, SIZE - 1));
+	}
+
+	TEST_F(CGImageTest, FillCircleOutofBounds)
+	{
+		m_img->fill_circle(-5, -5, 2, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(0, 0));
+		m_img->fill_circle(SIZE + 3, SIZE + 3, 3, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(SIZE - 1, SIZE - 1));
+	}
+
+	TEST_F(CGImageTest, FillCircleInBounds)
+	{
+		m_img->fill_circle(SIZE / 2, SIZE / 2, 4, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(SIZE / 2, SIZE / 2));
 	}
 
 }// end of CG::Image Tests
