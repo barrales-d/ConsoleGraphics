@@ -54,10 +54,10 @@ namespace {
 	TEST(CGImage, MoveConstructor)
 	{
 		Image img(IMG_SIZE, IMG_SIZE);
-
+		img.fill_point(0, 0, Colors::red);
 		Image copy = std::move(img);
 
-		ASSERT_EQ(IMG_SIZE, copy.get_width());
+		ASSERT_EQ(Colors::red, copy.get(0, 0));
 		
 	}
 
@@ -131,6 +131,45 @@ namespace {
 	{
 		m_img->fill_circle(SIZE / 2, SIZE / 2, 4, m_testColor);
 		ASSERT_EQ(m_testColor, m_img->get(SIZE / 2, SIZE / 2));
+	}
+
+	TEST_F(CGImageTest, FillTriangleOutofBounds)
+	{
+		m_img->fill_triangle(-3, -3, 0, -3, -3, 0, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(0, 0));
+
+		m_img->fill_triangle(SIZE - 3, -1, SIZE, -1, SIZE - 3, -3, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(SIZE - 1, 0));
+
+	}
+
+	TEST_F(CGImageTest, FillTriangleInBounds)
+	{
+		m_img->fill_triangle(0, 0, SIZE - 1, 0, SIZE - 1, 3, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(SIZE - 1, 3));
+	}
+
+	TEST_F(CGImageTest, FillTriangleTwoColors)
+	{
+		Vec2 p1(0, SIZE - 2);
+		Vec2 p2(SIZE / 2 - 1, 0);
+		Vec2 p3(SIZE - 2, SIZE - 2);
+		m_img->fill_triangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, m_testColor, Colors::red);
+		ASSERT_NE(m_backgroundColor, m_img->get(4, 4));
+		ASSERT_EQ(m_testColor, m_img->get(p1.x, p1.y));
+		ASSERT_EQ(Colors::red, m_img->get(p2.x, p2.y));
+	}
+
+	TEST_F(CGImageTest, FillTriangleThreeColors)
+	{
+		Vec2 p1(0, SIZE - 2);
+		Vec2 p2(SIZE / 2 - 1, 0);
+		Vec2 p3(SIZE - 2, SIZE - 2);
+		m_img->fill_triangle(p1.x, p1.y, p2.x, p2.y, p3.x, p3.y, m_testColor, Colors::red, Colors::cyan);
+		ASSERT_NE(m_backgroundColor, m_img->get(4, 4));
+		ASSERT_EQ(m_testColor, m_img->get(p1.x, p1.y));
+		ASSERT_EQ(Colors::red, m_img->get(p2.x, p2.y));
+		ASSERT_EQ(Colors::cyan, m_img->get(p3.x, p3.y));
 	}
 
 }// end of CG::Image Tests
