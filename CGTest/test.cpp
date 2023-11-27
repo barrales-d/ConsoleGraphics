@@ -133,6 +133,20 @@ namespace {
 		ASSERT_EQ(m_testColor, m_img->get(SIZE / 2, SIZE / 2));
 	}
 
+	TEST_F(CGImageTest, FillEllipseOutofBounds)
+	{
+		m_img->fill_ellipse(-5, -5, 2, 3, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(0, 0));
+		m_img->fill_ellipse(SIZE + 3, SIZE + 3, 4, 3, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(SIZE - 1, SIZE - 1));
+	}
+
+	TEST_F(CGImageTest, FillEllipseInBounds)
+	{
+		m_img->fill_ellipse(SIZE / 2, SIZE / 2, 4, 5, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(SIZE / 2, SIZE / 2));
+	}
+
 	TEST_F(CGImageTest, FillTriangleOutofBounds)
 	{
 		m_img->fill_triangle(-3, -3, 0, -3, -3, 0, m_testColor);
@@ -172,6 +186,75 @@ namespace {
 		ASSERT_EQ(Colors::cyan, m_img->get(p3.x, p3.y));
 	}
 
+	TEST_F(CGImageTest, FillLineOutOfBounds)
+	{
+		m_img->fill_line(-3, -3, 0, -3, m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(0, 0));
+	}
+
+	TEST_F(CGImageTest, FillLineInBounds)
+	{
+		m_img->fill_line(0, 0, SIZE - 1, 0, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(SIZE / 2, 0));
+		ASSERT_NE(m_testColor, m_img->get(SIZE / 2, 1));
+	}
+
+	TEST_F(CGImageTest, FillTextOutOfBounds)
+	{
+		m_img->fill_text(-15, 0, "Hello", m_testColor);
+		ASSERT_EQ(m_backgroundColor, m_img->get(0, 0));
+	}
+
+	TEST_F(CGImageTest, FillTextInBounds)
+	{
+		m_img->fill_text(0, 0, "Hello", m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(Font::width - 1 , Font::height - 1));
+	}
+
+	TEST_F(CGImageTest, FillTextNewLine)
+	{
+		m_img->fill_text(0, 0, "H\nI", m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(Font::width - 1, Font::height + 1));
+	}
+
+	TEST_F(CGImageTest, fillBezierCurveThreePoints)
+	{
+		Vec2 p1(0, 0);
+		Vec2 p2(SIZE - 1, 0);
+		Vec2 p3(SIZE - 1, SIZE - 1);
+
+		m_img->fill_bezier_curve(p1, p2, p3, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(0, 0));
+
+		m_img->fill_bezier_curve(p1, p2, p3, m_testColor, Colors::red);
+		ASSERT_NE(m_testColor, m_img->get(SIZE / 2, SIZE /2));
+	}
+
+	TEST_F(CGImageTest, fillBezierCurveFourPoints)
+	{
+		Vec2 p1(0, 0);
+		Vec2 p2(SIZE - 1, 0);
+		Vec2 p3(SIZE - 1, SIZE - 1);
+		Vec2 p4(0, SIZE - 1);
+
+		m_img->fill_bezier_curve(p1, p2, p3, p4, m_testColor);
+		ASSERT_EQ(m_testColor, m_img->get(0, 0));
+
+		m_img->fill_bezier_curve(p1, p2, p3, p4, m_testColor, Colors::red);
+		ASSERT_NE(m_testColor, m_img->get(SIZE / 2, SIZE / 2));
+	}
+	TEST_F(CGImageTest, fillBezierCurveCustomSteps)
+	{
+		Vec2 p1(0, 0);
+		Vec2 p2(SIZE - 1, 0);
+		Vec2 p3(0, SIZE - 1);
+		Vec2 p4(SIZE - 1, SIZE - 1);
+
+		float step = 0.05f;
+
+		m_img->fill_bezier_curve(p1, p2, p3, p4, m_testColor, Colors::red, step);
+		ASSERT_NE(m_testColor, m_img->get(SIZE / 2, SIZE / 2));
+	}
 }// end of CG::Image Tests
 
 int main()
